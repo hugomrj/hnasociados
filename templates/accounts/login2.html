@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center ">
+        <div class="col-sm-10 col-md-8 col-lg-5 col-xl-4">
+            <div class="card shadow-lg">
+                <div class="card-header text-center">
+                    <h4>Iniciar sesión</h4>
+                </div>
+                <div class="card-body">
+
+
+                    <form method="POST" class="row g-3 needs-validation" novalidate>
+                        {% csrf_token %}
+                        
+                        <div class="col-12 mb-3">
+                            <div class="form-outline" data-mdb-input-init>
+                                <input type="text" class="form-control" id="validationCustomUsername" name="username"  />
+                                <label for="validationCustomUsername" class="form-label">Usuario</label>
+                                
+                            </div>
+                        </div>
+                    
+                        <div class="col-12 mb-3">
+                            <div class="form-outline" data-mdb-input-init>
+                                <input type="password" class="form-control" id="validationCustomPassword" name="password" />
+                                <label for="validationCustomPassword" class="form-label">Contraseña</label>
+                                
+                            </div>
+                        </div>
+                    
+
+                        <div class="col-12 mb-3">
+                            <button class="btn btn-primary w-100" type="submit" data-mdb-ripple-init>Iniciar sesión</button>
+                        </div>
+                    </form>
+                    
+
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+

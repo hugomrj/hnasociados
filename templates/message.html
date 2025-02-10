@@ -1,0 +1,17 @@
+{% if messages %}
+<div class="container">
+    {% for message in messages %}
+        {% if message.tags == 'success' %}
+        <div class="alert alert-success d-flex align-items-center" role="alert">
+            <i class="fas fa-check-circle me-2"></i> <!-- Icono de éxito -->
+            <strong>¡Éxito!</strong> {{ message }}
+        </div>
+        {% elif message.tags == 'error' %}
+        <div class="alert alert-danger d-flex align-items-center" role="alert">
+            <i class="fas fa-times-circle me-2"></i> <!-- Icono de error -->
+            <strong>Error:</strong> {{ message }}
+        </div>
+        {% endif %}
+    {% endfor %}
+</div>
+{% endif %}

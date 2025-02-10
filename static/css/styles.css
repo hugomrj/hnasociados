@@ -1,0 +1,81 @@
+html, body {
+    height: 100%!important;/* Forzar altura al 100% */
+    margin: 0; /* Eliminar márgenes predeterminados */
+}
+
+body {
+    display: flex; /* Usar Flexbox para permitir expansión */
+    flex-direction: column; /* Organizar los elementos en columna */
+    justify-content: space-between; /* Asegurarse de que el contenido se distribuya correctamente */
+}
+
+main {
+    flex-grow: 1; /* Hacer que el main ocupe el espacio disponible */
+}
+
+
+/*
+input:-webkit-autofill {
+    box-shadow: 0 0 0px 1000px white inset !important;
+    -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+    background-color: transparent !important;
+    color: inherit !important;
+}
+*/
+
+/* Para Chrome, Safari, Edge y Opera */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Para Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+
+
+
+
+
+.no-icon::after {
+    /* Oculta el icono (generalmente el triángulo) al aplicar esta clase
+       en los elementos de acordeón que no tienen hijos. */
+    display: none !important;
+}
+
+
+
+@media (max-width: 576px) {
+    /* Aumentar tamaño de los labels */
+    .col-form-label {
+        font-size: 1.4rem;
+        font-weight: bold;
+    }
+
+    /* Aumentar tamaño de los inputs */
+    .form-control {
+        font-size: 1.4rem;
+        padding: 10px;
+        height: auto;
+    }
+
+    /* Aumentar tamaño del botón */
+    .btn {
+        font-size: 1.4rem;
+        padding: 10px;
+    }
+}
+
+
+
+
+
+
+
+.bg-primary {
+    --mdb-text-opacity: 1;
+    color: rgba(var(--mdb-primary-rgb), var(--mdb-text-opacity)) !important;
+  }

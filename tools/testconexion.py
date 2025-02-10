@@ -13,4 +13,4 @@ except Exception as e:
     print(f"❌ Error de conexión: {e}")
 
 
-# python tools/testconexion.py
+# python -m tools.testconexion

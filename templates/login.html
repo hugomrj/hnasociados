@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<main class="flex-grow-1 d-flex justify-content-center align-items-center">
+
+  <div class="container">
+
+    
+    <div class="row justify-content-center w-100">
+          <div class="col-sm-10 col-md-8 col-lg-5 col-xl-4">
+              <div class="card shadow-lg">
+                  <div class="card-header text-center">
+                      <h4>Iniciar sesión</h4>
+                  </div>
+                  <div class="card-body">
+                      <form method="POST">
+                          {% csrf_token %}
+                          
+
+                          <div class="mb-4 row">
+                              <label for="inputPassword" class="col-sm-4 col-form-label">Usuario</label>
+                              <div class="col-sm-8">
+                                <input name="username" 
+                                  type="text" 
+                                  class="form-control">
+                              </div>
+                            </div>
+
+
+                            <div class="mb-4 row">
+                              <label for="inputPassword" class="col-sm-4 col-form-label">Password</label>
+                              <div class="col-sm-8">
+                                <input  name="password"  
+                                  type="password" 
+                                  class="form-control" 
+                                  id="inputPassword">
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <button type="submit" class="btn btn-primary w-100">Iniciar sesión</button>
+                            </div>  
+                          
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+
+
+
+  </div>
+
+
+</main>  
+
+
+<div>
+  {% include 'message.html' %}
+</div>
+
+{% endblock %}
