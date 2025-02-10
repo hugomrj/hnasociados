@@ -1,102 +1,63 @@
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary bg-primary">
-    <div class="container-fluid">
-        <!-- Botón de hamburguesa -->
-        <button
-            class="navbar-toggler"
-            type="button"
-            data-mdb-collapse-init
-            data-mdb-target="#navbarAccordion"
-            aria-controls="navbarAccordion"
+<nav class="navbar navbar-expand-lg navbar-light bg-body-tertiary">
+  <!-- Container wrapper -->
+  <div class="container-fluid">
+    <!-- Toggle button -->
+    <button
+      data-mdb-collapse-init
+      class="navbar-toggler"
+      type="button"
+      data-mdb-target="#navbarLeftAlignExample"
+      aria-controls="navbarLeftAlignExample"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Collapsible wrapper -->
+
+    <div class="collapse navbar-collapse" id="navbarLeftAlignExample">
+      <!-- Left links -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">          
+          <a class="nav-link" href="/home/">Inicio</a>
+        </li>
+
+        <!-- Navbar dropdown -->
+        <li class="nav-item dropdown">
+          <a
+            data-mdb-dropdown-init
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="navbarDropdown"
+            role="button"
             aria-expanded="false"
-            aria-label="Toggle navigation"
-        >
-            <i class="fas fa-bars"></i>
-        </button>
-
-        <!-- Menú normal en escritorio -->
-         
-        <div class="collapse navbar-collapse d-none d-lg-block" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item"><a class="nav-link" href="/home/">Inicio</a></li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="appDropdown" role="button" data-mdb-dropdown-init>
-                        Aplicación
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="appDropdown">
-                        <li><a class="dropdown-item" href="/clientes/">Clientes</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item"><a class="nav-link" href="/logout/">Logout</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-
-
-
-<!-- Menu movil --> 
-
-<div class="collapse position-absolute z-3  col-12 col-sm-8 col-md-6" 
-    id="navbarAccordion">
-
-    
-    <div class="accordion accordion-borderless " id="meneSideBar">
-
-        <div class="accordion-item rounded-0">
-          <h2 class="accordion-header" id="flush-headingOneX">
-            <button data-mdb-collapse-init class="accordion-button no-icon" 
-                type="button"
-              data-mdb-target="#flush-collapseOneX" aria-expanded="true" aria-controls="flush-collapseOneX">
-              Home
-            </button>
-          </h2>
-          <div id="flush-collapseOneX" class="accordion-collapse collapse show"
-            aria-labelledby="flush-headingOneX" data-mdb-parent="#meneSideBar">
-          </div>
-        </div>
-
-
-        <div class="accordion-item rounded-0">
-          <h2 class="accordion-header" id="flush-headingTwoX">
-            <button data-mdb-collapse-init class="accordion-button collapsed" type="button"
-              data-mdb-target="#flush-collapseTwoX" aria-expanded="false" aria-controls="flush-collapseTwoX">
-              Sistema
-            </button>
-          </h2>
-          <div id="flush-collapseTwoX" class="accordion-collapse collapse" aria-labelledby="flush-headingTwoX"
-            data-mdb-parent="#meneSideBar">
-            <div class="accordion-body">
-                <p>Elemento 1</p>
-                <p>Elemento 2</p>
-                <p>Elemento 3</p>
-            </div>
-          </div>
-        </div>
+          >
+            Aplicacion
+          </a>
+          <!-- Dropdown menu -->
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li>
+              <a class="dropdown-item" href="#">Action</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#">Another action</a>
+            </li>
+            <li><hr class="dropdown-divider" /></li>
+            <li>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </li>
+          </ul>
+        </li>
         
+        <li class="nav-item">          
+          <a class="nav-link" href="/logout/">Logout</a>
+        </li>
 
-        <div class="accordion-item rounded-0">
-          <h2 class="accordion-header" id="flush-headingThreeX">
-
-
-            <a  href="/logout/">
-            <button data-mdb-collapse-init class="accordion-button no-icon"                 
-                data-mdb-target="#flush-collapseThreeX" >
-              Logout
-            </button>
-            </a>
-
-          </h2>
-          <div id="flush-collapseThreeX" class="accordion-collapse collapse" aria-labelledby="flush-headingThreeX"
-            data-mdb-parent="#meneSideBar">
-          </div>
-        </div>
-
+      </ul>
+      <!-- Left links -->
     </div>
-
-    
-</div>
-
-
-
+    <!-- Collapsible wrapper -->
+  </div>
+  <!-- Container wrapper -->
+</nav>

@@ -18,32 +18,47 @@
     <script src="{% static 'mdbootstrap-8.2.0/js/mdb.umd.min.js' %}"></script>
 
 
+
+    
+
     <!-- Cargar MDB JS -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            // Inicializar el accordion
-            const element = document.querySelector('.accordion');
-            const instance = new mdb.Collapse(element);
-    
+            // Inicializa los dropdowns de MDB
+            document.querySelectorAll('.dropdown-toggle').forEach(el => new mdb.Dropdown(el));
 
-            // Recorrer todos los items del accordion
+
+            // Inicializa los elementos colapsables de MDB
+            //document.querySelectorAll('.collapse').forEach(el => new mdb.Collapse(el));
+            document.querySelectorAll('.collapse').forEach(el => new mdb.Collapse(el, { toggle: false }));
+
+            
             /*
-            document.querySelectorAll('.accordion-item').forEach(item => {
-                const collapse = item.querySelector('.accordion-collapse');
-                const button = item.querySelector('.accordion-button');
-    
-                // Si el item no tiene elementos hijos, ocultar el icono
-                if (collapse && collapse.children.length === 0) {
-                    button.classList.add('no-icon');
-                }
-            });
+        // Espera un breve tiempo y luego quita la clase "show"
+        setTimeout(() => {
+            document.getElementById("navbarLeftAlignExample").classList.remove("show");
+        }, 500); // Retraso de 100ms para asegurar la ejecución después de MDB
+*/
+
+
+            /*
+            // Inicializa los elementos colapsables de MDB
+            document.querySelectorAll('.collapse').forEach(el => new mdb.Collapse(el));
+
+            
+
+            var navbarCollapse = document.getElementById("navbarLeftAlignExample");
+            navbarCollapse.classList.remove("show");            
             */
-        });
+        
+    });
+
     </script>
 
 
 
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
 
 </head>
 

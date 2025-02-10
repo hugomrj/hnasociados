@@ -24,8 +24,7 @@ class Login(View):
         # Imprimir en la consola los valores de usuario y contraseña (para depuración)
         print(f"Intento de login: usuario={username} ")
         
-        user = authenticate(request, username=username, password=password)
-        
+        user = authenticate(request, username=username, password=password)        
 
         if user is not None:                        
             login(request, user)        
@@ -54,3 +53,8 @@ class Logout(View):
     def get(self, request, *args, **kwargs):
         logout(request)
         return redirect('login')
+    
+    
+    
+    
+    
