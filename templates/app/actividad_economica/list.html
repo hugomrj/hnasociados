@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h4 class="text-center mb-4">Lista de Actividades Económicas</h4>
+
+
+    <div class="card">
+        <div class="card-body">
+
+            <!-- Fila con el botón de agregar y el campo de búsqueda -->
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <!-- Botón Agregar -->
+                <a href="#" class="btn btn-primary btn-sm">
+                    <i class="fas fa-plus"></i> Agregar
+                </a>
+
+                <!-- Formulario de Búsqueda -->
+                <form class="d-flex" method="GET" >
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" 
+                        placeholder="Buscar..." name="q" value="{{ request.GET.q }}">
+                        <button type="button" class="btn btn-primary" data-mdb-ripple-init>
+                            <i class="fas fa-search"></i>
+                          </button>
+                    </div>
+                </form>
+            </div>
+
+
+
+
+            <table class="table table-striped  table-sm">
+                <thead>
+                    <tr class="table-primary" >
+                        <th>Codigo</th>
+                        <th>Descripcion</th>
+                        <th class="text-center text-nowrap">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider table-hover" >
+                    {% for item in lista %}
+                    <tr>
+                        <td>{{ item.actividad }}</td>
+                        <td>{{ item.descripcion }}</td>
+
+                        <td class="text-center">
+                            <div class="d-flex justify-content-center gap-2">
+                                <a href="#" class="text-primary p-0" title="Ver">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                <a href="#" class="text-warning p-0" title="Editar">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="#" class="text-danger p-0" title="Borrar" onclick="return confirm('¿Estás seguro?');">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </div>
+                        </td>
+
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+    
+    <!-- Paginación -->
+    <nav aria-label="Page navigation" class="mt-3">
+        <ul class="pagination justify-content-center">
+            {% if lista.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page=1">&laquo; Primera</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ lista.previous_page_number }}">Anterior</a></li>
+            {% endif %}
+            
+            <li class="page-item disabled"><span class="page-link">Página {{ lista.number }} de {{ lista.paginator.num_pages }}</span></li>
+            
+            {% if lista.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ lista.next_page_number }}">Siguiente</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ lista.paginator.num_pages }}">Última &raquo;</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+{% endblock %}

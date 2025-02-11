@@ -17,7 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+
 from app.views.auth_views import Home, Login, Logout
+
+from app.views.actividad_economica_views import ActividadEconomicaList
 
 
 urlpatterns = [
@@ -28,7 +31,11 @@ urlpatterns = [
     path('home/', Home.as_view(), name='home'),
     path('logout/', Logout.as_view(), name='logout'), 
 
+    # app                                                       
+    path('actividad_economica/', include('app.urls.actividad_economica_urls')),  
+    path('cliente/', include('app.urls.cliente_urls')),  
 
+    #path('actividad_economica/list/', ActividadEconomicaList.as_view(), name='list'),
 
     
 ]
