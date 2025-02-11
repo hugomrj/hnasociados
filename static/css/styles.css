@@ -75,7 +75,4 @@ input[type="number"] {
 
 
 
-.bg-primary {
-    --mdb-text-opacity: 1;
-    color: rgba(var(--mdb-primary-rgb), var(--mdb-text-opacity)) !important;
-  }
+
