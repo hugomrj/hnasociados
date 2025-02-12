@@ -1,0 +1,63 @@
+/* Colores base */
+:root {
+    --primary-bg: #1E88E5;
+    --secondary-bg: #00695C;
+    --tertiary-bg: #1ae5de;
+
+    --primary-color: #1E88E5;
+    --secondary-color: #00695C;
+    --tertiary-color: #1ae5de;
+
+}
+
+
+
+/* para fondo */
+/*
+.bg-primary {
+    background-color: var(--primary-color);  
+    border-color: var(--primary-color); 
+    color: white; 
+    --mdb-btn-bg: var(--primary-color);
+}
+*/
+
+/* Estilos de los botones */
+/*
+.btn-primary {
+    --mdb-btn-bg: var(--primary-color);  
+    --mdb-btn-border-color: var(--primary-color);
+    --mdb-btn-hover-bg: var(--secondary-color); 
+    --mdb-btn-hover-border-color: var(--secondary-color); 
+    --mdb-btn-text-color: white; 
+}
+*/
+
+
+/* Estilos de la navbar */
+.navbar-dark {
+    --mdb-navbar-color: white !important; /* Texto blanco */
+    --mdb-navbar-link-color: white !important; /* Enlaces blancos */
+    --mdb-navbar-link-hover-color: var(--primary-color) !important; /* Color al pasar el mouse sobre los enlaces */
+    --mdb-navbar-toggler-icon-color: white !important; /* Color del ícono del menú hamburguesa */
+}
+
+.navbar-dark .navbar-nav .nav-dark:hover {
+    color: white!important; /* Asegura que el color al pasar el mouse sea el deseado */
+}
+
+
+.nav-link.dropdown-toggle.show {
+    color: white !important; /* Texto blanco */
+}
+
+
+
+
+
+
+.bg-secondary {
+    --mdb-bg-opacity: 1; /* Asegura que el color de fondo sea sólido */
+    background-color: var(--secondary-color)!important;
+    color: white !important; /* Color del texto */
+}

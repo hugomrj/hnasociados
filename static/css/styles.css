@@ -78,3 +78,41 @@ input[type="number"] {
 
 
 
+
+/* Para pantallas más grandes */
+.form-field label {
+    width: 120px;    
+}
+
+/* Para pantallas pequeñas (móviles) */
+@media (max-width: 767px) {
+    .form-field label {
+        width: 100%;
+    }
+}
+
+
+
+
+.form-field input {    
+    border: 1px solid #B0BEC5;    
+}
+
+
+.form-field:has(input:focus) label {
+    color: #0056b3; /* El color del label cuando el input tiene enfoque */
+}
+
+
+
+/* Aplica a botones de tipo "button" */
+button[type="button"].btn, a.btn {
+    width: 100%;
+}
+
+
+@media (min-width: 768px) {
+    button[type="button"].btn, a.btn {
+        width: 150px; /* Fijo a 100px en pantallas más grandes */
+    }
+}

@@ -16,7 +16,8 @@
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <!-- Botón Agregar -->
                 <a href="{% url 'actividad_economica:add' %}" 
-                    class="btn btn-primary btn-sm">
+                    class="btn btn-primary btn-sm"
+                    style="width: 120px;">
                     <i class="fas fa-plus"></i> Agregar
                 </a>
 
@@ -25,7 +26,8 @@
                     <div class="input-group input-group-sm">
                         <input type="text" class="form-control" 
                         placeholder="Buscar..." name="q" value="{{ request.GET.q }}">
-                        <button type="button" class="btn btn-primary" data-mdb-ripple-init>
+                        <button class="btn btn-primary" data-mdb-ripple-init
+                        style="width: 60px;">
                             <i class="fas fa-search"></i>
                           </button>
                     </div>

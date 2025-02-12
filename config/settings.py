@@ -144,3 +144,8 @@ LOGOUT_REDIRECT_URL = 'login'
 
 # Definir la constante
 ITEMS_POR_PAGINA = 20
+
+
+
+# settings.py
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'

@@ -1,3 +1,4 @@
+from django import forms
 from django.db import models
 
 
@@ -9,3 +10,11 @@ class ActividadEconomica(models.Model):
         managed = False
         db_table = 'actividad_economica'
 
+
+
+
+
+class ActividadEconomicaForm(forms.ModelForm):
+    class Meta:
+        model = ActividadEconomica
+        fields = ['actividad', 'descripcion']

@@ -18,43 +18,22 @@
     <script src="{% static 'mdbootstrap-8.2.0/js/mdb.umd.min.js' %}"></script>
 
 
-
-    
-
     <!-- Cargar MDB JS -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             // Inicializa los dropdowns de MDB
             document.querySelectorAll('.dropdown-toggle').forEach(el => new mdb.Dropdown(el));
 
-
             // Inicializa los elementos colapsables de MDB
-            //document.querySelectorAll('.collapse').forEach(el => new mdb.Collapse(el));
             document.querySelectorAll('.collapse').forEach(el => new mdb.Collapse(el, { toggle: false }));
 
-            
-            /*
-        // Espera un breve tiempo y luego quita la clase "show"
-        setTimeout(() => {
-            document.getElementById("navbarLeftAlignExample").classList.remove("show");
-        }, 500); // Retraso de 100ms para asegurar la ejecución después de MDB
-*/
-
-
-            /*
-            // Inicializa los elementos colapsables de MDB
-            document.querySelectorAll('.collapse').forEach(el => new mdb.Collapse(el));
-
-            
-
-            var navbarCollapse = document.getElementById("navbarLeftAlignExample");
-            navbarCollapse.classList.remove("show");            
-            */
-        
-    });
-
+            // Inicializa el efecto Ripple para los elementos con 'data-mdb-ripple-init'
+            document.querySelectorAll('[data-mdb-ripple-init]').forEach(el => new mdb.Ripple(el));
+        });
     </script>
 
+    <!-- Bloque extrascripts para incluir scripts adicionales -->
+    {% block extrascripts %}{% endblock %}
 
 
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">

@@ -1,271 +1,31 @@
 {% csrf_token %}
-   
-<div class="container">
+
+    <div class="mb-4 row">
+        <div class="form-field col-md-6">
             
-    <div class="row">
-        <div class="col-1 mb-4">
-            <label for="id" class="form-label">ID:</label>
-            <input type="text" name="id" id="id" value="{{ registro.id }}" class="form-control" required disabled>
-        </div>
-
-        <div class="col-2 mb-4">
-            <label for="anio" class="form-label">Año:</label>
-            <input type="text" name="anio" id="anio_display" value="{{ anio }}" class="form-control" required>            
-            <input type="hidden" name="anio_hidden" id="anio_hidden" value="{{ registro.anio }}">
-        </div>
-        
-    </div>
-
-
-    <div class="row">
-        <div class="col-2 mb-3">
-            <label for="cedula" class="form-label">C.I. N°:</label>
-            <input  type="{{ form.cedula.field.widget.input_type }}"
-                name = "{{ form.cedula.name }}" 
-                id  =  "{{ form.cedula.id_for_label }}"
-                class="form-control"                 
-                value= "{{ form.cedula.value|default_if_none:'' }}" {% if form.cedula.required %}required{% endif %}>                
-        </div>
-        <div class="col-6 mb-3"><label for="nombre" class="form-label">Nombres/Apellidos:</label>
-            <input  type="{{ form.nombre.field.widget.input_type }}"
-                name = "{{ form.nombre.name }}" 
-                id  =  "{{ form.nombre.id_for_label }}"
-                class= "form-control" 
-                value= "{{ form.nombre.value|default_if_none:'' }}" {% if form.nombre.required %}required{% endif %}>                
-        </div>
-    </div>
-
-
-    <div class="row">
-        <div class="col-8 mb-3">
-            <label for="cinsti" 
-                class="form-label col-form-label">Institución:</label>
-
-            <select id="cinsti" name="{{ form.cinsti.name }}" class="form-control" 
-                {% if form.cinsti.required %}required{% endif %}>
-                {% for choice in form.cinsti.field.choices %}
-                    <option value="{{ choice.0 }}" 
-                    {% if choice.0 == form.cinsti.value %}selected{% endif %}>{{ choice.1 }}
-                    </option>
-                {% endfor %}
-            </select>
-
+                <div class="row">
+                    <label for="actividad" class="col-form-label">Codigo</label>
+                    <div class="col-sm-4">
+                        <input name="actividad" type="text" class="form-control" id="actividad">
+                    </div>
+                </div>
             
         </div>
     </div>
 
 
-    
-    <div class="row">
-
-        <div class="col-8 mb-3">
-            <label for="objeto" 
-                class="form-label col-form-label">Objeto de Gasto:</label>
-            <select id="objeto"
-                name="{{ form.objeto.name }}"                            
-                class="form-control" 
-                {% if form.objeto.required %}required{% endif %}>
-                {% for choice in form.objeto.field.choices %}
-                    <option value="{{ choice.0 }}" 
-                    {% if choice.0 == form.objeto.value %}selected{% endif %}>{{ choice.1 }}
-                    </option>
-                {% endfor %}
-            </select>
-        </div>
-
-    </div>
-
-
-
-    
-    <div class="row">
-
-        <div class="col-8 mb-3">
-
-            <label for="concepto" class="form-label col-form-label">Concepto:</label>
-
-            <select id="concepto"
-                name="{{ form.concepto.name }}"                            
-                class="form-control" 
-                {% if form.concepto.required %}required{% endif %}>
-                {% for choice in form.concepto.field.choices %}
-                    <option value="{{ choice.0 }}" 
-                    {% if choice.0 == form.concepto.value %}selected{% endif %}>{{ choice.1 }}
-                    </option>
-                {% endfor %}
-            </select>
-
-        </div>
-
-
-
-        <div class="col-1 mb-3">
-
-            <label for="concepto" class="form-label col-form-label">Subcom:</label>
-
-            <input  type="{{ form.subconcepto.field.widget.input_type }}"
-                name = "{{ form.subconcepto.name }}" 
-                id  =  "{{ form.subconcepto.id_for_label }}"
-                class="form-control" 
-                value= "{{ form.subconcepto.value }}" {% if form.subconcepto.required %}required{% endif %}>
-
-        </div>
-
-
-
-
-    </div>
-
-
-
-
-
-    <div class="row" id="row_cargo113">
-        <div class="col-8 mb-3">
-            <label for="cargo113" class="form-label">Cargo s/ Anexo:</label>
-
-            <select id="cargo113" name="cargo113" class="form-control">
-                {% for opcion in opciones_cargo113 %}
-                    <option value="{{ opcion.0 }}" {% if opcion.0 == registro.cargo113 %}selected{% endif %}>
-                        {{ opcion.1 }}
-                    </option>
-                {% endfor %}
-            </select>
-
+    <div class="mb-4 row">
+        <div class="form-field col-md-10">
+            
+                <div class="row">
+                    <label for="descripcion" class="col-form-label">Descripcion</label>
+                    <div class="col-sm-8">
+                        <input name="descripcion" type="text" class="form-control" id="descripcion">
+                    </div>
+                </div>
+            
         </div>
     </div>
 
 
 
-
-
-    <div class="row" id="row_cargo">
-        <div class="col-8 mb-3">
-            <label for="ccargo" 
-                class="form-label col-form-label">Cargo efectivo:</label>
-
-            <select id="ccargo" name="{{ form.ccargo.name }}"
-                class="form-control" 
-                {% if form.ccargo.required %}required{% endif %}>
-                {% for choice in form.ccargo.field.choices %}
-                    <option value="{{ choice.0 }}" 
-                    {% if choice.0 == form.ccargo.value %}selected{% endif %}>
-                        {{ choice.1 }}
-                    </option>
-                {% endfor %}
-            </select>
-
-        </div>
-    </div>
-
-
-
-    <div class="row" id="row_tipo_cargo">
-
-        <div class="col-6 mb-3">
-            <label for="tipo_cargo" class="form-label">Tipo cargo:</label>
-
-            <select id="tipo_cargo" name="tipo_cargo" class="form-control">
-                {% for tipo_cargo in tipo_cargos %}
-                    <option value="{{ tipo_cargo.0 }}" {% if tipo_cargo.0 == registro.cargo113 %}selected{% endif %}>
-                        {{ tipo_cargo.1 }}
-                    </option>
-                {% endfor %}
-            </select>
-        </div>
-
-        <div class="col-4 mb-3">
-            <label for="presupuestado" class="form-label">Presupuestado:</label>
-
-            <input 
-                type="{{ form.presupuestado.field.widget.input_type }}" 
-                name="{{ form.presupuestado.name }}" 
-                id="{{ form.presupuestado.id_for_label }}" 
-                class="form-control text-end" 
-                value="{{ form.presupuestado.value|default:0 }}" 
-                {% if form.presupuestado.required %}required{% endif %}>
-
-        </div>
-        
-
-
-    </div>
-
-
-    
-    <div class="row" id="row_decreto">
-
-        <div class="col-2 mb-3">
-            <label for="decreto" class="form-label">Decreto:</label>
-            <input  type="{{ form.decreto.field.widget.input_type }}"
-                name="{{ form.decreto.name }}" 
-                id="{{ form.decreto.id_for_label }}"
-                class="form-control" 
-                value="{{ form.decreto.value|default:'' }}" 
-                {% if form.decreto.required %}required{% endif %}>
-        </div>
-
-        <div class="col-2 mb-3">
-            <label for="resolucion_pago" class="form-label">Resol. Pago:</label>
-            <input  type="{{ form.resolucion_pago.field.widget.input_type }}"
-                name="{{ form.resolucion_pago.name }}" 
-                id="{{ form.resolucion_pago.id_for_label }}"
-                class="form-control" 
-                value="{{ form.resolucion_pago.value|default:'' }}" 
-                {% if form.resolucion_pago.required %}required{% endif %}>
-        </div> 
-   
-    </div>
-
-
-
-    <div class="row" id="row_fecha">
-
-        <div class="col-2 mb-3">
-            <label for="expediente" class="form-label">Expediente:</label>
-            <input  type="{{ form.expediente.field.widget.input_type }}"
-                name="{{ form.expediente.name }}" 
-                id="{{ form.expediente.id_for_label }}"
-                class="form-control" 
-                value="{{ form.expediente.value|default:'' }}" 
-                {% if form.expediente.required %}required{% endif %}>
-        </div>
-    
-        <div class="col-3 mb-3">
-            <label for="fecha_pedido" class="form-label">Fecha Pedido:</label>
-            <input  type="date"
-                name="{{ form.fecha_pedido.name }}" 
-                id="{{ form.fecha_pedido.id_for_label }}"
-                class="form-control" 
-                value="{{ form.fecha_pedido.value|default:'' }}" 
-                {% if form.fecha_pedido.required %}required{% endif %}>
-        </div>
-    
-    </div>
-    
-
-
-
-
-
-    <div class="row">
-        <div class="col-2 mb-3">
-            <label for="estado" 
-                class="form-label col-form-label">Estado:</label>
-            <select id="estado"
-                name="{{ form.estado.name }}"                            
-                class="form-control" 
-                {% if form.estado.required %}required{% endif %}>
-                {% for choice in form.estado.field.choices %}
-                    <option value="{{ choice.0 }}" 
-                    {% if choice.0 == form.estado.value %}selected{% endif %}>{{ choice.1 }}
-                    </option>
-                {% endfor %}
-            </select>
-        </div>        
-    </div>
-
-
-
-
-</div>
