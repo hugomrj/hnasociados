@@ -20,8 +20,6 @@ from django.urls import path, include
 
 from app.views.auth_views import Home, Login, Logout
 
-from app.views.actividad_economica_views import ActividadEconomicaList
-
 
 urlpatterns = [
     path('admin/', admin.site.urls),       
@@ -34,8 +32,6 @@ urlpatterns = [
     # app                                                       
     path('actividad_economica/', include('app.urls.actividad_economica_urls')),  
     path('cliente/', include('app.urls.cliente_urls')),  
-
-    #path('actividad_economica/list/', ActividadEconomicaList.as_view(), name='list'),
 
     
 ]

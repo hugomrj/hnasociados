@@ -2,16 +2,21 @@
 
 {% block content %}
 <div class="container mt-4">
-    <h4 class="text-center mb-4">Lista de Actividades Económicas</h4>
 
 
     <div class="card">
+
+        <div class="card-header">
+            <h5 class="mb-0">Actividad Económica</h5>  
+        </div>
+
         <div class="card-body">
 
             <!-- Fila con el botón de agregar y el campo de búsqueda -->
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <!-- Botón Agregar -->
-                <a href="#" class="btn btn-primary btn-sm">
+                <a href="{% url 'actividad_economica:add' %}" 
+                    class="btn btn-primary btn-sm">
                     <i class="fas fa-plus"></i> Agregar
                 </a>
 
@@ -65,7 +70,9 @@
             </table>
         </div>
     </div>
-    
+    <!-- card -->
+
+
     <!-- Paginación -->
     <nav aria-label="Page navigation" class="mt-3">
         <ul class="pagination justify-content-center">
@@ -82,5 +89,8 @@
             {% endif %}
         </ul>
     </nav>
+
+
+
 </div>
 {% endblock %}

@@ -63,10 +63,12 @@ input[type="number"] {
     }
 
     /* Aumentar tamaño del botón */
+    /*
     .btn {
         font-size: 1.4rem;
         padding: 10px;
     }
+        */
 }
 
 

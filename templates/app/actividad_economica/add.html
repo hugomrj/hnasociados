@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+
+
+
+    <div class="card">
+
+        <div class="card-header">
+            <h5 class="mb-0">Actividad Económica</h5>  
+        </div>
+
+
+        <div class="card-body">
+            <form method="post" id="form" action="">
+                {% include 'app/actividad_economica/form.html' %}
+            </form>
+        
+
+            <!-- Línea divisoria (usando clase MDB) -->
+            <hr class="my-4">
+
+            <!-- Botones fuera del formulario -->
+            <div class="d-flex justify-content-start">
+                <button type="button" id="cancelar" class="btn btn-outline-secondary">Cancelar</button>
+                <button type="submit" id="agregar" class="btn btn-primary" style="margin-left: 5px;">Agregar</button>
+            </div>
+
+
+
+        </div>
+        
+
+    </div>
+
+
+
+</div>
+{% endblock %}

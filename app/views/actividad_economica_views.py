@@ -8,12 +8,12 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 
-class ActividadEconomicaList(LoginRequiredMixin, View):
+class ActividadEconomicaListView (LoginRequiredMixin, View):
 
     template_name = 'app/actividad_economica/list.html'
     items_por_pagina = settings.ITEMS_POR_PAGINA  
 
-    def get(self, request):
+    def get(self, request, *args, **kwargs):
 
         coleccion = ActividadEconomica.objects.all()  
         paginator = Paginator(coleccion, self.items_por_pagina)  
@@ -38,5 +38,30 @@ class ActividadEconomicaList(LoginRequiredMixin, View):
 
 
 
+      
+class ActividadEconomicaCreateView (LoginRequiredMixin, View):
+    
+    template_name = 'app/actividad_economica/add.html'
+    
+    def get(self, request, *args, **kwargs):  
+              
+          
+        contexto = { 
+        }                        
+        return render(request, self.template_name, contexto )
+    
+    
+    def post(self, request, *args, **kwargs):       
+
+        contexto = {
+        }
+        return render(request, self.template_name, contexto)
 
 
+        
+
+
+
+
+
+        

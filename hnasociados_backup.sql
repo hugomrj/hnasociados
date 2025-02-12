@@ -384,7 +384,7 @@ ALTER TABLE ONLY public.clientes ALTER COLUMN cliente SET DEFAULT nextval('publi
 --
 
 COPY public.actividad_economica (actividad, descripcion) FROM stdin;
-1	Vencimiento Iva/vencimiento
+1	Vencimiento Iva
 2	Vencimiento Ire
 3	Vencimiento Ire Simple
 4	Vencimiento Ire Re Simple
