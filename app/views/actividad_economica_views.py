@@ -1,5 +1,5 @@
 from datetime import datetime as dt
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from app.models.actividad_economica_model import ActividadEconomica, ActividadEconomicaForm
@@ -66,11 +66,11 @@ class ActividadEconomicaCreateView(LoginRequiredMixin, View):
             messages.success(request, message)
 
             # Redirigir a otra vista (puede ser una lista o éxito)
-            return redirect('actividad_economica_list')  # Ajusta el nombre de la URL a tu caso
+            return redirect('actividad_economica:list')  
         
         else:
             # Si el formulario no es válido, manejar los errores
-            error_message = 'Hubo un error al agregar el registro.'
+            error_message = ''
             for field, field_errors in form.errors.items():
                 for field_error in field_errors:
                     error_message += f'\n{field.capitalize()}: {field_error}'
@@ -81,14 +81,69 @@ class ActividadEconomicaCreateView(LoginRequiredMixin, View):
 
             messages.error(request, error_message)
         
-        # Si el formulario no es válido, renderiza de nuevo con errores
-        return render(request, self.template_name, {'form': form})
-    
 
-
-
+            
+            # Si el formulario no es válido, renderiza de nuevo con errores
+            return render(request, self.template_name, {'form': form})
+        
 
 
 
 
         
+class ActividadEconomicaUpdateView(LoginRequiredMixin, View):
+    template_name = 'app/actividad_economica/edit.html'
+    
+    def get(self, request, pk, *args, **kwargs):
+        # Obtener el objeto a editar o mostrar 404 si no existe
+        registro = get_object_or_404(ActividadEconomica, pk=pk)
+        
+        # Inicializar el formulario con la instancia existente
+        form = ActividadEconomicaForm(instance=registro)
+
+        contexto = { 
+            'form': form, 
+            'registro': registro
+            }  
+
+        return render(request, self.template_name, contexto)
+    
+
+
+
+    def post(self, request, pk, *args, **kwargs):
+        # Obtener el objeto a editar
+        registro = get_object_or_404(ActividadEconomica, pk=pk)
+        
+        # Procesar formulario con los datos POST y la instancia
+        form = ActividadEconomicaForm(request.POST, instance=registro)
+        
+        if form.is_valid():
+            # Guardar cambios si el formulario es válido
+            form.save()
+            
+            message = 'El registro se ha actualizado correctamente.'
+            messages.success(request, message)
+            return redirect('actividad_economica:list')
+        
+        else:
+            # Manejar errores de validación
+            error_message = ''
+            for field, field_errors in form.errors.items():
+                for field_error in field_errors:
+                    error_message += f'\n{field.capitalize()}: {field_error}'
+            
+            messages.error(request, error_message)
+
+               
+            contexto = { 
+                'form': form, 
+                'registro': registro
+                }         
+            
+
+            return render(
+                request, 
+                self.template_name, 
+                {'form': form, 'object': contexto}
+            )

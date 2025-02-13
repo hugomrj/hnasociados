@@ -8,11 +8,29 @@ document.addEventListener('DOMContentLoaded', function() {
     if (actividad_add) {
         actividad_add.addEventListener('click', function() {
             
-            var url = event.target.getAttribute('data-url');
-            alert("La URL es: " + url);
+            var form = document.getElementById('form');
+            var url = form.action ;
+
+            // Enviar el formulario
+            form.submit();                 
 
         });
     }
+
+
+    var actividad_edit = document.getElementById('actividad_edit');
+    if (actividad_edit) {
+        actividad_edit.addEventListener('click', function() {
+            
+            var form = document.getElementById('form');
+            // Enviar el formulario
+            form.submit();                 
+          
+
+        });
+    }
+
+
 
 
 });

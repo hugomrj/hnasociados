@@ -49,23 +49,24 @@
         {% include 'nav.html' %}
     </header>
 
-    
+
 
     <main>
 
+
+    <!-- Mensaje -->
+    {% include 'message.html' %}    
+
         <section style="margin-bottom: 100px;">
-        
                 
-
-
         {% block content %}
         {% endblock %}
+
         </section>
     </main>
 
 
-    <!-- Mensaje -->
-    {% include 'message.html' %}
+
 
 
 </body>

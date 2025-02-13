@@ -3,12 +3,16 @@
     <div class="mb-4 row">
         <div class="form-field col-md-6">
             
-                <div class="row">
-                    <label for="actividad" class="col-form-label">Codigo</label>
-                    <div class="col-sm-4">
-                        <input name="actividad" type="text" class="form-control" id="actividad">
-                    </div>
+            <div class="row">
+                <label for="actividad" class="col-form-label">Codigo</label>
+                <div class="col-sm-4">
+                    <input type="text" 
+                        name="actividad"  
+                        class="form-control" 
+                        id="actividad"
+                        value="{{ form.actividad.value|default_if_none:'' }}">                        
                 </div>
+            </div>
             
         </div>
     </div>
@@ -17,12 +21,17 @@
     <div class="mb-4 row">
         <div class="form-field col-md-10">
             
-                <div class="row">
-                    <label for="descripcion" class="col-form-label">Descripcion</label>
-                    <div class="col-sm-8">
-                        <input name="descripcion" type="text" class="form-control" id="descripcion">
-                    </div>
+            <div class="row">
+                <label for="descripcion" class="col-form-label">Descripcion</label>
+                <div class="col-sm-8">
+                    <input type="text" 
+                        name="descripcion"  
+                        class="form-control" 
+                        id="descripcion"
+                        value="{{ form.descripcion.value|default_if_none:'' }}">   
+
                 </div>
+            </div>
             
         </div>
     </div>
