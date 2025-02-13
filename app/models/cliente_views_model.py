@@ -1,7 +1,8 @@
+from django import forms
 from django.db import models
 
 
-class Clientes(models.Model):
+class Cliente (models.Model):
     cliente = models.AutoField(primary_key=True)
     cedula = models.CharField(max_length=20)
     nombre = models.CharField(max_length=100)
@@ -14,3 +15,11 @@ class Clientes(models.Model):
     class Meta:
         managed = False
         db_table = 'clientes'
+
+
+
+
+class ClienteForm(forms.ModelForm):
+    class Meta:
+        model = Cliente
+        fields = ['cedula', 'nombre', 'apellido', 'timbrado', 'celular', 'email', 'direccion']

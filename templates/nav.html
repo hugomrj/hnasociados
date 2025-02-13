@@ -43,10 +43,12 @@
 
             <li><hr class="dropdown-divider" /></li>
             <li>
-              <a class="dropdown-item" href="#">Clientes</a>
+              <a class="dropdown-item" 
+                href="{% url 'cliente:list' %}">Clientes</a>              
             </li>
             <li>
-              <a class="dropdown-item" href="{% url 'actividad_economica:list' %}">Actividad economica</a>
+              <a class="dropdown-item" 
+                href="{% url 'actividad_economica:list' %}">Actividad economica</a>
             </li>
 
           </ul>

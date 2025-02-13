@@ -1,0 +1,45 @@
+        
+    <!-- Paginación -->
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            {% if lista.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ lista.previous_page_number }}{% if q %}&q={{ q }}{% endif %}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo; Anterior</span>
+                    </a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">Anterior</span>
+                </li>
+            {% endif %}
+
+            {% for num in lista.paginator.page_range %}
+                {% if lista.number == num %}
+                    <li class="page-item active" aria-current="page">
+                        <span class="page-link">
+                            {{ num }}
+                            <span class="visually-hidden">(current)</span>
+                        </span>
+                    </li>
+                {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ num }}{% if q %}&q={{ q }}{% endif %}">{{ num }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+            {% if lista.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ lista.next_page_number }}{% if q %}&q={{ q }}{% endif %}" aria-label="Next">
+                        <span aria-hidden="true">Siguiente &raquo;</span>
+                    </a>
+                </li>
+            {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">Siguiente</span>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+

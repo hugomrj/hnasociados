@@ -143,7 +143,7 @@ LOGOUT_REDIRECT_URL = 'login'
 
 
 # Definir la constante
-ITEMS_POR_PAGINA = 20
+ITEMS_POR_PAGINA = 14
 
 
 

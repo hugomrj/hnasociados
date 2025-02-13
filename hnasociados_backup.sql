@@ -5,7 +5,7 @@
 -- Dumped from database version 16.6 (Ubuntu 16.6-0ubuntu0.24.04.1)
 -- Dumped by pg_dump version 16.6 (Ubuntu 16.6-0ubuntu0.24.04.1)
 
--- Started on 2025-02-11 17:45:41 -03
+-- Started on 2025-02-13 17:49:37 -03
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -384,10 +384,36 @@ ALTER TABLE ONLY public.clientes ALTER COLUMN cliente SET DEFAULT nextval('publi
 --
 
 COPY public.actividad_economica (actividad, descripcion) FROM stdin;
-1	Vencimiento Iva
-2	Vencimiento Ire
 3	Vencimiento Ire Simple
 4	Vencimiento Ire Re Simple
+2	Vencimiento Ire
+45	gdsgsgsa
+8	sgsgsag
+9	dgsag
+10	dsagsgag
+11	gdsagsga
+12	dgsagasg
+15	gasgasgasga
+16	gggsags
+174	gssgga
+18	gagsga
+19	gsgasdg
+20	gdgasgsag
+22	gdsggsa
+23	gsadgasg
+24	gasah
+25	gasgasgsg
+30	dsagasdgsg
+31	dgasgsaga
+32	gasdgsga
+33	gsagasgasg
+34	asgasgasg
+35	gsasgsgasg
+36	gssgsgsa
+37	gagsga
+38	dgsgsag
+39	gdgsagsa
+40	gdsgsaga
 \.
 
 
@@ -452,7 +478,7 @@ COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
 --
 
 COPY public.auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
-1	pbkdf2_sha256$870000$CFFYWjgHO7I3htswxak0zI$vBMuXRxwSPohzpMLjQQxbSZicMOD9Ed0rwoVR9s3IXM=	2025-02-11 15:01:53.110603-03	t	admin				t	t	2025-02-07 16:18:45.117768-03
+1	pbkdf2_sha256$870000$CFFYWjgHO7I3htswxak0zI$vBMuXRxwSPohzpMLjQQxbSZicMOD9Ed0rwoVR9s3IXM=	2025-02-13 10:42:16.53854-03	t	admin				t	t	2025-02-07 16:18:45.117768-03
 \.
 
 
@@ -483,6 +509,26 @@ COPY public.auth_user_user_permissions (id, user_id, permission_id) FROM stdin;
 --
 
 COPY public.clientes (cliente, cedula, nombre, apellido, timbrado, celular, email, direccion) FROM stdin;
+1	11223344	Laura	García	9988776655	0991122334	laura.garcia@email.com	Calle 10 de Julio 234
+2	22334455	Diego	Hernández	\N	0992233445	diego.hernandez@email.com	Av. Libertad 567
+3	33445566	Carmen	Vargas	4455667788	0993344556	\N	Barrio San Miguel, Calle 8
+4	44556677	Jorge	Silva	\N	\N	jorge.silva@email.com	Residencial Las Flores, Bloque 2
+5	55667788	Marta	Rojas	1122334455	0995566778	marta.rojas@email.com	Av. San Martín 789
+6	66778899	Ricardo	Mendoza	\N	0996677889	ricardo.mendoza@email.com	Calle 20 de Octubre 123
+7	77889900	Patricia	Castro	6677889900	0997788990	\N	Barrio Los Alamos, Manzana 5
+8	88990011	Fernando	Ortega	\N	\N	fernando.ortega@email.com	Edificio Las Palmas, Piso 4
+9	99001122	Isabel	Paredes	3344556677	0999900112	isabel.paredes@email.com	Av. Las Acacias 456
+10	00112233	Gabriel	Ríos	\N	0990011223	gabriel.rios@email.com	Calle 12 de Junio 789
+11	11223344	Natalia	Cabrera	5566778899	0991122334	\N	Barrio Las Rosas, Calle 3
+12	22334455	Hugo	Molina	\N	\N	hugo.molina@email.com	Residencial Los Pinos, Bloque 6
+13	99001122	Isabel	Paredes	3344556677	0999900112	isabel.paredes@email.com	Av. Las Acacias 456
+14	00112233	Gabriel	Ríos	\N	0990011223	gabriel.rios@email.com	Calle 12 de Junio 789
+15	11223344	Natalia	Cabrera	5566778899	0991122334	\N	Barrio Las Rosas, Calle 3
+16	22334455	Hugo	Molina	\N	\N	hugo.molina@email.com	Residencial Los Pinos, Bloque 6
+17	33445566	Sandra	Aguilar	9988776655	0993344556	sandra.aguilar@email.com	Av. Los Laureles 123
+18	44556677	Oscar	Fuentes	\N	0994455667	oscar.fuentes@email.com	Calle 18 de Julio 456
+19	55667788	Claudia	Soto	4455667788	0995566778	\N	Barrio Las Margaritas, Manzana 7
+20	66778899	Raúl	Navarro	\N	\N	raul.navarro@email.com	Edificio Las Colinas, Piso 5
 \.
 
 
@@ -548,7 +594,7 @@ COPY public.django_migrations (id, app, name, applied) FROM stdin;
 
 COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
 dshu5b40bv6qfffp4j300o76hh2sjvoo	.eJxVjDsOwjAQRO_iGlnrEDkJJT1nsGZ3bRxAtpRPhbg7iZQCminmvZm3CViXHNY5TmFUczHOnH47hjxj2YE-UO7VSi3LNLLdFXvQ2d6qxtf1cP8OMua8rSOQCNx0QqSSBLolwF4a9eCWWM4dU0ytaO8UjnyTkHw_tAMNBPP5AkxtOeQ:1thYyv:UM0SAUjFcACfaJUdMD2l5WUPTWGPyOj2-COeg8lBr9A	2025-02-24 15:58:09.13573-03
-jk6j59gbx7nt9p4penwhlumcepwojowk	.eJxVjDsOwjAQRO_iGlnrEDkJJT1nsGZ3bRxAtpRPhbg7iZQCminmvZm3CViXHNY5TmFUczHOnH47hjxj2YE-UO7VSi3LNLLdFXvQ2d6qxtf1cP8OMua8rSOQCNx0QqSSBLolwF4a9eCWWM4dU0ytaO8UjnyTkHw_tAMNBPP5AkxtOeQ:1thua1:T5lxeQmTceoD0aaI3XETD_9r0wLUkGLuY-coWvglw14	2025-02-25 15:01:53.112769-03
+2xkg27n4efxosomerrmipmk1vj112mxh	.eJxVjDsOwjAQRO_iGlnrEDkJJT1nsGZ3bRxAtpRPhbg7iZQCminmvZm3CViXHNY5TmFUczHOnH47hjxj2YE-UO7VSi3LNLLdFXvQ2d6qxtf1cP8OMua8rSOQCNx0QqSSBLolwF4a9eCWWM4dU0ytaO8UjnyTkHw_tAMNBPP5AkxtOeQ:1tifQI:T3izTcd_3I4arUuJ-XEe-8UvyN_Rek4_mt6P1xKIGQw	2025-02-27 17:02:58.022358-03
 \.
 
 
@@ -612,7 +658,7 @@ SELECT pg_catalog.setval('public.auth_user_user_permissions_id_seq', 1, false);
 -- Name: clientes_cliente_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.clientes_cliente_seq', 1, false);
+SELECT pg_catalog.setval('public.clientes_cliente_seq', 20, true);
 
 
 --
@@ -998,7 +1044,7 @@ ALTER TABLE ONLY public.django_admin_log
     ADD CONSTRAINT django_admin_log_user_id_c564eba6_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
 
 
--- Completed on 2025-02-11 17:45:45 -03
+-- Completed on 2025-02-13 17:49:41 -03
 
 --
 -- PostgreSQL database dump complete

@@ -1,0 +1,26 @@
+<!-- Modal de eliminación -->
+<div class="modal fade" id="itemModal" tabindex="-1" aria-labelledby="itemModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        
+          <div class="modal-header bg-danger text-white">
+              <h5 class="modal-title" id="itemModalLabel">Eliminar Registro</h5>
+              <button type="button" class="btn-close text-white" data-mdb-ripple-init data-mdb-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <div class="modal-body text-center">
+              <p class="fw-bold">¿Estás seguro de que deseas eliminar este registro?</p>              
+          </div>
+
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-mdb-ripple-init data-mdb-dismiss="modal">Cancelar</button>
+              <form action="#" method="POST" id="form_delete">
+                  {% csrf_token %}
+                  <input type="hidden" name="item_id" id="itemIdInput">
+                  <button type="submit" id="confirmarEliminarRegistro"
+                  class="btn btn-danger" data-mdb-ripple-init>Eliminar</button>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>

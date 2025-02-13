@@ -29,8 +29,12 @@
 
             // Inicializa el efecto Ripple para los elementos con 'data-mdb-ripple-init'
             document.querySelectorAll('[data-mdb-ripple-init]').forEach(el => new mdb.Ripple(el));
+
+            // Inicializa los modales de MDB
+            document.querySelectorAll('.modal').forEach(el => new mdb.Modal(el));
         });
     </script>
+
 
     <!-- Bloque extrascripts para incluir scripts adicionales -->
     {% block extrascripts %}{% endblock %}
@@ -65,11 +69,11 @@
         </section>
     </main>
 
-
-
-
+    {% include 'modal_delete.html' %}
 
 </body>
+
+
 {% endblock %}
 
 </html>
