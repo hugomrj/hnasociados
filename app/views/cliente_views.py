@@ -17,21 +17,26 @@ from config import settings
 FOLDER_TEMPLATE = 'app/cliente'
 
 class ClienteListView(LoginRequiredMixin, View):
-
     template_name = FOLDER_TEMPLATE + '/list.html'
-    items_por_pagina = settings.ITEMS_POR_PAGINA  
-
-    items_por_pagina = settings.ITEMS_POR_PAGINA  
+    items_por_pagina = settings.ITEMS_POR_PAGINA  # Eliminar duplicado
 
     def get(self, request, *args, **kwargs):
-        query = request.GET.get('q', '').strip()  # Obtener parámetro de búsqueda
+        query = request.GET.get('q', '').strip()
         coleccion = Cliente.objects.all()
 
-        if query:  # Si hay un término de búsqueda
+        if query:
+            # Búsqueda en todos los campos del modelo
             coleccion = coleccion.filter(
-                Q(actividad__icontains=query) | Q(descripcion__icontains=query)
+                Q(cedula__icontains=query) |
+                Q(nombre__icontains=query) |
+                Q(apellido__icontains=query) |
+                Q(timbrado__icontains=query) |
+                Q(celular__icontains=query) |
+                Q(email__icontains=query) |
+                Q(direccion__icontains=query)
             )
 
+        # Resto del código de paginación...
         paginator = Paginator(coleccion, self.items_por_pagina)
         page = request.GET.get('page', 1)
 
@@ -44,11 +49,11 @@ class ClienteListView(LoginRequiredMixin, View):
 
         contexto = {
             'lista': lista,
-            'q': query,  # Mantener el valor en el formulario de búsqueda
+            'q': query,
         }
 
         return render(request, self.template_name, contexto)
-
+    
 
 
 
@@ -80,7 +85,7 @@ class ClienteCreateView(LoginRequiredMixin, View):
             messages.success(request, message)
 
             # Redirigir a otra vista (puede ser una lista o éxito)
-            return redirect('actividad_economica:list')  
+            return redirect('cliente:list')  
         
         else:
             # Si el formulario no es válido, manejar los errores
@@ -136,7 +141,7 @@ class ClienteUpdateView(LoginRequiredMixin, View):
             
             message = 'El registro se ha actualizado correctamente.'
             messages.success(request, message)
-            return redirect('actividad_economica:list')
+            return redirect('cliente:list')
         
         else:
             # Manejar errores de validación
@@ -187,7 +192,7 @@ class ClienteDeleteView(LoginRequiredMixin, View):
             messages.error(request, f"Hubo un problema al intentar eliminar el registro: {str(e)}")
 
         # Redirige a la URL obtenida
-        return redirect('actividad_economica:list')
+        return redirect('cliente:list')
 
 
 
@@ -198,7 +203,7 @@ class ClienteDeleteView(LoginRequiredMixin, View):
 
 
 class ClienteDetailView(LoginRequiredMixin, View):
-    template_name = 'app/actividad_economica/detail.html'
+    template_name = 'app/cliente/detail.html'
 
     def get(self, request, pk, *args, **kwargs):
         # Obtener el objeto a mostrar o devolver 404 si no existe

@@ -1,0 +1,107 @@
+{% csrf_token %}
+
+
+<div class="mb-4 row">
+    <div class="form-field col-md-6">
+        <div class="row">
+            <label for="cedula" class="col-form-label">Cédula</label>
+            <div class="col-sm-4">
+                <input type="text" 
+                    name="cedula"  
+                    class="form-control" 
+                    id="cedula"
+                    value="{{ form.cedula.value|default_if_none:'' }}">                        
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mb-4 row">
+    <div class="form-field col-md-8">
+        <div class="row">
+            <label for="nombre" class="col-form-label">Nombre</label>
+            <div class="col-sm-8">
+                <input type="text" 
+                    name="nombre"  
+                    class="form-control" 
+                    id="nombre"
+                    value="{{ form.nombre.value|default_if_none:'' }}">                        
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mb-4 row">
+    <div class="form-field col-md-8">
+        <div class="row">
+            <label for="apellido" class="col-form-label">Apellido</label>
+            <div class="col-sm-8">
+                <input type="text" 
+                    name="apellido"  
+                    class="form-control" 
+                    id="apellido"
+                    value="{{ form.apellido.value|default_if_none:'' }}">                        
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mb-4 row">
+    <div class="form-field col-md-6">
+        <div class="row">
+            <label for="timbrado" class="col-form-label">Timbrado</label>
+            <div class="col-sm-8">
+                <input type="text" 
+                    name="timbrado"  
+                    class="form-control" 
+                    id="timbrado"
+                    value="{{ form.timbrado.value|default_if_none:'' }}">                        
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mb-4 row">
+    <div class="form-field col-md-6">
+        <div class="row">
+            <label for="celular" class="col-form-label">Celular</label>
+            <div class="col-sm-8">
+                <input type="text" 
+                    name="celular"  
+                    class="form-control" 
+                    id="celular"
+                    value="{{ form.celular.value|default_if_none:'' }}">                        
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mb-4 row">
+    <div class="form-field col-md-6">
+        <div class="row">
+            <label for="email" class="col-form-label">Email</label>
+            <div class="col-sm-8">
+                <input type="email" 
+                    name="email"  
+                    class="form-control" 
+                    id="email"
+                    value="{{ form.email.value|default_if_none:'' }}">                        
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mb-4 row">
+    <div class="form-field col-md-8">
+        <div class="row">
+            <label for="direccion" class="col-form-label">Dirección</label>
+            <div class="col-sm-8">
+                <input type="text" 
+                    name="direccion"  
+                    class="form-control" 
+                    id="direccion"
+                    value="{{ form.direccion.value|default_if_none:'' }}">                        
+            </div>
+        </div>
+    </div>
+</div>

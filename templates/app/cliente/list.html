@@ -75,12 +75,12 @@
                         <td class="text-center">
                             <div class="d-flex justify-content-center gap-2">
                                 
-                                <a href="{% url 'actividad_economica:detail' item.pk %}" 
+                                <a href="{% url 'cliente:detail' item.pk %}" 
                                     class="text-primary p-0" title="Ver">
                                     <i class="fas fa-eye"></i>
                                 </a>
 
-                                <a href="{% url 'actividad_economica:edit' item.pk %}" 
+                                <a href="{% url 'cliente:edit' item.pk %}" 
                                     class="text-warning p-0" title="Editar">
                                     <i class="fas fa-edit"></i>
                                 </a>
@@ -88,7 +88,7 @@
                                 <a href="#" class="text-danger p-0 delete-btn" 
                                     title="Borrar"
                                     data-item-id="{{ item.pk }}"
-                                    data-delete-url="{% url 'actividad_economica:delete' item.pk %}">
+                                    data-delete-url="{% url 'cliente:delete' item.pk %}">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
 

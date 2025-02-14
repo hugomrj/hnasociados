@@ -13,7 +13,6 @@ class Cliente (models.Model):
     direccion = models.CharField(max_length=200, blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'clientes'
 
 
@@ -23,3 +22,5 @@ class ClienteForm(forms.ModelForm):
     class Meta:
         model = Cliente
         fields = ['cedula', 'nombre', 'apellido', 'timbrado', 'celular', 'email', 'direccion']
+
+        
