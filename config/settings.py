@@ -33,7 +33,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env.dev'))
 # Security
 SECRET_KEY = env('SECRET_KEY')
 DEBUG = env.bool('DEBUG', default=True)
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['3.12.160.19', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -118,7 +118,9 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
-STATIC_URL = '/static/'
+# STATIC_URL = '/static/'
+STATIC_URL = '/hnasociados/static/'
+
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_URL = '/media/'
@@ -149,3 +151,6 @@ ITEMS_POR_PAGINA = 14
 
 # settings.py
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
+
+# FORCE_SCRIPT_NAME = '/hnasociados'

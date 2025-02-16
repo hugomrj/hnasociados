@@ -21,17 +21,16 @@ from django.urls import path, include
 from app.views.auth_views import Home, Login, Logout
 
 
+app_prefix = "hnasociados/"
+
 urlpatterns = [
-    path('admin/', admin.site.urls),       
-    
-    path('', Login.as_view() , name='login'),                          
-    path('login/', Login.as_view() , name='login'),
-    path('home/', Home.as_view(), name='home'),
-    path('logout/', Logout.as_view(), name='logout'), 
-
-    # app                                                       
-    path('actividad_economica/', include('app.urls.actividad_economica_urls')),  
-    path('cliente/', include('app.urls.cliente_urls')),  
-
-    
+    path(app_prefix, include([
+        path("admin/", admin.site.urls),
+        path("", Login.as_view(), name="login"),
+        path("login/", Login.as_view(), name="login"),
+        path("home/", Home.as_view(), name="home"),
+        path("logout/", Logout.as_view(), name="logout"),
+        path("actividad_economica/", include("app.urls.actividad_economica_urls")),
+        path("cliente/", include("app.urls.cliente_urls")),
+    ])),
 ]

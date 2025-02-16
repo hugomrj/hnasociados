@@ -61,3 +61,16 @@
     background-color: var(--secondary-color)!important;
     color: white !important; /* Color del texto */
 }
+
+
+
+
+
+/* Estilo para inputs bloqueados */
+input:disabled, textarea:disabled, select:disabled {
+    color: #333333 !important;            
+    border: 1px solid #CFD8DC!important; 
+    background-color: #ECEFF1!important; 
+}
+
+
