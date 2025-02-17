@@ -32,5 +32,6 @@ urlpatterns = [
         path("logout/", Logout.as_view(), name="logout"),
         path("actividad_economica/", include("app.urls.actividad_economica_urls")),
         path("cliente/", include("app.urls.cliente_urls")),
+        path("pago/", include("app.urls.pago_urls")),
     ])),
 ]
