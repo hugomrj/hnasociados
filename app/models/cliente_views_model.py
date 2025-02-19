@@ -24,3 +24,6 @@ class ClienteForm(forms.ModelForm):
         fields = ['cedula', 'nombre', 'apellido', 'timbrado', 'celular', 'email', 'direccion']
 
         
+
+
+    

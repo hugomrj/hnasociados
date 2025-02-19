@@ -10,49 +10,35 @@ from django.urls import reverse
 from django.views import View
 
 
-from app.models.cliente_views_model import Cliente, ClienteForm
+from app.models.cliente_views_model import Cliente
 from config import settings
 
-# Definir una variable global fuera de la clase
 FOLDER_TEMPLATE = 'app/pago'
 
 class PagoListView(LoginRequiredMixin, View):
     template_name = FOLDER_TEMPLATE + '/list.html'
-    items_por_pagina = settings.ITEMS_POR_PAGINA  # Eliminar duplicado
+    items_por_pagina = settings.ITEMS_POR_PAGINA  
 
     def get(self, request, *args, **kwargs):
-        query = request.GET.get('q', '').strip()
-        coleccion = Cliente.objects.all()
+        cedula = request.GET.get('cedula', 0)
+        print(cedula)
 
-        if query:
-            # Búsqueda en todos los campos del modelo
-            coleccion = coleccion.filter(
-                Q(cedula__icontains=query) |
-                Q(nombre__icontains=query) |
-                Q(apellido__icontains=query) |
-                Q(timbrado__icontains=query) |
-                Q(celular__icontains=query) |
-                Q(email__icontains=query) |
-                Q(direccion__icontains=query)
-            )
+        # Obtener el cliente filtrando por cédula
+        cliente = Cliente.objects.filter(cedula=cedula).first()  # Obtiene el primer cliente que coincida
 
-        # Resto del código de paginación...
-        paginator = Paginator(coleccion, self.items_por_pagina)
-        page = request.GET.get('page', 1)
+        if cliente:
+            # Filtrar los pagos asociados a este cliente
+            pagos = Pagos.objects.filter(cliente=cliente)
+        else:
+            pagos = []
 
-        try:
-            lista = paginator.page(page)
-        except PageNotAnInteger:
-            lista = paginator.page(1)
-        except EmptyPage:
-            lista = paginator.page(paginator.num_pages)
+        # Obtener todos los clientes
+        clientes = Cliente.objects.all()
 
         contexto = {
-            'lista': lista,
-            'q': query,
+            'clientes': clientes,  
+            'cedula': cedula,
+            'pagos': pagos,  # Pasar los pagos al contexto
         }
 
         return render(request, self.template_name, contexto)
-    
-
-
