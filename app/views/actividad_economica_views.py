@@ -20,6 +20,7 @@ class ActividadEconomicaListView(LoginRequiredMixin, View):
 
     template_name = FOLDER_TEMPLATE + '/list.html'
     items_por_pagina = settings.ITEMS_POR_PAGINA  
+    max_page_links = settings.MAX_PAGE_LINKS 
 
     def get(self, request, *args, **kwargs):
         query = request.GET.get('q', '').strip()  # Obtener parámetro de búsqueda
@@ -40,9 +41,24 @@ class ActividadEconomicaListView(LoginRequiredMixin, View):
         except EmptyPage:
             lista = paginator.page(paginator.num_pages)
 
+
+
+        # Rango de páginas a mostrar 
+        current_page = lista.number
+        total_pages = paginator.num_pages
+        
+        start_page = max(current_page - self.max_page_links, 1)
+        end_page = min(current_page + self.max_page_links, total_pages)
+
+        # Páginas visibles
+        page_range = range(start_page, end_page + 1)
+
+
+
         contexto = {
             'lista': lista,
-            'q': query,  # Mantener el valor en el formulario de búsqueda
+            'q': query,  
+            'page_range': page_range,
         }
 
         return render(request, self.template_name, contexto)

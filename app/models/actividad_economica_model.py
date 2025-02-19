@@ -10,7 +10,8 @@ class ActividadEconomica(models.Model):
         managed = False
         db_table = 'actividad_economica'
 
-
+    def __str__(self):
+        return f"{self.actividad} - {self.descripcion}"  # Representación legible
 
 
 

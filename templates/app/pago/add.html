@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+
+
+
+    <div class="card">
+
+        <div class="card-header">
+            <h5 class="mb-0">Pago</h5>  
+        </div>
+
+
+        <div class="card-body">
+
+            <form method="post" id="form" action="{% url 'pago:add' cliente_id=cliente_id %}">
+
+                {% include 'app/pago/form.html' %}
+
+            </form>
+        
+
+            <!-- Línea divisoria (usando clase MDB) -->
+            <hr class="my-4">
+
+            <!-- Botones fuera del formulario -->
+            <div class="d-grid gap-2 d-md-flex">    
+
+            
+                <button data-mdb-ripple-init 
+                    type="button" 
+                    id="registro_add"
+                    data-url="{% url 'pago:add' cliente_id=cliente_id %}"
+                    class="btn btn-primary">Agregar
+                </button>
+            
+
+                <a href="{% url 'pago:list' %}?cedula={{ cliente.cedula }}" 
+                    data-mdb-ripple-init 
+                    type="button" 
+                    class="btn btn-secondary">Cancelar
+                </a>
+
+            </div>
+
+
+
+
+        </div>
+        
+
+    </div>
+
+
+
+</div>
+{% endblock %}
+
+
+
+
+{% block extrascripts %}  
+    <script src="{% static 'js/pago.js' %}"></script>
+{% endblock %}

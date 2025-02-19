@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'app',
 ]
 
@@ -107,7 +108,7 @@ AUTH_PASSWORD_VALIDATORS = []
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'es'
+LANGUAGE_CODE = 'es-PY'
 
 TIME_ZONE = 'UTC'
 
@@ -144,8 +145,9 @@ LOGIN_URL = 'login'
 LOGOUT_REDIRECT_URL = 'login'  
 
 
-# Definir la constante
-ITEMS_POR_PAGINA = 14
+# Definir constantes
+ITEMS_POR_PAGINA = 14  # Número de elementos por página
+MAX_PAGE_LINKS = 5  # Número máximo de páginas visibles
 
 
 

@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="container mt-4">
+
+
+
+    <div class="card">
+
+        <div class="card-header">
+            <h5 class="mb-0">Pago</h5>  
+        </div>
+
+
+        <div class="card-body">
+
+            <form method="post" id="form" 
+                action="#">
+
+
+                {% include 'app/pago/form.html' %}
+
+            </form>
+        
+
+            <!-- Línea divisoria (usando clase MDB) -->
+            <hr class="my-4">
+
+            <!-- Botones fuera del formulario -->
+            <div class="d-grid gap-2 d-md-flex">    
+
+            
+                <a href="{% url 'pago:list' %}?cedula={{ registro.cliente.cedula  }}" 
+                    data-mdb-ripple-init 
+                    type="button" 
+                    class="btn btn-secondary">Volver
+                </a>
+
+            </div>
+
+
+
+
+        </div>
+        
+
+    </div>
+
+
+
+</div>
+{% endblock %}
+
+
+
+
+{% block extrascripts %}  
+<script>
+    window.onload = function() {
+
+
+        var inputs = document.querySelectorAll('input, textarea, select');
+        inputs.forEach(function(input) {
+            input.disabled = true;
+        });
+
+
+    }
+</script>
+
+{% endblock %}

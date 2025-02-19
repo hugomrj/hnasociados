@@ -9,17 +9,17 @@
     <div class="card">
 
         <div class="card-header">
-            <h5 class="mb-0">Actividad Económica</h5>  
+            <h5 class="mb-0">Pago</h5>  
         </div>
 
 
         <div class="card-body">
 
             <form method="post" id="form" 
-                action="#">
+                action="{% url 'pago:edit' pk=registro.pk %}">
 
 
-                {% include 'app/actividad_economica/form.html' %}
+                {% include 'app/pago/form.html' %}
 
             </form>
         
@@ -31,12 +31,17 @@
             <div class="d-grid gap-2 d-md-flex">    
 
             
+                <button data-mdb-ripple-init 
+                    type="button" 
+                    id="registro_edit"
+                    class="btn btn-primary">Editar
+                </button>
+            
 
-
-                <a href="{% url 'actividad_economica:list' %}"
+                <a href="{% url 'pago:list' %}?cedula={{ registro.cliente.cedula  }}" 
                     data-mdb-ripple-init 
                     type="button" 
-                    class="btn btn-secondary">Volver
+                    class="btn btn-secondary">Cancelar
                 </a>
 
             </div>
@@ -58,15 +63,5 @@
 
 
 {% block extrascripts %}  
-<script>
-    window.onload = function() {
-
-        var inputs = document.querySelectorAll('input, textarea, select');
-        inputs.forEach(function(input) {
-            input.disabled = true;
-        });
-        
-    }
-</script>
-
+<script src="{% static 'js/pago.js' %}"></script>
 {% endblock %}

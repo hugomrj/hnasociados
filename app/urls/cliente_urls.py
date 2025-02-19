@@ -25,6 +25,9 @@ urlpatterns = [
     path('delete/<int:pk>/', ClienteDeleteView.as_view(), name='delete'), 
     path('detail/<int:pk>/', ClienteDetailView.as_view(), name='detail'),
 
+
+
+
 ]     
 
 

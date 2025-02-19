@@ -10,7 +10,7 @@ from django.urls import reverse
 from django.views import View
 
 
-from app.models.cliente_views_model import Cliente, ClienteForm
+from app.models.cliente_model import Cliente, ClienteForm
 from config import settings
 
 # Definir una variable global fuera de la clase
@@ -18,14 +18,14 @@ FOLDER_TEMPLATE = 'app/cliente'
 
 class ClienteListView(LoginRequiredMixin, View):
     template_name = FOLDER_TEMPLATE + '/list.html'
-    items_por_pagina = settings.ITEMS_POR_PAGINA  # Eliminar duplicado
+    items_por_pagina = settings.ITEMS_POR_PAGINA
+    max_page_links = settings.MAX_PAGE_LINKS 
 
     def get(self, request, *args, **kwargs):
         query = request.GET.get('q', '').strip()
         coleccion = Cliente.objects.all()
 
         if query:
-            # Búsqueda en todos los campos del modelo
             coleccion = coleccion.filter(
                 Q(cedula__icontains=query) |
                 Q(nombre__icontains=query) |
@@ -36,7 +36,6 @@ class ClienteListView(LoginRequiredMixin, View):
                 Q(direccion__icontains=query)
             )
 
-        # Resto del código de paginación...
         paginator = Paginator(coleccion, self.items_por_pagina)
         page = request.GET.get('page', 1)
 
@@ -47,9 +46,20 @@ class ClienteListView(LoginRequiredMixin, View):
         except EmptyPage:
             lista = paginator.page(paginator.num_pages)
 
+        # Rango de páginas a mostrar 
+        current_page = lista.number
+        total_pages = paginator.num_pages
+
+        start_page = max(current_page - self.max_page_links, 1)
+        end_page = min(current_page + self.max_page_links, total_pages)
+
+        # Páginas visibles
+        page_range = range(start_page, end_page + 1)
+
         contexto = {
             'lista': lista,
             'q': query,
+            'page_range': page_range,
         }
 
         return render(request, self.template_name, contexto)
@@ -66,9 +76,6 @@ class ClienteCreateView(LoginRequiredMixin, View):
         form = ClienteForm()
         return render(request, self.template_name, {'form': form})
     
-
-
-
 
     def post(self, request, *args, **kwargs):
         # Procesar el formulario cuando se envía
@@ -103,6 +110,8 @@ class ClienteCreateView(LoginRequiredMixin, View):
             # Si el formulario no es válido, renderiza de nuevo con errores
             return render(request, self.template_name, {'form': form})
         
+
+
 
 
 
@@ -151,7 +160,6 @@ class ClienteUpdateView(LoginRequiredMixin, View):
                     error_message += f'\n{field.capitalize()}: {field_error}'
             
             messages.error(request, error_message)
-
                
             contexto = { 
                 'form': form, 
@@ -202,8 +210,8 @@ class ClienteDeleteView(LoginRequiredMixin, View):
 
 
 
-class ClienteDetailView(LoginRequiredMixin, View):
-    template_name = 'app/cliente/detail.html'
+class ClienteDetailView(LoginRequiredMixin, View):    
+    template_name = FOLDER_TEMPLATE + '/detail.html'
 
     def get(self, request, pk, *args, **kwargs):
         # Obtener el objeto a mostrar o devolver 404 si no existe

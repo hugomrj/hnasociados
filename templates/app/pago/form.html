@@ -1,0 +1,57 @@
+{% csrf_token %}
+{% load custom_filters %}
+
+
+<div class="mb-4 row">
+    <div class="form-field col-md-6 col-lg-4">
+        <div class="row">
+            <label for="fecha" class="col-form-label">Fecha</label>
+            <div class="col-sm-8">
+                <input type="date" 
+                    name="fecha"  
+                    class="form-control" 
+                    id="fecha"                                                 
+                    value="{{ form.fecha.value|date:'Y-m-d'|default:'' }}">  
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="mb-4 row">
+    <div class="form-field col-md-6 col-lg-4">
+        <div class="row">
+            <label for="monto" class="col-form-label">Monto</label>
+            <div class="col-sm-8">
+                <input type="text" 
+                    name="monto"  
+                    class="form-control" 
+                    id="monto"                     
+                    value="{{  form.monto.value|default_if_none:'0'|intcomma_dot  }}">    
+                    
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="mb-4 row">
+    <div class="form-field col-md-8">
+        <div class="row">
+            <label for="actividad_economica" class="col-form-label">Activi Econ</label>
+            <div class="col-sm-8">
+                <select name="actividad_economica" 
+                    class="form-control" 
+                    id="actividad_economica">
+                    <option value="">Seleccionar actividad económica</option>
+                    {% for actividad in form.actividad_economica.field.queryset %}
+                        <option value="{{ actividad.pk }}" 
+                            {% if form.actividad_economica.value|default_if_none:'' == actividad.pk %}selected{% endif %}>
+                            {{ actividad }}
+                        </option>
+                    {% endfor %}
+                </select>                        
+            </div>
+        </div>
+    </div>
+</div>
