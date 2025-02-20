@@ -1,8 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% load custom_filters %}
-
 
 {% block content %}
 <div class="container mt-4">
@@ -55,7 +53,7 @@
                                     name="cedula"  
                                     class="form-control" 
                                     id="cedula"
-                                    value="{{ cedula|intcomma_dot }}"  
+                                    value="{{ cedula }}"  
                                     disabled>                  
                             </div>
                         </div>
@@ -100,7 +98,7 @@
                         
                         <td>{{ item.fecha }}</td>
                         <td>{{ item.actividad_economica }}</td>
-                        <td>{{ item.monto|intcomma_dot }}</td>
+                        <td>{{ item.monto }}</td>
                         
                         <td class="text-center">
                             <div class="d-flex justify-content-center gap-2">
@@ -116,10 +114,12 @@
             
                                 <a href="#" class="text-danger p-0 delete-btn" 
                                    title="Borrar"
-                                   data-item-id="{{ item.cliente.pk }}"
-                                   data-delete-url="{% url 'cliente:delete' item.cliente.pk %}">
+                                   data-item-id="{{ item.pk }}"
+                                   data-delete-url="{% url 'pago:delete' item.pk %}">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
+
+
                             </div>
                         </td>
                     </tr>
@@ -148,6 +148,8 @@
 
 
 {% block extrascripts %}  
+<script src="{% static 'js/common.js' %}"></script>
+
 <script>
 
     document.addEventListener("DOMContentLoaded", function() {

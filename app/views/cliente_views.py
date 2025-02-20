@@ -1,10 +1,11 @@
 from datetime import datetime as dt
+from django.db.models.functions import Concat
 
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db import IntegrityError
-from django.db.models import Q
+from django.db.models import Q, Value
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.views import View
@@ -26,15 +27,23 @@ class ClienteListView(LoginRequiredMixin, View):
         coleccion = Cliente.objects.all()
 
         if query:
-            coleccion = coleccion.filter(
-                Q(cedula__icontains=query) |
-                Q(nombre__icontains=query) |
-                Q(apellido__icontains=query) |
-                Q(timbrado__icontains=query) |
-                Q(celular__icontains=query) |
-                Q(email__icontains=query) |
-                Q(direccion__icontains=query)
+            # Concatenar los campos relevantes en una sola cadena
+            coleccion = coleccion.annotate(
+                full_text=Concat(
+                    'nombre', Value(' '),
+                    'apellido', Value(' '),
+                    'cedula', Value(' '),
+                    'timbrado', Value(' '),
+                    'celular', Value(' '),
+                    'email', Value(' '),
+                    'direccion',
+                )
             )
+
+            # Filtrar por la concatenación
+            coleccion = coleccion.filter(full_text__icontains=query)
+
+
 
         paginator = Paginator(coleccion, self.items_por_pagina)
         page = request.GET.get('page', 1)

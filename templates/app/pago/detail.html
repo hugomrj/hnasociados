@@ -57,17 +57,20 @@
 
 
 {% block extrascripts %}  
-<script>
-    window.onload = function() {
+<script>    
 
+    window.addEventListener('load', function () {        
+            formatearNumeros();
 
-        var inputs = document.querySelectorAll('input, textarea, select');
-        inputs.forEach(function(input) {
-            input.disabled = true;
-        });
+            var inputs = document.querySelectorAll('input, textarea, select');
+            inputs.forEach(function(input) {
+                input.disabled = true;
+            });        
+    });
 
-
-    }
 </script>
 
 {% endblock %}
+
+
+

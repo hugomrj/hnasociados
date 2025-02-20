@@ -18,7 +18,6 @@
             <form method="post" id="form" 
                 action="{% url 'pago:edit' pk=registro.pk %}">
 
-
                 {% include 'app/pago/form.html' %}
 
             </form>
@@ -63,5 +62,12 @@
 
 
 {% block extrascripts %}  
-<script src="{% static 'js/pago.js' %}"></script>
+    <script src="{% static 'js/common.js' %}"></script>
+
+<script>    
+    window.addEventListener('load', function () {        
+        formatearNumeros()
+    });
+</script>
+
 {% endblock %}

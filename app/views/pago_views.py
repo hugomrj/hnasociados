@@ -186,15 +186,16 @@ class PagoUpdateView(LoginRequiredMixin, View):
 
         contexto = { 
             'form': form, 
-            'registro': registro
+            'registro': registro,
             }  
 
         return render(request, self.template_name, contexto)
     
 
 
-
     def post(self, request, pk, *args, **kwargs):
+
+
         # Obtener el objeto a editar
         registro = get_object_or_404(Pago, pk=pk)
         
@@ -203,11 +204,11 @@ class PagoUpdateView(LoginRequiredMixin, View):
         
         if form.is_valid():
             # Guardar cambios si el formulario es válido
-            form.save()
+            form.save() 
             
             message = 'El registro se ha actualizado correctamente.'
-            messages.success(request, message)
-            return redirect('cliente:list')
+            messages.success(request, message)            
+            return redirect(f"{reverse('pago:list')}?cedula={registro.cliente.cedula}")
         
         else:
             # Manejar errores de validación
@@ -221,11 +222,11 @@ class PagoUpdateView(LoginRequiredMixin, View):
 
             contexto = {
                 'form': form,
-                'registro': registro                
+                'registro': registro
             }       
                 
 
-            return render(request,self.template_name,  contexto )
+            return render(request, self.template_name,  contexto )
         
 
 
@@ -246,12 +247,45 @@ class PagoDetailView(LoginRequiredMixin, View):
             'form': form, 
             'registro': registro
             }  
-
         
 
         # Renderizar la plantilla con el contexto
         return render(request, self.template_name, contexto)
 
+
+
+
+
+
+
+
+
+
+
+class PagoDeleteView(LoginRequiredMixin, View):
+    
+    def post(self, request, pk):
+        try:
+            # Intentamos obtener el registro
+            registro = get_object_or_404(Pago, pk=pk)
+            cedula = registro.cliente.cedula
+
+            # Si no hay error, eliminamos el registro
+            registro.delete()
+
+            # Agrega un mensaje de éxito
+            messages.success(request, 'El registro ha sido eliminado correctamente.')
+
+        except IntegrityError as e:
+            # Si ocurre un error de integridad, mostramos un mensaje de error
+            messages.error(request, f"Error al eliminar el registro: {str(e)}")
+
+        except Exception as e:
+            # Para otros errores, capturamos el error general
+            messages.error(request, f"Hubo un problema al intentar eliminar el registro: {str(e)}")
+
+        # Redirige a la URL obtenida        
+        return redirect(f"{reverse('pago:list')}?cedula={cedula}")
 
 
 

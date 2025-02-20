@@ -25,7 +25,8 @@
 
                 <!-- Formulario de Búsqueda -->
                 <form class="d-flex" method="GET" >
-                    <div class="input-group input-group-sm">
+                    
+                    <div class="input-group input-group-sm"> 
 
                         <input type="text" class="form-control" 
                         placeholder="Buscar..." name="q" value="{{ request.GET.q }}">
@@ -124,5 +125,5 @@
 
 
 {% block extrascripts %}  
-    <script src="{% static 'js/cliente.js' %}"></script>
+    <script src="{% static 'js/common.js' %}"></script>
 {% endblock %}
