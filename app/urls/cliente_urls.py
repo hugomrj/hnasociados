@@ -6,7 +6,9 @@ from app.views.cliente_views import (
     ClienteDeleteView,
     ClienteDetailView,
     ClienteListView,
-    ClienteUpdateView
+    ClienteUpdateView,
+
+    ClienteDetalleCreateView
 )
 
 
@@ -25,6 +27,9 @@ urlpatterns = [
     path('delete/<int:pk>/', ClienteDeleteView.as_view(), name='delete'), 
     path('detail/<int:pk>/', ClienteDetailView.as_view(), name='detail'),
 
+
+
+    path('clientedetalle/', ClienteDetalleCreateView.as_view(), name='clientedetalle'),
 
 
 

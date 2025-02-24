@@ -6,6 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db import IntegrityError
 from django.db.models import Q, Value
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.views import View
@@ -75,6 +76,41 @@ class ClienteListView(LoginRequiredMixin, View):
     
 
 
+class ClienteDetalleCreateView(LoginRequiredMixin, View):
+    template_name = FOLDER_TEMPLATE + '/add.html'
+
+    def post(self, request, *args, **kwargs):
+        # Usamos el formulario directamente con los datos de request.POST
+        form = ClienteForm(request.POST)
+
+        # Imprimir los datos recibidos en consola
+        print("Datos recibidos:", request.POST)
+
+        if form.is_valid():
+            # Solo mostramos los datos, no guardamos nada
+            print("Formulario válido con los datos:", form.cleaned_data)
+
+            # Enviamos una respuesta de éxito
+            #  return JsonResponse({'success': True, 'message': 'Datos recibidos correctamente'})
+
+        # Si el formulario no es válido, enviamos los errores
+        # print("Errores en el formulario:", form.errors)
+        # return JsonResponse({'success': False, 'errors': form.errors})
+
+        detalles = [
+            {"cliente": 1, "actividad": 101},
+        ]        
+
+        contexto = { 
+            'form': form, 
+            'detalles': detalles
+        }         
+            
+
+        return render(request, self.template_name, contexto )
+
+
+
 
 
 class ClienteCreateView(LoginRequiredMixin, View):    
@@ -83,7 +119,20 @@ class ClienteCreateView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         # Inicializamos el formulario vacío para el GET
         form = ClienteForm()
-        return render(request, self.template_name, {'form': form})
+        detalles = [] 
+
+
+        detalles = [
+            {"cliente": 1, "actividad": 101},
+        ]        
+
+        contexto = { 
+            'form': form, 
+            'detalles': detalles
+        }         
+            
+
+        return render(request, self.template_name, contexto )
     
 
     def post(self, request, *args, **kwargs):

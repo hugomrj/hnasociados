@@ -63,4 +63,44 @@
 
 {% block extrascripts %}  
     <script src="{% static 'js/common.js' %}"></script>
+
+    <script>
+
+        window.onload = function() {
+
+            document.getElementById("btn_agregar_det").addEventListener("click", function() {
+
+    var form = document.getElementById('form');
+    var formData = new FormData(form);
+    var url = "{% url 'cliente:clientedetalle' %}";
+
+    fetch(url, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        window.location.href = url;  // Redirigir a la vista
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+
+
+
+            });
+
+
+
+        }
+
+
+
+
+    </script>
+
 {% endblock %}

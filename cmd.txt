@@ -1,0 +1,8 @@
+linux
+
+cd
+source venv/bin/activate
+
+python manage.py runserver
+
+http://localhost:8000/hnasociados/
