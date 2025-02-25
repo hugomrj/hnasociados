@@ -109,7 +109,7 @@
 
 
 
-<div class="mb-4 row"></div>
+<div class="mb-4 row">
 
 
     <div class="d-flex justify-content-between align-items-center mb-3">
@@ -126,27 +126,43 @@
 
 
 
-    <table class="table table-striped  table-sm">
-        <thead>
-            <tr class="table-primary" >
+    {{ formset.management_form }}
 
-                <th class="text-center text-nowrap">codigo</th>
-                <th class="text-center text-nowrap">actividad economica</th>
-                <th class="text-center text-nowrap">Acciones</th>
+    <table class="table table-striped table-sm">
+        <thead>
+            <tr class="table-primary">
+                <th class="text-center text-nowrap">Código</th>
+                <th class="text-center text-nowrap">Actividad Económica</th>
+                <th class="text-center text-nowrap">Eliminar</th>
             </tr>
         </thead>
-        <tbody class="table-group-divider table-hover" >
 
-            {% for detalle in detalles %}
+        <tbody class="table-group-divider table-hover">
             <tr>
-                <td>{{ detalle.cliente }}</td>
-                <td>{{ detalle.actividad }}</td>
+                <td>C001</td>
+                <td>Descripción 1</td>
+                <td><button>Eliminar</button></td>
+            </tr>
+            <tr>
+                <td>C002</td>
+                <td>Descripción 2</td>
+                <td><button>Eliminar</button></td>
+            </tr>
+
+            {% for actividad in actividades %}
+            <tr>
+                <td>{{ actividad.codigo }}</td>
+                <td>{{ actividad.descripcion }}</td>
+                <td><button>Eliminar</button></td>
             </tr>
             {% endfor %}
 
         </tbody>
+    
+
 
     </table>
+
 
 
 

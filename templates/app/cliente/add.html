@@ -70,25 +70,29 @@
 
             document.getElementById("btn_agregar_det").addEventListener("click", function() {
 
-    var form = document.getElementById('form');
-    var formData = new FormData(form);
-    var url = "{% url 'cliente:clientedetalle' %}";
+                var form = document.getElementById('form');
+                var rows = document.querySelectorAll('table tbody tr');
+                //var formData = new FormData(form);
 
-    fetch(url, {
-        method: 'POST',
-        body: formData,
-        headers: {
-            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-        window.location.href = url;  // Redirigir a la vista
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
+
+                // Agregar los datos de la tabla como campos ocultos
+                rows.forEach((row, index) => {
+                    var inputCodigo = document.createElement('input');
+                    inputCodigo.type = 'hidden';
+                    inputCodigo.name = `codigo${index + 1}`;
+                    inputCodigo.value = row.cells[0].textContent.trim();
+                    form.appendChild(inputCodigo);
+
+                    var inputDescripcion = document.createElement('input');
+                    inputDescripcion.type = 'hidden';
+                    inputDescripcion.name = `descripcion${index + 1}`;
+                    inputDescripcion.value = row.cells[1].textContent.trim();
+                    form.appendChild(inputDescripcion);
+                });
+
+                // Establecer la acción del formulario y enviarlo
+                form.action = "{% url 'cliente:clientedetalle' %}";
+                form.submit();  // Enviar el formulario
 
 
 

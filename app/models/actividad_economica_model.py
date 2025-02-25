@@ -19,3 +19,5 @@ class ActividadEconomicaForm(forms.ModelForm):
     class Meta:
         model = ActividadEconomica
         fields = ['actividad', 'descripcion']
+
+        

@@ -79,37 +79,36 @@ class ClienteListView(LoginRequiredMixin, View):
 class ClienteDetalleCreateView(LoginRequiredMixin, View):
     template_name = FOLDER_TEMPLATE + '/add.html'
 
+    
     def post(self, request, *args, **kwargs):
-        # Usamos el formulario directamente con los datos de request.POST
+        # Crear el formulario del cliente con los datos de request.POST
         form = ClienteForm(request.POST)
+        
+        # Recoger los datos de las actividades (que se enviaron como campos ocultos)
+        actividades = []
+        for key, value in request.POST.items():
+            if key.startswith('codigo'):
+                actividad_codigo = value
+                descripcion = request.POST.get(f"descripcion{key[6:]}", '')
+                actividades.append({
+                    "codigo": actividad_codigo,
+                    "descripcion": descripcion
+                })
 
         # Imprimir los datos recibidos en consola
-        print("Datos recibidos:", request.POST)
+        print("Datos recibidos del formulario:", request.POST)
+        print("Datos de las actividades:", actividades)
 
         if form.is_valid():
             # Solo mostramos los datos, no guardamos nada
             print("Formulario válido con los datos:", form.cleaned_data)
+            # Lógica de procesamiento, si fuera necesario
 
-            # Enviamos una respuesta de éxito
-            #  return JsonResponse({'success': True, 'message': 'Datos recibidos correctamente'})
-
-        # Si el formulario no es válido, enviamos los errores
-        # print("Errores en el formulario:", form.errors)
-        # return JsonResponse({'success': False, 'errors': form.errors})
-
-        detalles = [
-            {"cliente": 1, "actividad": 101},
-        ]        
-
-        contexto = { 
-            'form': form, 
-            'detalles': detalles
-        }         
-            
-
-        return render(request, self.template_name, contexto )
-
-
+        # Pasar los datos de actividades y el formulario al template
+        return render(request, self.template_name, {
+            'form': form,
+            'actividades': actividades
+        })
 
 
 

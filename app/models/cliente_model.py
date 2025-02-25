@@ -1,6 +1,8 @@
 from django import forms
 from django.db import models
 
+from app.models.cliente_actividad_model import ClientesActividades, ClientesActividadesForm
+
 
 class Cliente (models.Model):
     cliente = models.AutoField(primary_key=True)
@@ -27,3 +29,12 @@ class ClienteForm(forms.ModelForm):
 
 
     
+
+# Creamos un formset para las actividades
+ClientesActividadesFormSet = forms.inlineformset_factory(
+    Cliente,  # Modelo principal
+    ClientesActividades,  # Modelo relacionado
+    form=ClientesActividadesForm,  # Formulario para el modelo relacionado
+    extra=1
+)
+
