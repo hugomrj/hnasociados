@@ -70,6 +70,13 @@
 
             document.getElementById("btn_agregar_det").addEventListener("click", function() {
 
+                // abrir modal
+                const modal = new mdb.Modal(document.getElementById('btn_agregar_det'));
+                modal.show();
+
+
+
+                /*
                 var form = document.getElementById('form');
                 var rows = document.querySelectorAll('table tbody tr');
                 //var formData = new FormData(form);
@@ -94,7 +101,7 @@
                 form.action = "{% url 'cliente:clientedetalle' %}";
                 form.submit();  // Enviar el formulario
 
-
+                */
 
             });
 
