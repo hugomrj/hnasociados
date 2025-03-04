@@ -1,6 +1,7 @@
 {% csrf_token %}
 
 
+
 <div class="mb-4 row">
     <div class="form-field col-md-6">
         <div class="row">
@@ -112,11 +113,21 @@
 <div class="mb-4 row">
 
 
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#exampleModal">
-    Launch demo modal
-  </button>
-  
+    <!-- Button trigger modal -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <!-- Botón Agregar -->
+        <button id="btn_agregar_det"
+            type="button" 
+            class="btn btn-outline-primary btn-sm"
+            data-mdb-ripple-init data-mdb-modal-init data-mdb-target="#exampleModal"
+            style="width: 120px;">
+            Agregar 
+        </button>
+    </div>
+
+    
+
+
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -135,20 +146,6 @@
   </div>
 
 
-
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <!-- Botón Agregar -->
-        <button id="btn_agregar_det"
-            type="button" 
-            class="btn btn-outline-primary btn-sm" 
-            
-            data-mdb-target="#modal_add_cliente_detalle"
-            style="width: 120px;">
-            Agregar 
-        </button>
-
-
-    </div>
 
 
 
