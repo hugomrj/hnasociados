@@ -9,17 +9,17 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Actividade Economica</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Detalle</h5>
           <button type="button" class="btn-close" data-mdb-ripple-init data-mdb-dismiss="modal" aria-label="Close"></button>
         </div>
 
         <div class="modal-body">
-          <label for="selectOption" class="form-label">Elige una opción:</label>
+          <label for="selectOption" class="form-label">Actividad Economica:</label>
           <select id="selectOption" name="option" class="form-select">
             <option value="" disabled selected>Seleccione...</option>
-            <option value="1">Opción 1</option>
-            <option value="2">Opción 2</option>
-            <option value="3">Opción 3</option>
+            {% for actividad in actividades %}
+              <option value="{{ actividad.actividad }}">{{ actividad.descripcion }}</option>
+            {% endfor %}
           </select>
         </div>
 

@@ -12,6 +12,7 @@ from django.urls import reverse
 from django.views import View
 
 
+from app.models.actividad_economica_model import ActividadEconomica
 from app.models.cliente_model import Cliente, ClienteForm
 from config import settings
 
@@ -79,21 +80,33 @@ class ClienteListView(LoginRequiredMixin, View):
 class ClienteDetalleCreateView(LoginRequiredMixin, View):
     template_name = FOLDER_TEMPLATE + '/add.html'
 
-    
     def post(self, request, *args, **kwargs):
-        # Crear el formulario del cliente con los datos de request.POST
         form = ClienteForm(request.POST)
-        
-        # Recoger los datos de las actividades (que se enviaron como campos ocultos)
-        actividades = []
+        detalles = []
+        actividades = ActividadEconomica.objects.all()
+
         for key, value in request.POST.items():
             if key.startswith('codigo'):
                 actividad_codigo = value
                 descripcion = request.POST.get(f"descripcion{key[6:]}", '')
-                actividades.append({
+                detalles.append({
                     "codigo": actividad_codigo,
                     "descripcion": descripcion
                 })
+
+        contexto = { 
+            'form': form, 
+            'detalles': detalles,
+            'actividades': actividades
+        }         
+            
+
+
+        # Guardar detalles en la sesión para pasarlos a la siguiente vista
+        request.session['detalles'] = detalles
+        return render(request, self.template_name, contexto )
+
+
 
         # Imprimir los datos recibidos en consola
         print("Datos recibidos del formulario:", request.POST)
@@ -112,6 +125,11 @@ class ClienteDetalleCreateView(LoginRequiredMixin, View):
 
 
 
+
+
+
+
+
 class ClienteCreateView(LoginRequiredMixin, View):    
     template_name = FOLDER_TEMPLATE + '/add.html'
     
@@ -120,14 +138,12 @@ class ClienteCreateView(LoginRequiredMixin, View):
         form = ClienteForm()
         detalles = [] 
 
-
-        detalles = [
-            {"cliente": 1, "actividad": 101},
-        ]        
+        actividades = ActividadEconomica.objects.all()
 
         contexto = { 
             'form': form, 
-            'detalles': detalles
+            'detalles': detalles,
+            'actividades': actividades
         }         
             
 

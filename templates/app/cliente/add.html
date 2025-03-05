@@ -67,21 +67,58 @@
 
         window.onload = function() {
 
-
-
             document.getElementById("btn_agregar_det").addEventListener("click", function() {
 
                 // abrir modal
                 
                 const modal = new mdb.Modal(document.getElementById('modal_add_detalle'));
                 modal.show();
+
+
                 
 
+                document.getElementById("agregarActividadEconomica").onclick = function() {
 
-                let agregar = document.getElementById("agregarActividadEconomica");
-                agregar.onclick = function() {
-                    alert("Botón clickeado");
+                    let select = document.getElementById("selectOption");
+                    
+                    if (!select.value) {
+                        alert("Seleccione una actividad económica.");
+                        return;
+                    }
+
+                    // Crear el formulario dinámicamente
+                    let form = document.createElement("form");
+                    form.method = "POST";
+                    form.action = "{% url 'cliente:clientedetalle' %}";
+
+                    // Agregar el token CSRF
+                    let csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
+                    let csrfInput = document.createElement("input");
+                    csrfInput.type = "hidden";
+                    csrfInput.name = "csrfmiddlewaretoken";
+                    csrfInput.value = csrfToken;
+                    form.appendChild(csrfInput);
+
+                    // Campo para el ID de la actividad
+                    let codigoInput = document.createElement("input");
+                    codigoInput.type = "hidden";
+                    codigoInput.name = "codigo";
+                    codigoInput.value = select.value;
+                    form.appendChild(codigoInput);
+
+                    // Campo para la descripción de la actividad
+                    let descripcionInput = document.createElement("input");
+                    descripcionInput.type = "hidden";
+                    descripcionInput.name = "descripcion";
+                    descripcionInput.value = select.options[select.selectedIndex].text;
+                    form.appendChild(descripcionInput);
+
+                    // Agregar el formulario al documento y enviarlo
+                    document.body.appendChild(form);
+                    form.submit();
                 };
+
+
 
                 /*
                 var form = document.getElementById('form');
@@ -111,6 +148,10 @@
                 */
 
             });
+
+
+
+            
 
 
 
