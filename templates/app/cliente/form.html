@@ -127,9 +127,6 @@
 
     {% include 'app/cliente/modal_add_detalle.html' %}
 
-
-
-
     
 
     {{ formset.management_form }}
@@ -144,22 +141,20 @@
         </thead>
 
         <tbody class="table-group-divider table-hover">
-            <tr>
-                <td>C001</td>
-                <td>Descripción 1</td>
-                <td><button>Eliminar</button></td>
-            </tr>
-            <tr>
-                <td>C002</td>
-                <td>Descripción 2</td>
-                <td><button>Eliminar</button></td>
-            </tr>
 
-            {% for actividad in actividades %}
+            {% for detalle in detalles %}
             <tr>
-                <td>{{ actividad.codigo }}</td>
-                <td>{{ actividad.descripcion }}</td>
-                <td><button>Eliminar</button></td>
+                <td>{{ detalle.codigo }}</td>
+                <td>{{ detalle.descripcion }}</td>
+                <td>
+                    <a href="#" class="text-danger p-0 delete-btn" 
+                        title="Borrar"
+                        data-item-id=""
+                        data-delete-url="">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+                </td>
+
             </tr>
             {% endfor %}
 

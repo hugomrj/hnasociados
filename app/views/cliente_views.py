@@ -82,17 +82,30 @@ class ClienteDetalleCreateView(LoginRequiredMixin, View):
 
     def post(self, request, *args, **kwargs):
         form = ClienteForm(request.POST)
-        detalles = []
+
+        # Recuperar los detalles previos de la sesión o inicializarlos
+        detalles = request.session.get('detalles', [])
+
         actividades = ActividadEconomica.objects.all()
 
+        # Agregar los nuevos datos sin borrar los anteriores
         for key, value in request.POST.items():
             if key.startswith('codigo'):
                 actividad_codigo = value
                 descripcion = request.POST.get(f"descripcion{key[6:]}", '')
-                detalles.append({
+                
+                nuevo_detalle = {
                     "codigo": actividad_codigo,
                     "descripcion": descripcion
-                })
+                }
+                
+                # Evitar duplicados
+                if nuevo_detalle not in detalles:
+                    detalles.append(nuevo_detalle)
+
+        # Guardar la lista actualizada en la sesión
+        request.session['detalles'] = detalles
+
 
         contexto = { 
             'form': form, 
@@ -101,9 +114,6 @@ class ClienteDetalleCreateView(LoginRequiredMixin, View):
         }         
             
 
-
-        # Guardar detalles en la sesión para pasarlos a la siguiente vista
-        request.session['detalles'] = detalles
         return render(request, self.template_name, contexto )
 
 
@@ -116,13 +126,6 @@ class ClienteDetalleCreateView(LoginRequiredMixin, View):
             # Solo mostramos los datos, no guardamos nada
             print("Formulario válido con los datos:", form.cleaned_data)
             # Lógica de procesamiento, si fuera necesario
-
-        # Pasar los datos de actividades y el formulario al template
-        return render(request, self.template_name, {
-            'form': form,
-            'actividades': actividades
-        })
-
 
 
 
@@ -145,7 +148,10 @@ class ClienteCreateView(LoginRequiredMixin, View):
             'detalles': detalles,
             'actividades': actividades
         }         
-            
+                    
+        request.session['detalles'] = []
+        request.session.modified = True  # Asegura que Django guarde el cambio
+
 
         return render(request, self.template_name, contexto )
     
