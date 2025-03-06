@@ -147,10 +147,10 @@
                 <td>{{ detalle.codigo }}</td>
                 <td>{{ detalle.descripcion }}</td>
                 <td>
-                    <a href="#" class="text-danger p-0 delete-btn" 
+                    <a href="#" class="text-danger p-0 delete-detalle" 
                         title="Borrar"
-                        data-item-id=""
-                        data-delete-url="">
+                        data-item-id="{{ detalle.codigo }}"
+                        data-delete-url="{% url 'cliente:clientedetalledelete' detalle.codigo %}">                        
                         <i class="fas fa-trash-alt"></i>
                     </a>
                 </td>
@@ -159,7 +159,6 @@
             {% endfor %}
 
         </tbody>
-    
 
 
     </table>

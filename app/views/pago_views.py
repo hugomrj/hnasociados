@@ -30,8 +30,6 @@ class PagoListView(LoginRequiredMixin, View):
         cliente = Cliente.objects.filter(cedula=cedula).first()  # Obtiene el primer cliente que coincida
 
         
-        
-
         if cliente:
             # Filtrar los pagos asociados a este cliente
             pagos = Pago.objects.filter(cliente=cliente).order_by('-fecha')

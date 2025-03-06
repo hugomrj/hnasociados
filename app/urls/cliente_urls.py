@@ -8,7 +8,8 @@ from app.views.cliente_views import (
     ClienteListView,
     ClienteUpdateView,
 
-    ClienteDetalleCreateView
+    ClienteDetalleCreateView,
+    ClienteDetalleDeleteView
 )
 
 
@@ -30,6 +31,7 @@ urlpatterns = [
 
 
     path('clientedetalle/', ClienteDetalleCreateView.as_view(), name='clientedetalle'),
+    path('clientedetalledelete/<int:pk>/', ClienteDetalleDeleteView.as_view(), name='clientedetalledelete'),
 
 
 

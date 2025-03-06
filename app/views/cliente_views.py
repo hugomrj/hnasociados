@@ -46,7 +46,6 @@ class ClienteListView(LoginRequiredMixin, View):
             coleccion = coleccion.filter(full_text__icontains=query)
 
 
-
         paginator = Paginator(coleccion, self.items_por_pagina)
         page = request.GET.get('page', 1)
 
@@ -127,6 +126,31 @@ class ClienteDetalleCreateView(LoginRequiredMixin, View):
             print("Formulario válido con los datos:", form.cleaned_data)
             # Lógica de procesamiento, si fuera necesario
 
+
+
+
+
+
+
+class ClienteDetalleDeleteView (LoginRequiredMixin, View):
+    template_name = FOLDER_TEMPLATE + '/add.html'
+    
+   
+
+    def post(self, request, pk):
+        form = ClienteForm(request.POST)
+
+        actividades = ActividadEconomica.objects.all()
+
+        print("---  delete ")
+
+        contexto = { 
+            'form': form, 
+            'actividades': actividades
+        }  
+
+        
+        return render(request, self.template_name, contexto )
 
 
 

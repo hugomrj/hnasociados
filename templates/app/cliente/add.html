@@ -69,13 +69,10 @@
 
             document.getElementById("btn_agregar_det").addEventListener("click", function() {
 
-                // abrir modal
-                
+                // abrir modal                
                 const modal = new mdb.Modal(document.getElementById('modal_add_detalle'));
                 modal.show();
 
-
-                
 
                 document.getElementById("agregarActividadEconomica").onclick = function() {
 
@@ -118,36 +115,63 @@
                     form.submit();
                 };
 
-
-
-                /*
-                var form = document.getElementById('form');
-                var rows = document.querySelectorAll('table tbody tr');
-                //var formData = new FormData(form);
-
-
-                // Agregar los datos de la tabla como campos ocultos
-                rows.forEach((row, index) => {
-                    var inputCodigo = document.createElement('input');
-                    inputCodigo.type = 'hidden';
-                    inputCodigo.name = `codigo${index + 1}`;
-                    inputCodigo.value = row.cells[0].textContent.trim();
-                    form.appendChild(inputCodigo);
-
-                    var inputDescripcion = document.createElement('input');
-                    inputDescripcion.type = 'hidden';
-                    inputDescripcion.name = `descripcion${index + 1}`;
-                    inputDescripcion.value = row.cells[1].textContent.trim();
-                    form.appendChild(inputDescripcion);
-                });
-
-                // Establecer la acción del formulario y enviarlo
-                form.action = "{% url 'cliente:clientedetalle' %}";
-                form.submit();  // Enviar el formulario
-
-                */
-
             });
+
+
+
+
+
+    const deleteButtons = document.querySelectorAll('.delete-detalle');
+
+    // Itera sobre cada botón de borrar
+    deleteButtons.forEach(button => {
+        button.addEventListener('click', function (e) {
+            e.preventDefault(); // Evita que el enlace redireccione
+
+
+
+
+console.log("boton delete")
+
+
+
+            // Obtén el ID del registro y la URL de eliminación
+            const itemId = this.getAttribute('data-item-id');
+            const deleteUrl = this.getAttribute('data-delete-url');
+
+            // Confirma con el usuario antes de eliminar
+            if (confirm('¿Estás seguro de que deseas eliminar este registro?')) {
+                // Envía una solicitud fetch para eliminar el registro
+                fetch(deleteUrl, {
+                    method: 'POST', // o 'DELETE' dependiendo de tu API
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}', // Incluye el token CSRF
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({}) // Puedes enviar datos adicionales si es necesario
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Si la eliminación fue exitosa, elimina la fila de la tabla
+                        const row = this.closest('tr');
+                        row.remove();
+                        alert('Registro eliminado correctamente.');
+                    } else {
+                        alert('Error al eliminar el registro.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error al eliminar el registro.');
+                });
+            }
+
+            
+        });
+    });
+
+
 
 
 
