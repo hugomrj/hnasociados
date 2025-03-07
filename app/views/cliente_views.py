@@ -13,6 +13,7 @@ from django.views import View
 
 
 from app.models.actividad_economica_model import ActividadEconomica
+from app.models.cliente_actividad_model import ClientesActividades
 from app.models.cliente_model import Cliente, ClienteForm
 from config import settings
 
@@ -128,31 +129,38 @@ class ClienteDetalleCreateView(LoginRequiredMixin, View):
 
 
 
-
-
-
-
-class ClienteDetalleDeleteView (LoginRequiredMixin, View):
+class ClienteDetalleDeleteView(LoginRequiredMixin, View):
     template_name = FOLDER_TEMPLATE + '/add.html'
-    
-   
 
     def post(self, request, pk):
-        form = ClienteForm(request.POST)
+        # Imprimir todos los datos recibidos en la solicitud POST
+        print("Datos recibidos en POST:", request.POST)
 
+        # Obtener la lista de detalles de la sesión
+        detalles = request.session.get('detalles', [])
+
+        # Obtener el ID del item a borrar
+        item_id = request.POST.get('item_id')
+        print("ID del item a borrar:", item_id)
+
+        # Filtrar la lista para eliminar el registro con el item_id especificado
+        detalles = [detalle for detalle in detalles if detalle['codigo'] != item_id]
+
+        # Guardar la lista actualizada en la sesión
+        request.session['detalles'] = detalles
+
+        # Obtener el formulario y las actividades económicas
+        form = ClienteForm(request.POST)
         actividades = ActividadEconomica.objects.all()
 
-        print("---  delete ")
+        # Contexto para renderizar la plantilla
+        contexto = {
+            'form': form,
+            'detalles': detalles,
+            'actividades': actividades,
+        }
 
-        contexto = { 
-            'form': form, 
-            'actividades': actividades
-        }  
-
-        
-        return render(request, self.template_name, contexto )
-
-
+        return render(request, self.template_name, contexto)
 
 
 
@@ -186,10 +194,26 @@ class ClienteCreateView(LoginRequiredMixin, View):
 
         # Procesar el formulario cuando se envía
         form = ClienteForm(request.POST)
+
+        # Obtener la lista de detalles de la sesión
+        detalles = request.session.get('detalles', [])
+
+        actividades = ActividadEconomica.objects.all()
         
         if form.is_valid():
             # Guardamos el formulario si es válido
-            form.save()
+            cliente = form.save()
+
+            # guardar detalles con cabecera de cliente  
+            # Guardar los detalles de las actividades
+            for detalle in detalles:
+                ClientesActividades.objects.create(
+                    cliente=cliente,  # Asociar al cliente recién creado
+                    actividad=detalle['codigo']  # Usar el código de la actividad
+                )
+
+            # Limpiar la lista de detalles de la sesión después de guardar
+            request.session['detalles'] = []
 
             message = 'El registro se ha agregado correctamente.'
             messages.success(request, message)
@@ -209,9 +233,16 @@ class ClienteCreateView(LoginRequiredMixin, View):
             print(f"Error al agregar registro: {error_message}")
 
             messages.error(request, error_message)
+
+            contexto = { 
+                'form': form, 
+                'detalles': detalles,
+                'actividades': actividades
+            }         
+                        
             
             # Si el formulario no es válido, renderiza de nuevo con errores
-            return render(request, self.template_name, {'form': form})
+            return render(request, self.template_name, contexto )
         
 
 
