@@ -178,7 +178,8 @@ class ClienteCreateView(LoginRequiredMixin, View):
         contexto = { 
             'form': form, 
             'detalles': detalles,
-            'actividades': actividades
+            'actividades': actividades,
+            'mostrar_accion': True
         }         
                     
         request.session['detalles'] = []
@@ -351,12 +352,43 @@ class ClienteDetailView(LoginRequiredMixin, View):
         # Obtener el objeto a mostrar o devolver 404 si no existe
         registro = get_object_or_404(Cliente, pk=pk)
         form = ClienteForm(instance=registro) 
-        
+
+
+        # Obtener la lista de actividades del cliente
+        cliente_actividad = ClientesActividades.objects.filter(cliente=registro).values("actividad")
+        print("Detalles:", list(cliente_actividad))  # Ver en consola
+
+        # Crear una lista para almacenar los detalles
+        detalles = []
+
+        # Obtener todas las descripciones en una sola consulta
+        actividades = ActividadEconomica.objects.filter(
+            actividad__in=[d["actividad"] for d in cliente_actividad]
+        ).values("actividad", "descripcion")
+
+        # Crear un diccionario {actividad_id: descripcion}
+        actividad_dict = {a["actividad"]: a["descripcion"] for a in actividades}
+
+        # Construir la lista de detalles
+        for d in cliente_actividad:
+            actividad_codigo = d["actividad"]
+            descripcion = actividad_dict.get(actividad_codigo, "Sin descripción")
+
+            detalles.append({
+                "codigo": actividad_codigo,
+                "descripcion": descripcion
+            })
+
+        # Mostrar en consola para verificar
+        print("Lista de detalles:", detalles)
+
         # Crear el contexto con el registro
         contexto = { 
             'form': form, 
-            'registro': registro
-            }  
+            'registro': registro,
+            'detalles': detalles,
+            'mostrar_accion': False
+        }  
 
         # Renderizar la plantilla con el contexto
         return render(request, self.template_name, contexto)

@@ -5,7 +5,7 @@ linux
 cd /home/hugo/python/django/hnasociados
 source venv/bin/activate
 python manage.py runserver
-    http://localhost:8000/hnasociados/
+http://localhost:8000/hnasociados/
 
 
 
