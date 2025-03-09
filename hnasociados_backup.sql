@@ -5,7 +5,7 @@
 -- Dumped from database version 16.6 (Ubuntu 16.6-0ubuntu0.24.04.1)
 -- Dumped by pg_dump version 16.6 (Ubuntu 16.6-0ubuntu0.24.04.1)
 
--- Started on 2025-03-06 23:57:28 -03
+-- Started on 2025-03-09 17:22:22 -03
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -548,7 +548,7 @@ COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
 
 COPY public.auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
 1	pbkdf2_sha256$870000$CFFYWjgHO7I3htswxak0zI$vBMuXRxwSPohzpMLjQQxbSZicMOD9Ed0rwoVR9s3IXM=	2025-02-25 11:54:21.69546-03	t	admin				t	t	2025-02-07 16:18:45.117768-03
-2	pbkdf2_sha256$870000$jKTIUE1EA72lL0lv2qVTR0$uXs62GipLr2ibgDieVUdshLlv1VN4JmyLi3Nl7zrfKE=	2025-03-06 22:32:47.464227-03	t	demo				f	t	2025-02-20 16:22:04-03
+2	pbkdf2_sha256$870000$jKTIUE1EA72lL0lv2qVTR0$uXs62GipLr2ibgDieVUdshLlv1VN4JmyLi3Nl7zrfKE=	2025-03-09 00:08:28.629118-03	t	demo				f	t	2025-02-20 16:22:04-03
 \.
 
 
@@ -643,7 +643,6 @@ COPY public.clientes (cliente, cedula, nombre, apellido, timbrado, celular, emai
 1194	3345020	Veronica	Delgado Velazquez	36874258	716246185	veronica.delgado@aol.com	Calle 84, Ciudad 3
 1195	2236576	Maria	Flores Cantero	55792423	\N	maria.flores@zoho.com	Calle 9, Ciudad 6
 1196	5790895	Joaquin	Morales Leguizamon	78881674	758170357	joaquin.morales@gmail.com	Calle 17, Ciudad 7
-2132	3437941	Hugo	Romero	\N	0994	\N	\N
 2133	454545	fsadfasfgdsafas	dsgsag	\N	\N	\N	\N
 1197	1076919	Cecilia	Sosa Zarate	60492938	631603097	cecilia.sosa@aol.com	Calle 23, Ciudad 2
 1198	4043193	Milagros	Mendoza Velazquez	25662743	934541287	milagros.mendoza@gmx.com	Calle 61, Ciudad 8
@@ -905,7 +904,6 @@ COPY public.clientes (cliente, cedula, nombre, apellido, timbrado, celular, emai
 1453	4163148	Diana	Caballero Rodriguez	58969094	557746659	diana.caballero@yahoo.com	Calle 51, Ciudad 5
 1454	4287553	Violeta	Estigarribia Sanchez	58572276	\N	violeta.estigarribia@gmx.com	Calle 71, Ciudad 8
 1455	2558716	Martín	Montiel Fleitas	59587268	\N	martín.montiel@gmx.com	Calle 30, Ciudad 10
-2135	321	dsafsafasffsfsafafsf	fdfdsaf	\N	\N	\N	\N
 1456	5701749	Julieta	Ayala Benitez	46980106	\N	julieta.ayala@zoho.com	Calle 87, Ciudad 9
 1457	5468066	Mara	Ortega Fleitas	19893678	662039064	mara.ortega@yandex.com	Calle 26, Ciudad 7
 1458	2541155	Andrea	Quinteros Ojeda	73423816	\N	andrea.quinteros@icloud.com	Calle 14, Ciudad 9
@@ -1424,7 +1422,6 @@ COPY public.clientes (cliente, cedula, nombre, apellido, timbrado, celular, emai
 1971	1328497	Gabriel	Quinteros Garcia	45986347	\N	gabriel.quinteros@gmx.com	Calle 95, Ciudad 5
 1972	1932383	Sofia	Samaniego Valenzuela	86097142	450447973	sofia.samaniego@live.com	Calle 79, Ciudad 7
 1973	1791770	Magdalena	Benitez Jimenez	65037272	683882327	magdalena.benitez@mail.com	Calle 32, Ciudad 5
-2136	321	dsafsafasffsfsafafsf	fdfdsaf	\N	\N	\N	\N
 1974	1325117	Lucas	Torres Salazar	43815287	\N	lucas.torres@aol.com	Calle 18, Ciudad 3
 1975	4440669	Alejandro	Molinas Villalba	38875386	119847683	alejandro.molinas@yahoo.com	Calle 6, Ciudad 2
 1976	5123860	Cristian	Vargas Martinez	42486137	\N	cristian.vargas@gmail.com	Calle 13, Ciudad 10
@@ -1583,6 +1580,7 @@ COPY public.clientes (cliente, cedula, nombre, apellido, timbrado, celular, emai
 2129	4820586	Axel	Galeano Benegas	87472509	135247778	axel.galeano@yahoo.com	Calle 25, Ciudad 6
 2130	2403190	Evelyn	Molinas Gonzalez	98137504	461219899	evelyn.molinas@gmx.com	Calle 45, Ciudad 9
 2131	4848148	Facundo	Diaz Franco	98377056	\N	facundo.diaz@live.com	Calle 36, Ciudad 10
+2132	3437941	Hugo	Romero	\N	0994	\N	\N
 \.
 
 
@@ -1593,8 +1591,8 @@ COPY public.clientes (cliente, cedula, nombre, apellido, timbrado, celular, emai
 --
 
 COPY public.clientes_actividades (id, cliente_id, actividad) FROM stdin;
-1	2136	1
-2	2136	3
+4	2132	2
+5	2132	1
 \.
 
 
@@ -1665,7 +1663,7 @@ dshu5b40bv6qfffp4j300o76hh2sjvoo	.eJxVjDsOwjAQRO_iGlnrEDkJJT1nsGZ3bRxAtpRPhbg7iZ
 xmn9u86b1ff9fcj7bpss1kg326kfj083	.eJxVjDsOwjAQRO_iGlnrEDkJJT1nsGZ3bRxAtpRPhbg7iZQCminmvZm3CViXHNY5TmFUczHOnH47hjxj2YE-UO7VSi3LNLLdFXvQ2d6qxtf1cP8OMua8rSOQCNx0QqSSBLolwF4a9eCWWM4dU0ytaO8UjnyTkHw_tAMNBPP5AkxtOeQ:1tj24R:Ic3w9ZV2sYa4_mPxuKxgnLmUS-W817yJhqIMpOD0p3Q	2025-02-28 17:13:55.509033-03
 4k2lcrchbj4aza7t8eae00j38rerayds	.eJxVjDsOwjAQRO_iGlnrEDkJJT1nsGZ3bRxAtpRPhbg7iZQCminmvZm3CViXHNY5TmFUczHOnH47hjxj2YE-UO7VSi3LNLLdFXvQ2d6qxtf1cP8OMua8rSOQCNx0QqSSBLolwF4a9eCWWM4dU0ytaO8UjnyTkHw_tAMNBPP5AkxtOeQ:1tn0Rn:fpijJGjKS0Ue3DtY71ivRpQHR-sf8IGvnJmcnl7XC-8	2025-03-11 16:18:27.692555-03
 elfm1ohzr13vks2yodoyllakp5em1ljc	.eJxVjDsOwjAQBe_iGllx1r9Q0nMGa71r4wCypTipEHeHSCmgfTPzXiLgtpaw9bSEmcVZjOL0u0WkR6o74DvWW5PU6rrMUe6KPGiX18bpeTncv4OCvXzrbJWijN5bZxkoGkXsrCYwE8Dk8zAk1A6cRrJOacKMkBRrHo3JKqF4fwDgRTgC:1tpIxV:cQbQOD-CwIH9846zPLESnm8IuhNRr_U-tQJMCeFJEE8	2025-03-18 00:28:41.484766-03
-ihfuo8qz0goieo5mbtdq5bd4gv6svixx	.eJxVjDsOgzAQBe_iOrIw_kKZnhNEEVp214EEGQmbKsrdAxJF0r6ZN2_Rw1bGfsu89hOJVtTi8rsNgC9OB6AnpMcicUllnQZ5KPKkWXYL8Xw93b_ACHnc39EphRFCcN6RxsEqJO8Matto3YRYVQzGa28AnVcGIYJmRYZqa6Ni2KPEBeaZs2hv988XEMs8sg:1tqNpG:V7ibUQR0KKEhSWiuTuu897Jh29UrAHpqumDLLRYYbkA	2025-03-20 23:52:38.459374-03
+qn0tn3wfnc04sfbbgzjvskg8hnswe84h	.eJxVjbEOgjAURf-ls2koLS2w6ebg6mIMebzXQpW0hsJE-HchYdD13HvPXVgD89Q3c7Jj44nVLGenX9YCvm3YA3pB6CLHGKbRt3yv8CNN_BbJDpej-yfoIfXb2mkh0EFZaqNJYlsIJKMVyqKSsipdlllQRhoFqI1QCA6kFaQoLwonLGxSshMMg02sfiwMI_kuslrsPOHoP-hj2I6u9zNbn-sXUqNHLw:1trDwU:wtNCtDwdkFXL5Fgqy_R3t3z0iHknfIRGDTMAUJa7p_s	2025-03-23 06:31:34.237514-04
 \.
 
 
@@ -1698,6 +1696,8 @@ COPY public.pagos (pago_id, fecha, monto, actividad_economica_id, cliente_id) FR
 21	2025-02-01	55	2	1132
 13	2025-02-23	5555	1	1132
 23	2025-02-20	50000	2	2132
+25	2025-03-14	0	1	2132
+26	2025-03-07	854	1	2132
 \.
 
 
@@ -1761,7 +1761,7 @@ SELECT pg_catalog.setval('public.auth_user_user_permissions_id_seq', 1, false);
 -- Name: clientes_actividades_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.clientes_actividades_id_seq', 2, true);
+SELECT pg_catalog.setval('public.clientes_actividades_id_seq', 5, true);
 
 
 --
@@ -1806,7 +1806,7 @@ SELECT pg_catalog.setval('public.django_migrations_id_seq', 18, true);
 -- Name: pagos_pago_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.pagos_pago_id_seq', 24, true);
+SELECT pg_catalog.setval('public.pagos_pago_id_seq', 26, true);
 
 
 --
@@ -2210,7 +2210,7 @@ ALTER TABLE ONLY public.clientes_actividades
     ADD CONSTRAINT fk_cliente FOREIGN KEY (cliente_id) REFERENCES public.clientes(cliente);
 
 
--- Completed on 2025-03-06 23:57:32 -03
+-- Completed on 2025-03-09 17:22:31 -03
 
 --
 -- PostgreSQL database dump complete
