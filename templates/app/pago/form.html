@@ -44,14 +44,16 @@
                     class="form-control" 
                     id="actividad_economica">
                     <option value="">Seleccionar actividad económica</option>
-                    {% for actividad in form.actividad_economica.field.queryset %}
-                        <option value="{{ actividad.pk }}" 
-                            
-                            {% if form.instance.actividad_economica.pk == actividad.pk %}selected{% endif %}>
-                            {{ actividad }}
-                        </option>
-                    {% endfor %}
+
+                    {% for actividad in actividades_filtradas %}
+                    <option value="{{ actividad.pk }}"
+                        {% if form.instance.actividad_economica.pk == actividad.pk %}selected{% endif %}>
+                        {{ actividad.descripcion }}
+                    </option>
+                    {% endfor %}   
+
                 </select>                        
+                        
             </div>
         </div>
     </div>

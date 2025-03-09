@@ -15,11 +15,14 @@
 
         <div class="card-body">
 
+
             <form method="post" id="form" 
-                action="{% url 'cliente:edit' pk=registro.cliente %}">
+                action="{% url 'cliente:edit' pk=cliente_id %}" 
+                data-cliente-id="{{ cliente_id }}">
 
 
                 {% include 'app/cliente/form.html' %}
+
 
             </form>
         
@@ -64,4 +67,132 @@
 
 {% block extrascripts %}  
     <script src="{% static 'js/common.js' %}"></script>
+
+
+    <script>
+
+        window.onload = function() {
+
+            document.getElementById("btn_agregar_det").addEventListener("click", function() {
+
+                // abrir modal                
+                const modal = new mdb.Modal(document.getElementById('modal_add_detalle'));
+                modal.show();
+
+
+                document.getElementById("agregarActividadEconomica").onclick = function() {
+
+                    let select = document.getElementById("selectOption");
+                    
+                    if (!select.value) {
+                        alert("Seleccione una actividad económica.");
+                        return;
+                    }
+
+                    // Crear el formulario dinámicamente
+                    let form = document.getElementById("form");
+                    form.method = "POST";
+                    //form.action = "{% url 'cliente:clientedetalle' %}";
+                    form.action = "{% url 'cliente:clientedetalle' %}?tipo=edit";
+
+
+                    // Crear un campo oculto para enviar el cliente_id
+                    let clienteIdField = document.createElement("input");
+                    clienteIdField.type = "hidden";
+                    clienteIdField.name = "cliente_id";  // Nombre del campo
+                    let clienteId = document.getElementById("form").getAttribute("data-cliente-id");
+                    clienteIdField.value = clienteId;   // Asignar el valor del cliente_id que necesites
+                    form.appendChild(clienteIdField);
+
+
+                    // Agregar el token CSRF
+                    let csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
+                    let csrfInput = document.createElement("input");
+                    csrfInput.type = "hidden";
+                    csrfInput.name = "csrfmiddlewaretoken";
+                    csrfInput.value = csrfToken;
+                    form.appendChild(csrfInput);
+
+                    // Campo para el ID de la actividad
+                    let codigoInput = document.createElement("input");
+                    codigoInput.type = "hidden";
+                    codigoInput.name = "codigo";
+                    codigoInput.value = select.value;
+                    form.appendChild(codigoInput);
+
+                    // Campo para la descripción de la actividad
+                    let descripcionInput = document.createElement("input");
+                    descripcionInput.type = "hidden";
+                    descripcionInput.name = "descripcion";
+                    descripcionInput.value = select.options[select.selectedIndex].text;
+                    form.appendChild(descripcionInput);
+
+                    // Agregar el formulario al documento y enviarlo
+                    document.body.appendChild(form);
+                    form.submit();
+                };
+
+            });
+
+
+
+            const deleteButtons = document.querySelectorAll('.delete-detalle');
+
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function (e) {
+                    e.preventDefault(); // Evita que el enlace redireccione
+
+                    // Obtén el ID del registro a borrar
+                    const itemId = this.getAttribute('data-item-id');
+                    let deleteUrl = this.getAttribute('data-delete-url');
+                                        
+                    // Agrega ?tipo=edit a la URL
+                    deleteUrl += "?tipo=edit";
+
+                    // Obtener el formulario existente
+                    let form = document.getElementById("form");
+                    form.action = deleteUrl;
+
+                    // Crear un campo oculto para enviar el cliente_id
+                    let clienteIdField = document.createElement("input");
+                    clienteIdField.type = "hidden";
+                    clienteIdField.name = "cliente_id";  // Nombre del campo
+                    let clienteId = document.getElementById("form").getAttribute("data-cliente-id");
+                    clienteIdField.value = clienteId;   // Asignar el valor del cliente_id que necesites
+                    form.appendChild(clienteIdField);
+
+
+
+                    // Agregar el token CSRF (si no está ya en el formulario)
+                    let csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
+                    let csrfInput = document.createElement("input");
+                    csrfInput.type = "hidden";
+                    csrfInput.name = "csrfmiddlewaretoken";
+                    csrfInput.value = csrfToken;
+                    form.appendChild(csrfInput);
+
+                    // Campo para el ID del registro a borrar
+                    let itemIdInput = document.createElement("input");
+                    itemIdInput.type = "hidden";
+                    itemIdInput.name = "item_id";
+                    itemIdInput.value = itemId;
+                    form.appendChild(itemIdInput);
+
+                    // Enviar el formulario
+                    form.submit();
+                });
+            });
+                        
+
+
+
+        }
+
+
+
+
+    </script>
+
+
+
 {% endblock %}

@@ -77,10 +77,19 @@ class ClienteListView(LoginRequiredMixin, View):
     
 
 
+
+
+
+
+
+
+
 class ClienteDetalleCreateView(LoginRequiredMixin, View):
-    template_name = FOLDER_TEMPLATE + '/add.html'
 
     def post(self, request, *args, **kwargs):
+        tipo = request.GET.get("tipo", "add") 
+        template_name = f"{FOLDER_TEMPLATE}/{tipo}.html"  
+
         form = ClienteForm(request.POST)
 
         # Recuperar los detalles previos de la sesión o inicializarlos
@@ -106,45 +115,61 @@ class ClienteDetalleCreateView(LoginRequiredMixin, View):
         # Guardar la lista actualizada en la sesión
         request.session['detalles'] = detalles
 
+        if tipo == "add":
+            contexto = {
+                "form": form,
+                "detalles": detalles,
+                "actividades": actividades,
+                "mostrar_accion": True
+            }
 
-        contexto = { 
-            'form': form, 
-            'detalles': detalles,
-            'actividades': actividades
-        }         
-            
+        if tipo == "edit":            
+            cliente_id = request.POST.get('cliente_id')
+            contexto = {
+                "form": form,
+                "detalles": detalles,
+                "actividades": actividades,
+                'cliente_id': cliente_id,
+                "mostrar_accion": True
+            }
 
-        return render(request, self.template_name, contexto )
+        return render(request, template_name, contexto )
 
 
 
-        # Imprimir los datos recibidos en consola
-        print("Datos recibidos del formulario:", request.POST)
-        print("Datos de las actividades:", actividades)
 
-        if form.is_valid():
-            # Solo mostramos los datos, no guardamos nada
-            print("Formulario válido con los datos:", form.cleaned_data)
-            # Lógica de procesamiento, si fuera necesario
+
 
 
 
 class ClienteDetalleDeleteView(LoginRequiredMixin, View):
-    template_name = FOLDER_TEMPLATE + '/add.html'
-
+    
     def post(self, request, pk):
-        # Imprimir todos los datos recibidos en la solicitud POST
-        print("Datos recibidos en POST:", request.POST)
+
+        tipo = request.GET.get("tipo", "add") 
+        template_name = f"{FOLDER_TEMPLATE}/{tipo}.html"  
 
         # Obtener la lista de detalles de la sesión
         detalles = request.session.get('detalles', [])
+        print("Detalles:", detalles) 
+        
+        # Convertir el 'codigo' de cada elemento en detalles a entero
+        for detalle in detalles:
+            detalle['codigo'] = int(detalle['codigo'])          
+
 
         # Obtener el ID del item a borrar
         item_id = request.POST.get('item_id')
-        print("ID del item a borrar:", item_id)
+        print("item_id:", item_id) 
+
+        item_id = int(item_id)  # Intentar convertir item_id a un entero
+
 
         # Filtrar la lista para eliminar el registro con el item_id especificado
         detalles = [detalle for detalle in detalles if detalle['codigo'] != item_id]
+
+        print("Detalles:", detalles) 
+
 
         # Guardar la lista actualizada en la sesión
         request.session['detalles'] = detalles
@@ -154,13 +179,32 @@ class ClienteDetalleDeleteView(LoginRequiredMixin, View):
         actividades = ActividadEconomica.objects.all()
 
         # Contexto para renderizar la plantilla
-        contexto = {
-            'form': form,
-            'detalles': detalles,
-            'actividades': actividades,
-        }
+        if tipo == "add":
+            contexto = {
+                "form": form,
+                "detalles": detalles,
+                "actividades": actividades,
+                "mostrar_accion": True
+            }
 
-        return render(request, self.template_name, contexto)
+        if tipo == "edit":            
+            cliente_id = request.POST.get('cliente_id')
+            contexto = {
+                "form": form,
+                "detalles": detalles,
+                "actividades": actividades,
+                'cliente_id': cliente_id,
+                "mostrar_accion": True
+            }
+
+        return render(request, template_name, contexto)
+
+
+
+
+
+
+
 
 
 
@@ -251,6 +295,8 @@ class ClienteCreateView(LoginRequiredMixin, View):
 
 
 
+
+
         
 class ClienteUpdateView(LoginRequiredMixin, View):    
     template_name = FOLDER_TEMPLATE + '/edit.html'
@@ -261,10 +307,46 @@ class ClienteUpdateView(LoginRequiredMixin, View):
         
         # Inicializar el formulario con la instancia existente
         form = ClienteForm(instance=registro)
+        
 
+        # Obtener la lista de actividades del cliente
+        cliente_actividad = ClientesActividades.objects.filter(cliente=registro).values("actividad")
+
+
+        # Crear una lista para almacenar los detalles
+        detalles = []
+
+
+        # Obtener todas las descripciones en una sola consulta
+        actividades = ActividadEconomica.objects.filter(
+            actividad__in=[d["actividad"] for d in cliente_actividad]
+        ).values("actividad", "descripcion")
+
+        # Crear un diccionario {actividad_id: descripcion}
+        actividad_dict = {a["actividad"]: a["descripcion"] for a in actividades}
+
+        # Construir la lista de detalles
+        for d in cliente_actividad:
+            actividad_codigo = d["actividad"]
+            descripcion = actividad_dict.get(actividad_codigo, "Sin descripción")
+
+            detalles.append({
+                "codigo": actividad_codigo,
+                "descripcion": descripcion
+            })
+
+        # Guardar la lista actualizada en la sesión
+        request.session['detalles'] = detalles
+
+        actividades = ActividadEconomica.objects.all()
+        
         contexto = { 
             'form': form, 
-            'registro': registro
+            'registro': registro,
+            'detalles': detalles,
+            'actividades': actividades,
+            'cliente_id': registro.pk, 
+            'mostrar_accion': True
             }  
 
         return render(request, self.template_name, contexto)
@@ -274,15 +356,35 @@ class ClienteUpdateView(LoginRequiredMixin, View):
 
     def post(self, request, pk, *args, **kwargs):
         # Obtener el objeto a editar
-        registro = get_object_or_404(Cliente, pk=pk)
+        cliente = get_object_or_404(Cliente, pk=pk)
         
         # Procesar formulario con los datos POST y la instancia
-        form = ClienteForm(request.POST, instance=registro)
+        form = ClienteForm(request.POST, instance=cliente)
         
+        # Obtener la lista de detalles de la sesión
+        detalles = request.session.get('detalles', [])
+        actividades = ActividadEconomica.objects.all()
+
+
+
         if form.is_valid():
             # Guardar cambios si el formulario es válido
             form.save()
             
+            # Eliminar las actividades relacionadas con este cliente
+            ClientesActividades.objects.filter(cliente=cliente).delete()
+
+            # Guardar los detalles de las actividades
+            for detalle in detalles:
+                ClientesActividades.objects.create(
+                    cliente=cliente,  # Asociar al cliente recién creado
+                    actividad=detalle['codigo']  # Usar el código de la actividad
+                )
+
+            # Limpiar la lista de detalles de la sesión después de guardar
+            request.session['detalles'] = []
+
+
             message = 'El registro se ha actualizado correctamente.'
             messages.success(request, message)
             return redirect('cliente:list')
@@ -296,18 +398,23 @@ class ClienteUpdateView(LoginRequiredMixin, View):
             
             messages.error(request, error_message)
                
+            
             contexto = { 
                 'form': form, 
-                'registro': registro
-                }         
+                'detalles': detalles,
+                'actividades': actividades
+            }             
             
 
             return render(
                 request, 
-                self.template_name, 
-                {'form': form, 'object': contexto}
+                self.template_name, contexto
             )
         
+
+
+
+
 
 
 
@@ -319,9 +426,12 @@ class ClienteDeleteView(LoginRequiredMixin, View):
     def post(self, request, pk):
         try:
             # Intentamos obtener el registro
-            registro = get_object_or_404(Cliente, pk=pk)
-            # Si no hay error, eliminamos el registro
-            registro.delete()
+            cliente = get_object_or_404(Cliente, pk=pk)
+            
+            # Eliminar las actividades relacionadas con este cliente
+            ClientesActividades.objects.filter(cliente=cliente).delete()
+
+            cliente.delete()
 
             # Agrega un mensaje de éxito
             messages.success(request, 'El registro ha sido eliminado correctamente.')
@@ -345,6 +455,9 @@ class ClienteDeleteView(LoginRequiredMixin, View):
 
 
 
+
+
+
 class ClienteDetailView(LoginRequiredMixin, View):    
     template_name = FOLDER_TEMPLATE + '/detail.html'
 
@@ -353,11 +466,9 @@ class ClienteDetailView(LoginRequiredMixin, View):
         registro = get_object_or_404(Cliente, pk=pk)
         form = ClienteForm(instance=registro) 
 
-
         # Obtener la lista de actividades del cliente
         cliente_actividad = ClientesActividades.objects.filter(cliente=registro).values("actividad")
-        print("Detalles:", list(cliente_actividad))  # Ver en consola
-
+        
         # Crear una lista para almacenar los detalles
         detalles = []
 
@@ -379,14 +490,12 @@ class ClienteDetailView(LoginRequiredMixin, View):
                 "descripcion": descripcion
             })
 
-        # Mostrar en consola para verificar
-        print("Lista de detalles:", detalles)
 
         # Crear el contexto con el registro
         contexto = { 
             'form': form, 
             'registro': registro,
-            'detalles': detalles,
+            'detalles': detalles,            
             'mostrar_accion': False
         }  
 

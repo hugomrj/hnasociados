@@ -10,6 +10,8 @@ from django.urls import reverse
 from django.views import View
 
 
+from app.models.actividad_economica_model import ActividadEconomica
+from app.models.cliente_actividad_model import ClientesActividades
 from app.models.cliente_model import Cliente
 from app.models.pago_model import Pago, PagoForm
 from config import settings
@@ -99,6 +101,7 @@ class PagoCreateView(LoginRequiredMixin, View):
         # Obtener el cliente por su ID de la URL
         cliente_id = self.kwargs['cliente_id']
         
+
         try:
             # Intentamos obtener el cliente por su ID
             cliente = Cliente.objects.get(pk=cliente_id)
@@ -106,6 +109,14 @@ class PagoCreateView(LoginRequiredMixin, View):
             # Si el cliente no existe, redirigir a la lista de pagos con un mensaje de error
             messages.error(request, 'Cliente no encontrado.')
             return redirect('pago:list')  # Asegúrate de que este es el nombre correcto de la URL para la lista de pagos
+        
+        
+        # Filtrar las actividades económicas relacionadas con el cliente a través de ClientesActividades
+        actividades_filtradas = ActividadEconomica.objects.filter(
+            actividad__in=ClientesActividades.objects.filter(cliente=cliente).values('actividad')
+        )
+
+
 
         # Inicializamos el formulario vacío
         form = PagoForm()
@@ -113,7 +124,8 @@ class PagoCreateView(LoginRequiredMixin, View):
         contexto = {
             'form': form,
             'cliente': cliente,
-            'cliente_id': cliente_id
+            'cliente_id': cliente_id,
+             'actividades_filtradas': actividades_filtradas  
         }
 
         return render(request, self.template_name, contexto)
