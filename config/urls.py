@@ -15,6 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.http import JsonResponse
 from django.urls import path, include
 
 
@@ -22,6 +23,21 @@ from app.views.auth_views import Home, Login, Logout
 
 
 app_prefix = "hnasociados/"
+
+
+
+# --- Define la vista directamente aquí ---
+def hola_mundo_api(request):
+    """
+    Vista simple que retorna un JSON con un mensaje "Hola Mundo".
+    """
+    data = {
+        'message': 'Hola Mundo desde la API - Prueba Directa' # Un mensaje ligeramente diferente para saber que es esta
+    }
+    return JsonResponse(data)
+
+
+
 
 urlpatterns = [
     path(app_prefix, include([
@@ -33,5 +49,15 @@ urlpatterns = [
         path("actividad_economica/", include("app.urls.actividad_economica_urls")),
         path("cliente/", include("app.urls.cliente_urls")),
         path("pago/", include("app.urls.pago_urls")),
+
+
+        # --- Añade la ruta directa para tu API Hola Mundo aquí ---
+        # Esto creará una ruta en /hello/
+        path("hola/", hola_mundo_api, name="hola_mundo_api_test"),
+
+
     ])),
 ]
+
+
+
