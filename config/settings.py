@@ -33,7 +33,8 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env.dev'))
 # Security
 SECRET_KEY = env('SECRET_KEY')
 DEBUG = env.bool('DEBUG', default=True)
-ALLOWED_HOSTS = ['3.12.160.19', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['3.12.160.19', 'localhost', '127.0.0.1', 'bonsaiki.duckdns.org']
+
 
 
 # Application definition
