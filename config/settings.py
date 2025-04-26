@@ -65,6 +65,12 @@ MIDDLEWARE = [
 
 
 
+CORS_ALLOWED_ORIGINS = [
+    "https://bonsaiki.pages.dev",  # Tu dominio de producción
+    "http://127.0.0.1:8000",        # Para desarrollo en el puerto 3000
+]
+
+
 ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
