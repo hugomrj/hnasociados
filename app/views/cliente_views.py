@@ -218,12 +218,13 @@ class ClienteCreateView(LoginRequiredMixin, View):
         detalles = [] 
 
         actividades = ActividadEconomica.objects.all()
+        
 
         contexto = { 
             'form': form, 
             'detalles': detalles,
             'actividades': actividades,
-            'mostrar_accion': True
+            'mostrar_accion': True,            
         }         
                     
         request.session['detalles'] = []
@@ -244,7 +245,7 @@ class ClienteCreateView(LoginRequiredMixin, View):
         detalles = request.session.get('detalles', [])
 
         actividades = ActividadEconomica.objects.all()
-        
+                
         if form.is_valid():
             # Guardamos el formulario si es válido
             cliente = form.save()
@@ -282,7 +283,7 @@ class ClienteCreateView(LoginRequiredMixin, View):
             contexto = { 
                 'form': form, 
                 'detalles': detalles,
-                'actividades': actividades
+                'actividades': actividades,
             }         
                         
             
@@ -358,6 +359,7 @@ class ClienteUpdateView(LoginRequiredMixin, View):
         # Obtener el objeto a editar
         cliente = get_object_or_404(Cliente, pk=pk)
         
+
         # Procesar formulario con los datos POST y la instancia
         form = ClienteForm(request.POST, instance=cliente)
         
@@ -402,7 +404,9 @@ class ClienteUpdateView(LoginRequiredMixin, View):
             contexto = { 
                 'form': form, 
                 'detalles': detalles,
-                'actividades': actividades
+                'actividades': actividades,
+                'cliente_id': pk,  
+                'registro': cliente,  
             }             
             
 

@@ -81,7 +81,7 @@ input[type="number"] {
 
 /* Para pantallas más grandes */
 .form-field label {
-    width: 120px;    
+    width: 140px;    
 }
 
 /* Para pantallas pequeñas (móviles) */

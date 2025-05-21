@@ -67,8 +67,8 @@ class ActividadEconomicaListView(LoginRequiredMixin, View):
 
 
 
-class ActividadEconomicaCreateView(LoginRequiredMixin, View):
-    template_name = 'app/actividad_economica/add.html'
+class ActividadEconomicaCreateView(LoginRequiredMixin, View):    
+    template_name = FOLDER_TEMPLATE + '/add.html'
     
     def get(self, request, *args, **kwargs):
         # Inicializamos el formulario vacío para el GET
@@ -117,8 +117,8 @@ class ActividadEconomicaCreateView(LoginRequiredMixin, View):
 
 
         
-class ActividadEconomicaUpdateView(LoginRequiredMixin, View):
-    template_name = 'app/actividad_economica/edit.html'
+class ActividadEconomicaUpdateView(LoginRequiredMixin, View):    
+    template_name = FOLDER_TEMPLATE + '/edit.html'
     
     def get(self, request, pk, *args, **kwargs):
         # Obtener el objeto a editar o mostrar 404 si no existe
@@ -211,8 +211,8 @@ class ActividadEconomicaDeleteView(LoginRequiredMixin, View):
 
 
 
-class ActividadEconomicaDetailView(LoginRequiredMixin, View):
-    template_name = 'app/actividad_economica/detail.html'
+class ActividadEconomicaDetailView(LoginRequiredMixin, View):    
+    template_name = FOLDER_TEMPLATE + '/detail.html'
 
     def get(self, request, pk, *args, **kwargs):
         # Obtener el objeto a mostrar o devolver 404 si no existe

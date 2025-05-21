@@ -1,5 +1,5 @@
 {% csrf_token %}
-
+{% load humanize %}
 
 
 <div class="mb-4 row">
@@ -16,6 +16,8 @@
         </div>
     </div>
 </div>
+
+
 
 <div class="mb-4 row">
     <div class="form-field col-md-8">
@@ -106,6 +108,78 @@
         </div>
     </div>
 </div>
+
+
+
+<div class="mb-4 row">
+    <div class="form-field col-md-8">
+        <div class="row">
+            <label for="negocio_servicio" class="col-form-label">Negoci/Servicio</label>
+            <div class="col-sm-8">
+                <input type="text" 
+                    name="negocio_servicio"  
+                    class="form-control" 
+                    id="negocio_servicio"
+                    value="{{ form.negocio_servicio.value|default_if_none:'' }}">                        
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="mb-4 row">
+    <div class="form-field col-md-6">
+      <div class="row">
+        <label for="tarifa" class="col-form-label">Tarifa</label>
+        <div class="col-sm-6">
+            
+            <input type="text" 
+                name="tarifa"  
+                class="form-control text-end" 
+                id="tarifa"
+                value="{{ form.tarifa.value|default_if_none:''|intcomma }}">
+                
+        </div>
+      </div>
+    </div>
+</div>
+  
+
+
+
+
+<div class="mb-4 row">
+    <div class="form-field col-md-6">
+        <div class="row">
+            <label for="usuario_set" class="col-form-label">Usuario-marangatu</label>
+            <div class="col-sm-10">
+                <input type="text" 
+                       name="usuario_set"  
+                       class="form-control" 
+                       id="usuario_set"
+                       value="{{ form.usuario_set.value|default_if_none:'' }}">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-field col-md-6">
+        <div class="row">
+            <label for="clave_set" class="col-form-label">Clave-marangatu</label>
+            <div class="col-sm-10">
+                <input type="text" 
+                       name="clave_set"  
+                       class="form-control" 
+                       id="clave_set"
+                       value="{{ form.clave_set.value|default_if_none:'' }}">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
 
 
 

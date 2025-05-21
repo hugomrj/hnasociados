@@ -166,3 +166,5 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 
 # FORCE_SCRIPT_NAME = '/hnasociados'
+
+
