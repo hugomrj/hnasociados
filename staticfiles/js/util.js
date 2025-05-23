@@ -46,6 +46,8 @@ function quitarFormato() {
             input.value = valor;
         }
     });
+
+    alert("quitar formato")
 }
 
 

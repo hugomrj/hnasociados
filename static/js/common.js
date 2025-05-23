@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
             var form = document.getElementById('form');
             var url = form.action ;
 
+            quitarFormato();
             // Enviar el formulario
             form.submit();                 
 
@@ -19,12 +20,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
+    
+
 
     var registro_edit = document.getElementById('registro_edit');
     if (registro_edit) {
         registro_edit.addEventListener('click', function() {
             
             var form = document.getElementById('form');
+
+            quitarFormato();
             // Enviar el formulario
             form.submit();                 
           

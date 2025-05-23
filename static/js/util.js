@@ -1,32 +1,25 @@
 // Función para formatear los números con separadores de miles
 function formatearNumeros() {
-    // Selecciona todos los inputs con el atributo data-number="int"
     const inputs = document.querySelectorAll('input[data-number="int"]');
 
     inputs.forEach(input => {
-        // Función para formatear el valor del input
         const formatearInput = (event) => {
             const input = event.target;
-            
-            // Primero, elimina todos los puntos y luego convierte el valor a número
-            let valor = input.value.replace(/\./g, '');  // Elimina los puntos
-            valor = parseFloat(valor.replace(/,/g, '')); // Elimina comas y convierte a número
-            
-            if (!isNaN(valor)) {
-                // Aplica el formato con separadores de miles
-                input.value = valor.toLocaleString();
+            let valor = input.value.replace(/\D/g, '');  // Solo deja dígitos
+
+            if (valor) {
+                input.value = parseInt(valor).toLocaleString('de-DE');
+            } else {
+                input.value = '';
             }
         };
 
-        // Formatea el valor inicial del input
-        let valorInicial = input.value.replace(/\./g, ''); // Elimina puntos
-        valorInicial = parseFloat(valorInicial.replace(/,/g, '')); // Elimina comas y convierte a número
-        
-        if (!isNaN(valorInicial)) {
-            input.value = valorInicial.toLocaleString();
+        // Formateo inicial
+        let valorInicial = input.value.replace(/\D/g, '');
+        if (valorInicial) {
+            input.value = parseInt(valorInicial).toLocaleString('de-DE');
         }
 
-        // Asocia la función formatearInput al evento blur del input actual
         input.addEventListener('blur', formatearInput);
     });
 }
@@ -41,12 +34,16 @@ function formatearNumeros() {
 function quitarFormato() {
     const inputs = document.querySelectorAll('input[data-number="int"]');
     inputs.forEach(input => {
-        let valor = input.value.replace(/,/g, '');
+        console.log('Antes:', input.value);
+        let valor = input.value.replace(/\./g, '');  // quita puntos
         if (!isNaN(valor)) {
             input.value = valor;
+            console.log('Después:', input.value);
         }
     });
 }
+
+
 
 
 
@@ -60,6 +57,9 @@ function bloquearInput() {
     
 
 }
+
+
+
 
 
 

@@ -1,5 +1,5 @@
 {% csrf_token %}
-{% load humanize %}
+
 
 
 <div class="mb-4 row">
@@ -138,8 +138,9 @@
                 name="tarifa"  
                 class="form-control text-end" 
                 id="tarifa"
-                value="{{ form.tarifa.value|default_if_none:''|intcomma }}">
-                
+                value="{{ form.tarifa.value|default_if_none:'' }}"
+                data-number="int">
+                    
         </div>
       </div>
     </div>

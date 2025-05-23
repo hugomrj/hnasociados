@@ -7,10 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
     
+
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+
+
 
     <!-- MDB CSS -->
     <link href="{% static 'mdbootstrap-8.2.0/css/mdb.min.css' %}" rel="stylesheet">
@@ -23,6 +26,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/slim-select/dist/slimselect.min.js"></script>
 
+    
 
     <!-- Cargar MDB JS -->
     <script>
@@ -49,7 +53,14 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <link rel="stylesheet" href="{% static 'css/color.css' %}">
 
+
+
     <script src="{% static 'js/util.js' %}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            formatearNumeros();
+        });
+    </script>    
 
 
 
@@ -64,17 +75,15 @@
     </header>
 
 
-
     <main>
 
-
-    <!-- Mensaje -->
-    {% include 'message.html' %}    
+        <!-- Mensaje -->
+        {% include 'message.html' %}    
 
         <section style="margin-bottom: 100px;">
                 
-        {% block content %}
-        {% endblock %}
+            {% block content %}
+            {% endblock %}
 
         </section>
     </main>

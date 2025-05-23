@@ -26,6 +26,9 @@ document.addEventListener('DOMContentLoaded', function() {
             
             var form = document.getElementById('form');
             // Enviar el formulario
+            quitarFormato();
+
+            alert("edit")
             form.submit();                 
 
         });
