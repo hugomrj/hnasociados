@@ -153,7 +153,7 @@
 <div class="mb-4 row">
     <div class="form-field col-md-6">
         <div class="row">
-            <label for="usuario_set" class="col-form-label">Usuario-marangatu</label>
+            <label for="usuario_set" class="col-form-label d-block w-100">Usuario-marangatu</label>
             <div class="col-sm-10">
                 <input type="text" 
                        name="usuario_set"  
@@ -166,7 +166,7 @@
 
     <div class="form-field col-md-6">
         <div class="row">
-            <label for="clave_set" class="col-form-label">Clave-marangatu</label>
+            <label for="clave_set" class="col-form-label d-block w-100">Clave-marangatu</label>
             <div class="col-sm-10">
                 <input type="text" 
                        name="clave_set"  
@@ -179,6 +179,36 @@
 </div>
 
 
+
+
+<div class="mb-4 row">
+    <div class="form-field col-md-6">
+      <div class="row">
+        <label for="timbrado_vigencia_inicio" class="col-form-label d-block w-100">Inicio de Vigencia</label>
+        <div class="col-sm-10">
+          <input type="date" 
+                 name="timbrado_vigencia_inicio"  
+                 class="form-control" 
+                 id="timbrado_vigencia_inicio"
+                 value="{{ form.timbrado_vigencia_inicio.value|default_if_none:'' }}">
+        </div>
+      </div>
+    </div>
+  
+    <div class="form-field col-md-6">
+      <div class="row">
+        <label for="timbrado_vigencia_fin" class="col-form-label d-block w-100">Fin de Vigencia</label>
+        <div class="col-sm-10">
+          <input type="date" 
+                 name="timbrado_vigencia_fin"  
+                 class="form-control" 
+                 id="timbrado_vigencia_fin"
+                 value="{{ form.timbrado_vigencia_fin.value|default_if_none:'' }}">
+        </div>
+      </div>
+    </div>
+  </div>
+  
 
 
 
