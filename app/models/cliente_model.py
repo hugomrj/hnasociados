@@ -32,12 +32,13 @@ class ClienteForm(forms.ModelForm):
     class Meta:
         model = Cliente
         fields = [
-            'cedula', 'nombre', 'apellido', 'timbrado',
-            'timbrado_vigencia_inicio', 'timbrado_vigencia_fin',  # <-- nuevos
-            'celular', 'email', 'direccion', 'negocio_servicio', 
-            'tarifa', 'usuario_set', 'clave_set'
+            'cedula', 'nombre', 'apellido', 'timbrado', 'celular',
+            'email', 'direccion', 'negocio_servicio', 'tarifa',
+            'usuario_set', 'clave_set',
+            'timbrado_vigencia_inicio', 'timbrado_vigencia_fin',
         ]
-    
+
+
 
 # Creamos un formset para las actividades
 ClientesActividadesFormSet = forms.inlineformset_factory(

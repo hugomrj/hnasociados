@@ -20,7 +20,6 @@
                 action="{% url 'cliente:edit' pk=cliente_id %}" 
                 data-cliente-id="{{ cliente_id }}">
 
-
                 {% include 'app/cliente/form.html' %}
 
 
@@ -128,6 +127,7 @@
 
                     // Agregar el formulario al documento y enviarlo
                     document.body.appendChild(form);
+                    
                     form.submit();
                 };
 

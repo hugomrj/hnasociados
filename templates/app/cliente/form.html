@@ -186,11 +186,11 @@
       <div class="row">
         <label for="timbrado_vigencia_inicio" class="col-form-label d-block w-100">Inicio de Vigencia</label>
         <div class="col-sm-10">
-          <input type="date" 
-                 name="timbrado_vigencia_inicio"  
-                 class="form-control" 
-                 id="timbrado_vigencia_inicio"
-                 value="{{ form.timbrado_vigencia_inicio.value|default_if_none:'' }}">
+            <input type="date" 
+                name="timbrado_vigencia_inicio"  
+                class="form-control" 
+                id="timbrado_vigencia_inicio"
+                value="{{ form.timbrado_vigencia_inicio.value|date:'Y-m-d'|default_if_none:'' }}">
         </div>
       </div>
     </div>
@@ -199,11 +199,11 @@
       <div class="row">
         <label for="timbrado_vigencia_fin" class="col-form-label d-block w-100">Fin de Vigencia</label>
         <div class="col-sm-10">
-          <input type="date" 
-                 name="timbrado_vigencia_fin"  
-                 class="form-control" 
-                 id="timbrado_vigencia_fin"
-                 value="{{ form.timbrado_vigencia_fin.value|default_if_none:'' }}">
+            <input type="date" 
+                name="timbrado_vigencia_fin"  
+                class="form-control" 
+                id="timbrado_vigencia_fin"
+                value="{{ form.timbrado_vigencia_fin.value|date:'Y-m-d'|default_if_none:'' }}">
         </div>
       </div>
     </div>

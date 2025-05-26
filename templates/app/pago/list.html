@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load filtros %}
 
 
 {% block content %}
@@ -86,7 +87,7 @@
                     <tr class="table-primary">
                         
                         <th class="text-center text-nowrap">Fecha</th>
-                        <th class="text-center text-nowrap">Actividad Económica</th>
+                        <th class="text-center text-nowrap">Obligaciones</th>
                         <th class="text-center text-nowrap">Monto</th>
 
                         <th class="text-center text-nowrap">Acciones</th>
@@ -98,7 +99,8 @@
                         
                         <td>{{ item.fecha }}</td>
                         <td>{{ item.actividad_economica }}</td>
-                        <td>{{ item.monto }}</td>
+                        <td>{{ item.monto|miles_puntos }}</td>
+
                         
                         <td class="text-center">
                             <div class="d-flex justify-content-center gap-2">
