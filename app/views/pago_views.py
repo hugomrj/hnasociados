@@ -10,8 +10,8 @@ from django.urls import reverse
 from django.views import View
 
 
-from app.models.actividad_economica_model import ActividadEconomica
-from app.models.cliente_actividad_model import ClientesActividades
+from app.models.obligacion_model import Obligacion
+from app.models.cliente_obligacion_model import ClientesObligaciones
 from app.models.cliente_model import Cliente
 from app.models.pago_model import Pago, PagoForm
 from config import settings
@@ -111,9 +111,8 @@ class PagoCreateView(LoginRequiredMixin, View):
             return redirect('pago:list')  # Asegúrate de que este es el nombre correcto de la URL para la lista de pagos
         
         
-        # Filtrar las actividades económicas relacionadas con el cliente a través de ClientesActividades
-        actividades_filtradas = ActividadEconomica.objects.filter(
-            actividad__in=ClientesActividades.objects.filter(cliente=cliente).values('actividad')
+        obligaciones_filtradas = Obligacion.objects.filter(
+            obligacion__in=ClientesObligaciones.objects.filter(cliente=cliente).values('obligacion')
         )
 
 
@@ -125,7 +124,7 @@ class PagoCreateView(LoginRequiredMixin, View):
             'form': form,
             'cliente': cliente,
             'cliente_id': cliente_id,
-             'actividades_filtradas': actividades_filtradas  
+            'obligaciones_filtradas': obligaciones_filtradas  
         }
 
         return render(request, self.template_name, contexto)

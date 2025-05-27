@@ -78,12 +78,12 @@
                 modal.show();
 
 
-                document.getElementById("agregarActividadEconomica").onclick = function() {
+                document.getElementById("agregarObligacion").onclick = function() {
 
                     let select = document.getElementById("selectOption");
                     
                     if (!select.value) {
-                        alert("Seleccione una actividad económica.");
+                        alert("Seleccione una Obligacion económica.");
                         return;
                     }
 
@@ -111,14 +111,15 @@
                     csrfInput.value = csrfToken;
                     form.appendChild(csrfInput);
 
-                    // Campo para el ID de la actividad
+                    
+                    // Campo para el ID de la obligacion
                     let codigoInput = document.createElement("input");
                     codigoInput.type = "hidden";
                     codigoInput.name = "codigo";
                     codigoInput.value = select.value;
                     form.appendChild(codigoInput);
 
-                    // Campo para la descripción de la actividad
+                    // Campo para la descripción de la obligacion
                     let descripcionInput = document.createElement("input");
                     descripcionInput.type = "hidden";
                     descripcionInput.name = "descripcion";

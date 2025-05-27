@@ -12,8 +12,8 @@ from django.urls import reverse
 from django.views import View
 
 
-from app.models.actividad_economica_model import ActividadEconomica
-from app.models.cliente_actividad_model import ClientesActividades
+from app.models.obligacion_model import Obligacion
+from app.models.cliente_obligacion_model import ClientesObligaciones
 from app.models.cliente_model import Cliente, ClienteForm
 from config import settings
 
@@ -95,16 +95,16 @@ class ClienteDetalleCreateView(LoginRequiredMixin, View):
         # Recuperar los detalles previos de la sesión o inicializarlos
         detalles = request.session.get('detalles', [])
 
-        actividades = ActividadEconomica.objects.all()
+        obligaciones = Obligacion.objects.all()
 
         # Agregar los nuevos datos sin borrar los anteriores
         for key, value in request.POST.items():
             if key.startswith('codigo'):
-                actividad_codigo = value
+                codigo = value
                 descripcion = request.POST.get(f"descripcion{key[6:]}", '')
                 
                 nuevo_detalle = {
-                    "codigo": actividad_codigo,
+                    "codigo": codigo,
                     "descripcion": descripcion
                 }
                 
@@ -119,7 +119,7 @@ class ClienteDetalleCreateView(LoginRequiredMixin, View):
             contexto = {
                 "form": form,
                 "detalles": detalles,
-                "actividades": actividades,
+                "obligaciones": obligaciones,
                 "mostrar_accion": True
             }
 
@@ -128,7 +128,7 @@ class ClienteDetalleCreateView(LoginRequiredMixin, View):
             contexto = {
                 "form": form,
                 "detalles": detalles,
-                "actividades": actividades,
+                "obligaciones": obligaciones,
                 'cliente_id': cliente_id,
                 "mostrar_accion": True
             }
@@ -174,16 +174,16 @@ class ClienteDetalleDeleteView(LoginRequiredMixin, View):
         # Guardar la lista actualizada en la sesión
         request.session['detalles'] = detalles
 
-        # Obtener el formulario y las actividades económicas
+        
         form = ClienteForm(request.POST)
-        actividades = ActividadEconomica.objects.all()
+        obligaciones = Obligacion.objects.all()
 
         # Contexto para renderizar la plantilla
         if tipo == "add":
             contexto = {
                 "form": form,
                 "detalles": detalles,
-                "actividades": actividades,
+                "obligaciones": obligaciones,
                 "mostrar_accion": True
             }
 
@@ -192,7 +192,7 @@ class ClienteDetalleDeleteView(LoginRequiredMixin, View):
             contexto = {
                 "form": form,
                 "detalles": detalles,
-                "actividades": actividades,
+                "obligaciones": obligaciones,
                 'cliente_id': cliente_id,
                 "mostrar_accion": True
             }
@@ -217,13 +217,13 @@ class ClienteCreateView(LoginRequiredMixin, View):
         form = ClienteForm()
         detalles = [] 
 
-        actividades = ActividadEconomica.objects.all()
+        obligaciones = Obligacion.objects.all()
         
 
         contexto = { 
             'form': form, 
             'detalles': detalles,
-            'actividades': actividades,
+            'obligaciones': obligaciones,
             'mostrar_accion': True,            
         }         
                     
@@ -244,18 +244,18 @@ class ClienteCreateView(LoginRequiredMixin, View):
         # Obtener la lista de detalles de la sesión
         detalles = request.session.get('detalles', [])
 
-        actividades = ActividadEconomica.objects.all()
+        obligaciones = Obligacion.objects.all()
                 
         if form.is_valid():
             # Guardamos el formulario si es válido
             cliente = form.save()
 
             # guardar detalles con cabecera de cliente  
-            # Guardar los detalles de las actividades
+     
             for detalle in detalles:
-                ClientesActividades.objects.create(
+                ClientesObligaciones.objects.create(
                     cliente=cliente,  # Asociar al cliente recién creado
-                    actividad=detalle['codigo']  # Usar el código de la actividad
+                    obligacion=detalle['codigo'] 
                 )
 
             # Limpiar la lista de detalles de la sesión después de guardar
@@ -283,7 +283,7 @@ class ClienteCreateView(LoginRequiredMixin, View):
             contexto = { 
                 'form': form, 
                 'detalles': detalles,
-                'actividades': actividades,
+                'obligaciones': obligaciones,
             }         
                         
             
@@ -310,8 +310,8 @@ class ClienteUpdateView(LoginRequiredMixin, View):
         form = ClienteForm(instance=registro)
         
 
-        # Obtener la lista de actividades del cliente
-        cliente_actividad = ClientesActividades.objects.filter(cliente=registro).values("actividad")
+        
+        cliente_obligacion = ClientesObligaciones.objects.filter(cliente=registro).values("obligacion")
 
 
         # Crear una lista para almacenar los detalles
@@ -319,33 +319,33 @@ class ClienteUpdateView(LoginRequiredMixin, View):
 
 
         # Obtener todas las descripciones en una sola consulta
-        actividades = ActividadEconomica.objects.filter(
-            actividad__in=[d["actividad"] for d in cliente_actividad]
-        ).values("actividad", "descripcion")
+        obligaciones = Obligacion.objects.filter(
+            obligacion__in=[d["obligacion"] for d in cliente_obligacion]
+        ).values("obligacion", "descripcion")
 
-        # Crear un diccionario {actividad_id: descripcion}
-        actividad_dict = {a["actividad"]: a["descripcion"] for a in actividades}
+        
+        Obligacion_dict = {a["obligacion"]: a["descripcion"] for a in obligaciones}
 
         # Construir la lista de detalles
-        for d in cliente_actividad:
-            actividad_codigo = d["actividad"]
-            descripcion = actividad_dict.get(actividad_codigo, "Sin descripción")
+        for d in cliente_obligacion:
+            obligacion_codigo = d["obligacion"]
+            descripcion = Obligacion_dict.get(obligacion_codigo, "Sin descripción")
 
             detalles.append({
-                "codigo": actividad_codigo,
+                "codigo": obligacion_codigo,
                 "descripcion": descripcion
             })
 
         # Guardar la lista actualizada en la sesión
         request.session['detalles'] = detalles
 
-        actividades = ActividadEconomica.objects.all()
+        obligaciones = Obligacion.objects.all()
         
         contexto = { 
             'form': form, 
             'registro': registro,
             'detalles': detalles,
-            'actividades': actividades,
+            'obligaciones': obligaciones,
             'cliente_id': registro.pk, 
             'mostrar_accion': True
             }  
@@ -365,7 +365,7 @@ class ClienteUpdateView(LoginRequiredMixin, View):
         
         # Obtener la lista de detalles de la sesión
         detalles = request.session.get('detalles', [])
-        actividades = ActividadEconomica.objects.all()
+        obligaciones = Obligacion.objects.all()
 
 
 
@@ -373,14 +373,14 @@ class ClienteUpdateView(LoginRequiredMixin, View):
             # Guardar cambios si el formulario es válido
             form.save()
             
-            # Eliminar las actividades relacionadas con este cliente
-            ClientesActividades.objects.filter(cliente=cliente).delete()
+            
+            ClientesObligaciones.objects.filter(cliente=cliente).delete()
 
-            # Guardar los detalles de las actividades
+            
             for detalle in detalles:
-                ClientesActividades.objects.create(
+                ClientesObligaciones.objects.create(
                     cliente=cliente,  # Asociar al cliente recién creado
-                    actividad=detalle['codigo']  # Usar el código de la actividad
+                    obligacion=detalle['codigo']  # Usar el código 
                 )
 
             # Limpiar la lista de detalles de la sesión después de guardar
@@ -404,7 +404,7 @@ class ClienteUpdateView(LoginRequiredMixin, View):
             contexto = { 
                 'form': form, 
                 'detalles': detalles,
-                'actividades': actividades,
+                'obligaciones': obligaciones,
                 'cliente_id': pk,  
                 'registro': cliente,  
             }             
@@ -432,8 +432,8 @@ class ClienteDeleteView(LoginRequiredMixin, View):
             # Intentamos obtener el registro
             cliente = get_object_or_404(Cliente, pk=pk)
             
-            # Eliminar las actividades relacionadas con este cliente
-            ClientesActividades.objects.filter(cliente=cliente).delete()
+            
+            ClientesObligaciones.objects.filter(cliente=cliente).delete()
 
             cliente.delete()
 
@@ -470,27 +470,27 @@ class ClienteDetailView(LoginRequiredMixin, View):
         registro = get_object_or_404(Cliente, pk=pk)
         form = ClienteForm(instance=registro) 
 
-        # Obtener la lista de actividades del cliente
-        cliente_actividad = ClientesActividades.objects.filter(cliente=registro).values("actividad")
+        
+        cliente_obligacion = ClientesObligaciones.objects.filter(cliente=registro).values("obligacion")
         
         # Crear una lista para almacenar los detalles
         detalles = []
 
         # Obtener todas las descripciones en una sola consulta
-        actividades = ActividadEconomica.objects.filter(
-            actividad__in=[d["actividad"] for d in cliente_actividad]
-        ).values("actividad", "descripcion")
+        obligaciones = Obligacion.objects.filter(
+            obligacion__in=[d["obligacion"] for d in cliente_obligacion]
+        ).values("obligacion", "descripcion")
 
-        # Crear un diccionario {actividad_id: descripcion}
-        actividad_dict = {a["actividad"]: a["descripcion"] for a in actividades}
+        
+        obligacion_dict = {a["obligacion"]: a["descripcion"] for a in obligaciones}
 
         # Construir la lista de detalles
-        for d in cliente_actividad:
-            actividad_codigo = d["actividad"]
-            descripcion = actividad_dict.get(actividad_codigo, "Sin descripción")
+        for d in cliente_obligacion:
+            codigo = d["obligacion"]
+            descripcion = obligacion_dict.get(codigo, "Sin descripción")
 
             detalles.append({
-                "codigo": actividad_codigo,
+                "codigo": codigo,
                 "descripcion": descripcion
             })
 

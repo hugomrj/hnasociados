@@ -1,7 +1,7 @@
 from django import forms
 from django.db import models
 
-from app.models.cliente_actividad_model import ClientesActividades, ClientesActividadesForm
+from app.models.cliente_obligacion_model import ClientesObligaciones, ClientesObligacionesForm
 
 
 class Cliente (models.Model):
@@ -40,11 +40,11 @@ class ClienteForm(forms.ModelForm):
 
 
 
-# Creamos un formset para las actividades
-ClientesActividadesFormSet = forms.inlineformset_factory(
+
+ClientesObligacionesFormSet = forms.inlineformset_factory(
     Cliente,  # Modelo principal
-    ClientesActividades,  # Modelo relacionado
-    form=ClientesActividadesForm,  # Formulario para el modelo relacionado
+    ClientesObligaciones,  # Modelo relacionado
+    form=ClientesObligacionesForm,  # Formulario para el modelo relacionado
     extra=1
 )
 

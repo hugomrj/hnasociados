@@ -4,9 +4,9 @@
 document.addEventListener('DOMContentLoaded', function() {
 
 
-    var actividad_add = document.getElementById('actividad_add');
-    if (actividad_add) {
-        actividad_add.addEventListener('click', function() {
+    var obligacion_add = document.getElementById('obligacion_add');
+    if (obligacion_add) {
+        obligacion_add.addEventListener('click', function() {
             
             var form = document.getElementById('form');
             var url = form.action ;
@@ -20,9 +20,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-    var actividad_edit = document.getElementById('actividad_edit');
-    if (actividad_edit) {
-        actividad_edit.addEventListener('click', function() {
+    var obligacion_edit = document.getElementById('obligacion_edit');
+    if (obligacion_edit) {
+        obligacion_edit.addEventListener('click', function() {
             
             var form = document.getElementById('form');
             // Enviar el formulario

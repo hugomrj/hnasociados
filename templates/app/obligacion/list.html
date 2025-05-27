@@ -9,7 +9,7 @@
     <div class="card">
 
         <div class="card-header">
-            <h5 class="mb-0">Actividad Económica</h5>  
+            <h5 class="mb-0">Obligacion</h5>  
         </div>
 
         <div class="card-body">
@@ -17,7 +17,7 @@
             <!-- Fila con el botón de agregar y el campo de búsqueda -->
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <!-- Botón Agregar -->
-                <a href="{% url 'actividad_economica:add' %}" 
+                <a href="{% url 'obligacion:add' %}" 
                     class="btn btn-primary btn-sm"
                     style="width: 120px;">
                     <i class="fas fa-plus"></i> Agregar
@@ -57,18 +57,18 @@
                 <tbody class="table-group-divider table-hover" >
                     {% for item in lista %}
                     <tr>
-                        <td>{{ item.actividad }}</td>
+                        <td>{{ item.obligacion }}</td>
                         <td>{{ item.descripcion }}</td>
 
                         <td class="text-center">
                             <div class="d-flex justify-content-center gap-2">
                                 
-                                <a href="{% url 'actividad_economica:detail' item.pk %}" 
+                                <a href="{% url 'obligacion:detail' item.pk %}" 
                                     class="text-primary p-0" title="Ver">
                                     <i class="fas fa-eye"></i>
                                 </a>
 
-                                <a href="{% url 'actividad_economica:edit' item.pk %}" 
+                                <a href="{% url 'obligacion:edit' item.pk %}" 
                                     class="text-warning p-0" title="Editar">
                                     <i class="fas fa-edit"></i>
                                 </a>
@@ -76,7 +76,7 @@
                                 <a href="#" class="text-danger p-0 delete-btn" 
                                     title="Borrar"
                                     data-item-id="{{ item.pk }}"
-                                    data-delete-url="{% url 'actividad_economica:delete' item.pk %}">
+                                    data-delete-url="{% url 'obligacion:delete' item.pk %}">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
 

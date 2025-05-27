@@ -9,17 +9,15 @@
     <div class="card">
 
         <div class="card-header">
-            <h5 class="mb-0">Actividad Económica</h5>  
+            <h5 class="mb-0">Obligacion</h5>  
         </div>
 
 
         <div class="card-body">
 
-            <form method="post" id="form" 
-                action="#">
+            <form method="post" id="form" action="{% url 'obligacion:add' %}">
 
-
-                {% include 'app/actividad_economica/form.html' %}
+                {% include 'app/obligacion/form.html' %}
 
             </form>
         
@@ -31,12 +29,18 @@
             <div class="d-grid gap-2 d-md-flex">    
 
             
+                <button data-mdb-ripple-init 
+                    type="button" 
+                    id="registro_add"
+                    data-url="{% url 'obligacion:add' %}" 
+                    class="btn btn-primary">Agregar
+                </button>
+            
 
-
-                <a href="{% url 'actividad_economica:list' %}"
+                <a href="{% url 'obligacion:list' %}"
                     data-mdb-ripple-init 
                     type="button" 
-                    class="btn btn-secondary">Volver
+                    class="btn btn-secondary">Cancelar
                 </a>
 
             </div>
@@ -58,14 +62,5 @@
 
 
 {% block extrascripts %}  
-<script>
-    window.onload = function() {
-
-        bloquearInput();
-        
-    }
-
-
-</script>
-
+    <script src="{% static 'js/common.js' %}"></script>
 {% endblock %}

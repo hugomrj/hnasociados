@@ -10,13 +10,13 @@ from django.urls import reverse
 from django.views import View
 
 from config import settings
-from app.models.actividad_economica_model import ActividadEconomica, ActividadEconomicaForm
+from app.models.obligacion_model import Obligacion, ObligacionForm
 
 
 # Definir una variable global fuera de la clase
-FOLDER_TEMPLATE = 'app/actividad_economica'
+FOLDER_TEMPLATE = 'app/obligacion'
 
-class ActividadEconomicaListView(LoginRequiredMixin, View):
+class ObligacionListView(LoginRequiredMixin, View):
 
     template_name = FOLDER_TEMPLATE + '/list.html'
     items_por_pagina = settings.ITEMS_POR_PAGINA  
@@ -24,11 +24,11 @@ class ActividadEconomicaListView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
         query = request.GET.get('q', '').strip()  # Obtener parámetro de búsqueda
-        coleccion = ActividadEconomica.objects.all()
+        coleccion = Obligacion.objects.all()
 
         if query:  # Si hay un término de búsqueda
             coleccion = coleccion.filter(
-                Q(actividad__icontains=query) | Q(descripcion__icontains=query)
+                Q(obligacion__icontains=query) | Q(descripcion__icontains=query)
             )
 
         paginator = Paginator(coleccion, self.items_por_pagina)
@@ -67,12 +67,12 @@ class ActividadEconomicaListView(LoginRequiredMixin, View):
 
 
 
-class ActividadEconomicaCreateView(LoginRequiredMixin, View):    
+class ObligacionCreateView(LoginRequiredMixin, View):    
     template_name = FOLDER_TEMPLATE + '/add.html'
     
     def get(self, request, *args, **kwargs):
         # Inicializamos el formulario vacío para el GET
-        form = ActividadEconomicaForm()
+        form = ObligacionForm()
         return render(request, self.template_name, {'form': form})
     
 
@@ -84,7 +84,7 @@ class ActividadEconomicaCreateView(LoginRequiredMixin, View):
         print(f"Datos recibidos en POST: {request.POST}") 
 
         # Procesar el formulario cuando se envía
-        form = ActividadEconomicaForm(request.POST)
+        form = ObligacionForm(request.POST)
         
         if form.is_valid():
             # Guardamos el formulario si es válido
@@ -94,7 +94,7 @@ class ActividadEconomicaCreateView(LoginRequiredMixin, View):
             messages.success(request, message)
 
             # Redirigir a otra vista (puede ser una lista o éxito)
-            return redirect('actividad_economica:list')  
+            return redirect('obligacion:list')  
         
         else:
             # Si el formulario no es válido, manejar los errores
@@ -117,15 +117,15 @@ class ActividadEconomicaCreateView(LoginRequiredMixin, View):
 
 
         
-class ActividadEconomicaUpdateView(LoginRequiredMixin, View):    
+class ObligacionUpdateView(LoginRequiredMixin, View):    
     template_name = FOLDER_TEMPLATE + '/edit.html'
     
     def get(self, request, pk, *args, **kwargs):
         # Obtener el objeto a editar o mostrar 404 si no existe
-        registro = get_object_or_404(ActividadEconomica, pk=pk)
+        registro = get_object_or_404(Obligacion, pk=pk)
         
         # Inicializar el formulario con la instancia existente
-        form = ActividadEconomicaForm(instance=registro)
+        form = ObligacionForm(instance=registro)
 
         contexto = { 
             'form': form, 
@@ -139,10 +139,10 @@ class ActividadEconomicaUpdateView(LoginRequiredMixin, View):
 
     def post(self, request, pk, *args, **kwargs):
         # Obtener el objeto a editar
-        registro = get_object_or_404(ActividadEconomica, pk=pk)
+        registro = get_object_or_404(Obligacion, pk=pk)
         
         # Procesar formulario con los datos POST y la instancia
-        form = ActividadEconomicaForm(request.POST, instance=registro)
+        form = ObligacionForm(request.POST, instance=registro)
         
         if form.is_valid():
             # Guardar cambios si el formulario es válido
@@ -150,7 +150,7 @@ class ActividadEconomicaUpdateView(LoginRequiredMixin, View):
             
             message = 'El registro se ha actualizado correctamente.'
             messages.success(request, message)
-            return redirect('actividad_economica:list')
+            return redirect('obligacion:list')
         
         else:
             # Manejar errores de validación
@@ -180,12 +180,12 @@ class ActividadEconomicaUpdateView(LoginRequiredMixin, View):
 
 
 
-class ActividadEconomicaDeleteView(LoginRequiredMixin, View):
+class ObligacionDeleteView(LoginRequiredMixin, View):
     
     def post(self, request, pk):
         try:
             # Intentamos obtener el registro
-            registro = get_object_or_404(ActividadEconomica, pk=pk)
+            registro = get_object_or_404(Obligacion, pk=pk)
             # Si no hay error, eliminamos el registro
             registro.delete()
 
@@ -201,7 +201,7 @@ class ActividadEconomicaDeleteView(LoginRequiredMixin, View):
             messages.error(request, f"Hubo un problema al intentar eliminar el registro: {str(e)}")
 
         # Redirige a la URL obtenida
-        return redirect('actividad_economica:list')
+        return redirect('obligacion:list')
 
 
 
@@ -211,13 +211,13 @@ class ActividadEconomicaDeleteView(LoginRequiredMixin, View):
 
 
 
-class ActividadEconomicaDetailView(LoginRequiredMixin, View):    
+class ObligacionDetailView(LoginRequiredMixin, View):    
     template_name = FOLDER_TEMPLATE + '/detail.html'
 
     def get(self, request, pk, *args, **kwargs):
         # Obtener el objeto a mostrar o devolver 404 si no existe
-        registro = get_object_or_404(ActividadEconomica, pk=pk)
-        form = ActividadEconomicaForm(instance=registro) 
+        registro = get_object_or_404(Obligacion, pk=pk)
+        form = ObligacionForm(instance=registro) 
         
         # Crear el contexto con el registro
         contexto = { 

@@ -46,7 +46,7 @@ urlpatterns = [
         path("login/", Login.as_view(), name="login"),
         path("home/", Home.as_view(), name="home"),
         path("logout/", Logout.as_view(), name="logout"),
-        path("actividad_economica/", include("app.urls.actividad_economica_urls")),
+        path("obligacion/", include("app.urls.obligacion_urls")),
         path("cliente/", include("app.urls.cliente_urls")),
         path("pago/", include("app.urls.pago_urls")),
        
