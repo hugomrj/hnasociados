@@ -42,6 +42,16 @@
 
             // Inicializa los modales de MDB
             document.querySelectorAll('.modal').forEach(el => new mdb.Modal(el));
+
+
+            // Inicializar tabs
+            document.querySelectorAll('[data-mdb-tab-init]').forEach(el => {
+                new mdb.Tab(el);
+            });
+
+
+
+
         });
     </script>
 

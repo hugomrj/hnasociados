@@ -9,7 +9,7 @@ class Cliente (models.Model):
     cedula = models.CharField(max_length=20)
     nombre = models.CharField(max_length=100)
     apellido = models.CharField(max_length=100)
-    timbrado = models.CharField(max_length=50, blank=True, null=True)
+
     celular = models.CharField(max_length=20, blank=True, null=True)
     email = models.CharField(max_length=100, blank=True, null=True)
     direccion = models.CharField(max_length=200, blank=True, null=True)
@@ -17,8 +17,7 @@ class Cliente (models.Model):
     tarifa = models.BigIntegerField(blank=True, null=True) 
     usuario_set = models.CharField(max_length=50, blank=True, null=True)
     clave_set = models.CharField(max_length=50, blank=True, null=True)
-    timbrado_vigencia_inicio = models.DateField(blank=True, null=True)
-    timbrado_vigencia_fin = models.DateField(blank=True, null=True)
+
 
 
 
@@ -32,11 +31,9 @@ class ClienteForm(forms.ModelForm):
     class Meta:
         model = Cliente
         fields = [
-            'cedula', 'nombre', 'apellido', 'timbrado', 'celular',
+            'cedula', 'nombre', 'apellido', 'celular',
             'email', 'direccion', 'negocio_servicio', 'tarifa',
-            'usuario_set', 'clave_set',
-            'timbrado_vigencia_inicio', 'timbrado_vigencia_fin',
-        ]
+            'usuario_set', 'clave_set',        ]
 
 
 

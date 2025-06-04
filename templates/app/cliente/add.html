@@ -86,7 +86,7 @@
                     // Crear el formulario dinámicamente
                     let form = document.getElementById("form");
                     form.method = "POST";
-                    form.action = "{% url 'cliente:clientedetalle' %}";
+                    form.action = "{% url 'cliente:cliente_obligacion' %}";
 
                     // Agregar el token CSRF
                     let csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;

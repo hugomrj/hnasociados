@@ -8,10 +8,13 @@ from app.views.cliente_views import (
     ClienteListView,
     ClienteUpdateView,
 
-    ClienteDetalleCreateView,
-    ClienteDetalleDeleteView
 )
 
+from app.views.cliente_obligacion_views import (
+
+    ClienteObligacionCreateView,
+    ClienteObligacionDeleteView
+)
 
 
 
@@ -30,8 +33,8 @@ urlpatterns = [
 
 
 
-    path('clientedetalle/', ClienteDetalleCreateView.as_view(), name='clientedetalle'),
-    path('clientedetalledelete/<int:pk>/', ClienteDetalleDeleteView.as_view(), name='clientedetalledelete'),
+    path('cliente_obligacion/', ClienteObligacionCreateView.as_view(), name='cliente_obligacion'),
+    path('cliente_obligacion_delete/<int:pk>/', ClienteObligacionDeleteView.as_view(), name='cliente_obligacion_delete'),
 
 
 
