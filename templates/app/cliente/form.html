@@ -178,73 +178,10 @@
 
     
 
-    <!-- Button trigger modal -->
-    {% if mostrar_accion %}
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <!-- Botón Agregar -->
-        <button id="btn_agregar_det"
-            type="button" 
-            class="btn btn-outline-primary btn-sm"
-            style="width: 120px;">
-            Agregar 
-        </button>
-    </div>
-    {% endif %}
 
 
 
-
-    {% include 'app/cliente/modal_add_detalle.html' %}
-
-    
-
-    {{ formset.management_form }}
-
-    <div class="col-xl-8 col-lg-8 col-md-10 col-sm-12">
-
-
-        <table class="table table-striped table-sm col-6">
-            <thead>
-                <tr class="table-primary">
-                    <th class="text-center text-nowrap">Código</th>
-                    <th class="text-center text-nowrap">Obligacion</th>
-                    {% if mostrar_accion %}
-                    <th class="text-center text-nowrap">Eliminar</th>
-                    {% endif %}
-                </tr>
-            </thead>
-
-            <tbody class="table-group-divider table-hover">
-
-                {% for detalle in detalles %}
-                <tr>
-                    <td>{{ detalle.codigo }}</td>
-                    <td>{{ detalle.descripcion }}</td>
-
-                    {% if mostrar_accion %}
-                    <td>
-                        <a href="#" class="text-danger p-0 delete-detalle" 
-                            title="Borrar"
-                            data-item-id="{{ detalle.codigo }}"
-                            data-delete-url="{% url 'cliente:cliente_obligacion_delete' detalle.codigo %}">                        
-                            <i class="fas fa-trash-alt"></i>
-                        </a>
-                    </td>
-                    {% endif %}
-
-
-                </tr>
-                {% endfor %}
-
-            </tbody>
-
-
-        </table>
-
-    </div>
-
-
-
+{{ formset.management_form }}
 
 <!-- Tabs navs -->
 <ul class="nav nav-tabs mb-3" id="myTab0" role="tablist">
@@ -252,61 +189,123 @@
       <button
         data-mdb-tab-init
         class="nav-link active"
-        id="home-tab0"
-        data-mdb-target="#home0"
+        id="obligaciones-tab"
+        data-mdb-target="#obligaciones"
         type="button"
         role="tab"
-        aria-controls="home"
+        aria-controls="obligaciones"
         aria-selected="true"
       >
-        Home
+        Obligaciones
       </button>
     </li>
     <li class="nav-item" role="presentation">
       <button
         data-mdb-tab-init
         class="nav-link"
-        id="profile-tab0"
-        data-mdb-target="#profile0"
+        id="timbrados-tab"
+        data-mdb-target="#timbrados"
         type="button"
         role="tab"
-        aria-controls="profile"
+        aria-controls="timbrados"
         aria-selected="false"
       >
-        Profile
+        Timbrados
       </button>
     </li>
-    <li class="nav-item" role="presentation">
-      <button
-        data-mdb-tab-init
-        class="nav-link"
-        id="contact-tab0"
-        data-mdb-target="#contact0"
-        type="button"
-        role="tab"
-        aria-controls="contact"
-        aria-selected="false"
-      >
-        Contact
-      </button>
-    </li>
-  </ul>
-  <div class="tab-content" id="myTabContent0">
+</ul>
+  
+<!-- Tabs content -->
+<div class="tab-content" id="myTabContent0">
     <div
       class="tab-pane fade show active"
-      id="home0"
+      id="obligaciones"
       role="tabpanel"
-      aria-labelledby="home-tab0"
+      aria-labelledby="obligaciones-tab"
     >
-      Tab 1 content.
+      
+        <!-- Button trigger modal -->
+        {% if mostrar_accion %}
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <!-- Botón Agregar -->
+            <button id="btn_agregar_det"
+                type="button" 
+                class="btn btn-outline-primary btn-sm"
+                style="width: 120px;">
+                Agregar 
+            </button>
+        </div>
+        {% endif %}
+
+
+
+
+        {% include 'app/cliente/modal_add_detalle.html' %}
+        
+
+
+        <div class="col-xl-8 col-lg-8 col-md-10 col-sm-12">
+
+
+            <table class="table table-striped table-sm col-6">
+                <thead>
+                    <tr class="table-primary">
+                        <th class="text-center text-nowrap">Código</th>
+                        <th class="text-center text-nowrap">Obligacion</th>
+                        {% if mostrar_accion %}
+                        <th class="text-center text-nowrap">Eliminar</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+
+                <tbody class="table-group-divider table-hover">
+
+                    {% for detalle in detalles %}
+                    <tr>
+                        <td>{{ detalle.codigo }}</td>
+                        <td>{{ detalle.descripcion }}</td>
+
+                        {% if mostrar_accion %}
+                        <td>
+                            <a href="#" class="text-danger p-0 delete-detalle" 
+                                title="Borrar"
+                                data-item-id="{{ detalle.codigo }}"
+                                data-delete-url="{% url 'cliente:cliente_obligacion_delete' detalle.codigo %}">                        
+                                <i class="fas fa-trash-alt"></i>
+                            </a>
+                        </td>
+                        {% endif %}
+
+
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+
+
+            </table>
+
+        </div>
+
+
+
+
+
+
+
     </div>
-    <div class="tab-pane fade" id="profile0" role="tabpanel" aria-labelledby="profile-tab0">
-      Tab 2 content
+    <div
+      class="tab-pane fade"
+      id="timbrados"
+      role="tabpanel"
+      aria-labelledby="timbrados-tab"
+    >
+      Contenido de Timbrados.
     </div>
-    <div class="tab-pane fade" id="contact0" role="tabpanel" aria-labelledby="contact-tab0">
-      Tab 3 content
-    </div>
-  </div>
+</div>
+  
+
+
 
 
   
