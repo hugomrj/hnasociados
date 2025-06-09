@@ -120,7 +120,6 @@
 
 
             const deleteButtons = document.querySelectorAll('.delete-detalle');
-
             deleteButtons.forEach(button => {
                 button.addEventListener('click', function (e) {
                     e.preventDefault(); // Evita que el enlace redireccione
@@ -155,6 +154,17 @@
                 });
             });
                         
+
+
+
+
+            document.getElementById("btn_agregar_timbrado").addEventListener("click", function() {
+
+                // abrir modal                
+                const modal = new mdb.Modal(document.getElementById('modal_add_timbrado'));
+                modal.show();
+
+            });
 
 
 
