@@ -164,6 +164,18 @@
                 const modal = new mdb.Modal(document.getElementById('modal_add_timbrado'));
                 modal.show();
 
+                document.getElementById("agregar_timbrado").onclick = function() {                
+
+                    alert("add timbrado")
+
+
+                    // Crear el formulario dinámicamente
+                    let form = document.getElementById("form");
+                    form.method = "POST";
+                    form.action = "{% url 'cliente:cliente_timbrado' %}";                    
+
+                };
+
             });
 
 

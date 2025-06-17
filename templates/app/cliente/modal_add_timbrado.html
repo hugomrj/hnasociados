@@ -14,19 +14,34 @@
         </div>
 
         <div class="modal-body">
-          <label for="selectOption" class="form-label">Obligacion:</label>
-          <select id="selectOption" name="option" class="form-select">
-            <option value="" disabled selected>Seleccione...</option>
-            {% for obligacion in obligaciones %}
-              <option value="{{ obligacion.obligacion }}">{{ obligacion.descripcion }}</option>
-            {% endfor %}
-          </select>
+
+
+    
+            <div class="mb-3">
+              <label for="timbrado" class="form-label">Timbrado</label>
+              <input type="text" class="form-control" id="timbrado" name="timbrado">
+            </div>
+          
+            <div class="mb-3">
+              <label for="fecha_inicio" class="form-label">Fecha inicio</label>
+              <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio">
+            </div>
+          
+            <div class="mb-3">
+              <label for="fecha_fin" class="form-label">Fecha fin</label>
+              <input type="date" class="form-control" id="fecha_fin" name="fecha_fin">
+            </div>
+ 
+          
+
+
+
         </div>
 
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" 
             data-mdb-ripple-init data-mdb-dismiss="modal">Cancelar</button>
-          <button type="button" id="agregarObligacion" 
+          <button type="button" id="agregar_timbrado" 
             class="btn btn-primary">Agregar</button>
         </div>
 
