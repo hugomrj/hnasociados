@@ -247,6 +247,51 @@
 
 
 
+
+            const timbrado_delete_Buttons = document.querySelectorAll('.delete-timbrado-detalle');
+            timbrado_delete_Buttons.forEach(button => {
+                button.addEventListener('click', function (e) {
+                    e.preventDefault(); // Evita que el enlace redireccione
+
+                    alert("boton delete");
+
+
+                    /*
+                    // Obtén el ID del registro a borrar
+                    const itemId = this.getAttribute('data-item-id');
+                    const deleteUrl = this.getAttribute('data-delete-url');
+
+                    // Obtener el formulario existente
+                    let form = document.getElementById("form");
+                    form.action = deleteUrl;
+
+                    // Agregar el token CSRF (si no está ya en el formulario)
+                    let csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
+                    let csrfInput = document.createElement("input");
+                    csrfInput.type = "hidden";
+                    csrfInput.name = "csrfmiddlewaretoken";
+                    csrfInput.value = csrfToken;
+                    form.appendChild(csrfInput);
+
+                    // Campo para el ID del registro a borrar
+                    let itemIdInput = document.createElement("input");
+                    itemIdInput.type = "hidden";
+                    itemIdInput.name = "item_id";
+                    itemIdInput.value = itemId;
+                    form.appendChild(itemIdInput);
+
+                    // Enviar el formulario
+                    form.submit();
+                    */
+                });
+            });
+                        
+
+
+
+
+
+
         }
 
 

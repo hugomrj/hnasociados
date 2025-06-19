@@ -18,7 +18,8 @@ from app.views.cliente_obligacion_views import (
 
 
 from app.views.cliente_timbrado_views import (
-    ClienteTimbradoCreateView
+    ClienteTimbradoCreateView,
+    ClienteTimbradoDeleteView
 )
 
 
@@ -43,7 +44,7 @@ urlpatterns = [
 
 
     path('cliente_timbrado/', ClienteTimbradoCreateView.as_view(), name='cliente_timbrado'),
-
+    path('cliente_timbrado_delete/<int:pk>/', ClienteTimbradoDeleteView.as_view(), name='cliente_timbrado_delete'),
 
 ]     
 

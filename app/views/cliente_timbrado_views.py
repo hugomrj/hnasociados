@@ -101,13 +101,14 @@ class ClienteTimbradoDeleteView(LoginRequiredMixin, View):
         template_name = f"{FOLDER_TEMPLATE}/{tipo}.html"  
 
         # Obtener la lista de detalles de la sesión
-        detalles = request.session.get('detalles', [])
-        print("Detalles:", detalles) 
+        detalles_timbrado = request.session.get('detalles_timbrado', [])
+        print("detalles_timbrado:", detalles_timbrado) 
         
         # Convertir el 'codigo' de cada elemento en detalles a entero
+        '''
         for detalle in detalles:
-            detalle['codigo'] = int(detalle['codigo'])          
-
+            detalle['id'] = int(detalle['id'])          
+        '''
 
         # Obtener el ID del item a borrar
         item_id = request.POST.get('item_id')
@@ -117,13 +118,13 @@ class ClienteTimbradoDeleteView(LoginRequiredMixin, View):
 
 
         # Filtrar la lista para eliminar el registro con el item_id especificado
-        detalles = [detalle for detalle in detalles if detalle['codigo'] != item_id]
+        # detalles = [detalle for detalle in detalles if detalle['codigo'] != item_id]
 
-        print("Detalles:", detalles) 
+        print("Detalles:", detalles_timbrado) 
 
 
         # Guardar la lista actualizada en la sesión
-        request.session['detalles'] = detalles
+        request.session['detalles_timbrado'] = detalles_timbrado
 
         
         form = ClienteForm(request.POST)
@@ -132,8 +133,8 @@ class ClienteTimbradoDeleteView(LoginRequiredMixin, View):
         # Contexto para renderizar la plantilla
         if tipo == "add":
             contexto = {
-                "form": form,
-                "detalles": detalles,
+                "form": form,                
+                "detalles_timbrado": detalles_timbrado,
                 "obligaciones": obligaciones,
                 "mostrar_accion": True
             }
@@ -141,8 +142,8 @@ class ClienteTimbradoDeleteView(LoginRequiredMixin, View):
         if tipo == "edit":            
             cliente_id = request.POST.get('cliente_id')
             contexto = {
-                "form": form,
-                "detalles": detalles,
+                "form": form,                
+                "detalles_timbrado": detalles_timbrado,
                 "obligaciones": obligaciones,
                 'cliente_id': cliente_id,
                 "mostrar_accion": True

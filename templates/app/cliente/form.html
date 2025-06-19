@@ -334,10 +334,10 @@
 
                         {% if mostrar_accion %}
                         <td>
-                            <a href="#" class="text-danger p-0 delete-detalle" 
+                            <a href="#" class="text-danger p-0 delete-timbrado-detalle" 
                                 title="Borrar"
                                 data-item-id="{{ detalle.codigo }}"
-                                data-delete-url="{% url 'cliente:cliente_obligacion_delete' timbrado.id %}">                        
+                                data-delete-url="{% url 'cliente:cliente_timbrado_delete' timbrado.id %}">                        
                                 <i class="fas fa-trash-alt"></i>
                             </a>
                         </td>
