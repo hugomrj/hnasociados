@@ -94,6 +94,7 @@ class ClienteCreateView(LoginRequiredMixin, View):
         # Inicializamos el formulario vacío para el GET
         form = ClienteForm()
         detalles = [] 
+        detalles_timbrado = [] 
 
         obligaciones = Obligacion.objects.all()
         
@@ -101,11 +102,13 @@ class ClienteCreateView(LoginRequiredMixin, View):
         contexto = { 
             'form': form, 
             'detalles': detalles,
+            "detalles_timbrado": detalles_timbrado,
             'obligaciones': obligaciones,
             'mostrar_accion': True,            
         }         
                     
         request.session['detalles'] = []
+        request.session['detalles_timbrado'] = []
         request.session.modified = True  # Asegura que Django guarde el cambio
 
 
