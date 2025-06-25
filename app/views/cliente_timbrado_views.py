@@ -32,6 +32,7 @@ class ClienteTimbradoCreateView(LoginRequiredMixin, View):
 
         # Recuperar los detalles previos de la sesión o inicializarlos
         detalles_timbrado = request.session.get('detalles_timbrado', [])
+        detalles = request.session.get('detalles', [])  
 
         # Procesar datos del timbrado
         timbrado = request.POST.get('timbrado')
@@ -39,6 +40,9 @@ class ClienteTimbradoCreateView(LoginRequiredMixin, View):
         fecha_fin = request.POST.get('fecha_fin')
 
 
+        # Obtener el máximo ID actual o empezar desde 1
+        max_id = max([t['id'] for t in detalles_timbrado], default=0)
+        nuevo_id = max_id + 1
 
         # Validar que existan los campos del timbrado
         if timbrado and fecha_inicio and fecha_fin:
@@ -46,7 +50,7 @@ class ClienteTimbradoCreateView(LoginRequiredMixin, View):
                 'timbrado': timbrado,
                 'fecha_inicio': fecha_inicio,
                 'fecha_fin': fecha_fin,
-                'id': len(detalles_timbrado) + 1  # ID autoincremental
+                'id': nuevo_id  # ID numérico autoincremental
             }
 
             # Evitar duplicados (opcional)
@@ -63,6 +67,7 @@ class ClienteTimbradoCreateView(LoginRequiredMixin, View):
             contexto = {
                 "form": form,
                 "detalles_timbrado": detalles_timbrado,
+                "detalles": detalles, 
                 "obligaciones": obligaciones,
                 "mostrar_accion": True
             }
@@ -72,6 +77,7 @@ class ClienteTimbradoCreateView(LoginRequiredMixin, View):
             contexto = {
                 "form": form,
                 "detalles_timbrado": detalles_timbrado,
+                "detalles": detalles, 
                 'cliente_id': cliente_id,
                 "obligaciones": obligaciones,
                 "mostrar_accion": True

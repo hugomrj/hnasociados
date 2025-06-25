@@ -10,6 +10,8 @@ http://localhost:8000/hnasociados/
 
 
 
+
+
 git pull
 git add  .
 git commit -m ""

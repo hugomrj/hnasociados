@@ -164,6 +164,7 @@
                 const modal = new mdb.Modal(document.getElementById('modal_add_timbrado'));
                 modal.show();
 
+
                 document.getElementById("agregar_timbrado").onclick = function() {                
 
                     const timbrado = document.getElementById("timbrado");
@@ -198,7 +199,6 @@
 
 
 
-
                     // Agregar token CSRF
                     let csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
                     let csrfInput = document.createElement("input");
@@ -206,7 +206,6 @@
                     csrfInput.name = "csrfmiddlewaretoken";
                     csrfInput.value = csrfToken;
                     form.appendChild(csrfInput);
-
 
 
                     // 2. Agregar campo timbrado
@@ -248,6 +247,8 @@
 
 
 
+
+
             const timbrado_delete_Buttons = document.querySelectorAll('.delete-timbrado-detalle');
             timbrado_delete_Buttons.forEach(button => {
                 button.addEventListener('click', function (e) {
@@ -267,6 +268,14 @@
                     /*
 
 
+/*
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = `/hnasociados/cliente/cliente_timbrado_delete/${timbradoId}/`;
+        form.style.display = 'none';
+*/
+
+/*
                     // Obtener el formulario existente
                     let form = document.getElementById("form");
                     form.action = deleteUrl;
