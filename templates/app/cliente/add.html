@@ -265,20 +265,10 @@
                     alert(deleteUrl)
 
 
-                    /*
-
-
-/*
-        const form = document.createElement('form');
-        form.method = 'POST';
-        form.action = `/hnasociados/cliente/cliente_timbrado_delete/${timbradoId}/`;
-        form.style.display = 'none';
-*/
-
-/*
-                    // Obtener el formulario existente
-                    let form = document.getElementById("form");
+                    const form = document.createElement('form');
+                    form.method = 'POST';
                     form.action = deleteUrl;
+                    form.style.display = 'none';
 
                     // Agregar el token CSRF (si no está ya en el formulario)
                     let csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
@@ -288,6 +278,8 @@
                     csrfInput.value = csrfToken;
                     form.appendChild(csrfInput);
 
+
+
                     // Campo para el ID del registro a borrar
                     let itemIdInput = document.createElement("input");
                     itemIdInput.type = "hidden";
@@ -295,8 +287,27 @@
                     itemIdInput.value = itemId;
                     form.appendChild(itemIdInput);
 
+
+                    
                     // Enviar el formulario
                     form.submit();
+
+
+/*
+                    // Obtener el formulario existente
+                    let form = document.getElementById("form");
+                    form.action = deleteUrl;
+
+
+
+                    // Campo para el ID del registro a borrar
+                    let itemIdInput = document.createElement("input");
+                    itemIdInput.type = "hidden";
+                    itemIdInput.name = "item_id";
+                    itemIdInput.value = itemId;
+                    form.appendChild(itemIdInput);
+
+
                     */
                 });
             });
