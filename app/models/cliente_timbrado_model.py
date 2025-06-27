@@ -6,8 +6,8 @@ from django.apps import apps
 
 
 class ClientesTimbrado(models.Model):
-    id = models.AutoField()
-    clente = models.IntegerField(blank=True, null=True)
+    #  id = models.AutoField()
+    cliente = models.IntegerField(blank=True, null=True)
     timbrado = models.CharField(blank=True, null=True)
     fecha_inicio = models.DateField(blank=True, null=True)
     fecha_fin = models.DateField(blank=True, null=True)
@@ -20,7 +20,8 @@ class ClientesTimbrado(models.Model):
 
 
 
+
 class ClientesTimbradoForm(forms.ModelForm):
     class Meta:
         model = ClientesTimbrado
-        
+        fields = '__all__'         

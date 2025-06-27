@@ -6,6 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.db.models import Q, Value
 
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.views import View
@@ -103,30 +104,26 @@ class ClienteTimbradoDeleteView(LoginRequiredMixin, View):
     
     def post(self, request, pk):
 
+        print("Entra en delete timbrado")
+
         tipo = request.GET.get("tipo", "add") 
         template_name = f"{FOLDER_TEMPLATE}/{tipo}.html"  
-
-        # Obtener la lista de detalles de la sesión
-        detalles_timbrado = request.session.get('detalles_timbrado', [])
-        print("detalles_timbrado:", detalles_timbrado) 
         
-        # Convertir el 'codigo' de cada elemento en detalles a entero
-        '''
-        for detalle in detalles:
-            detalle['id'] = int(detalle['id'])          
-        '''
-
-        # Obtener el ID del item a borrar
+        # Obtener el ID del ítem a eliminar (de POST, no de GET)
         item_id = request.POST.get('item_id')
-        print("item_id:", item_id) 
 
-        item_id = int(item_id)  # Intentar convertir item_id a un entero
-
-
-        # Filtrar la lista para eliminar el registro con el item_id especificado
-        # detalles = [detalle for detalle in detalles if detalle['codigo'] != item_id]
-
-        print("Detalles:", detalles_timbrado) 
+        detalles_timbrado = request.session.get('detalles_timbrado', [])
+        detalles = request.session.get('detalles', [])  
+        
+        
+        # Filtrar para eliminar el ítem
+        detalles_timbrado = [item for item in detalles_timbrado if str(item.get('id')) != str(item_id)]
+        
+        # Actualizar la sesión
+        request.session['detalles_timbrado'] = detalles_timbrado
+        request.session.modified = True
+        
+        print("Detalles después:", detalles_timbrado)
 
 
         # Guardar la lista actualizada en la sesión
@@ -141,6 +138,7 @@ class ClienteTimbradoDeleteView(LoginRequiredMixin, View):
             contexto = {
                 "form": form,                
                 "detalles_timbrado": detalles_timbrado,
+                "detalles": detalles, 
                 "obligaciones": obligaciones,
                 "mostrar_accion": True
             }
@@ -150,6 +148,7 @@ class ClienteTimbradoDeleteView(LoginRequiredMixin, View):
             contexto = {
                 "form": form,                
                 "detalles_timbrado": detalles_timbrado,
+                "detalles": detalles, 
                 "obligaciones": obligaciones,
                 'cliente_id': cliente_id,
                 "mostrar_accion": True

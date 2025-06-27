@@ -254,18 +254,15 @@
                 button.addEventListener('click', function (e) {
                     e.preventDefault(); // Evita que el enlace redireccione
 
-                    alert("boton delete");
-
-
+  
                     // Obtén el ID del registro a borrar
                     const itemId = this.getAttribute('data-item-id');
                     const deleteUrl = this.getAttribute('data-delete-url');
 
 
-                    alert(deleteUrl)
-
-
                     const form = document.createElement('form');
+
+
                     form.method = 'POST';
                     form.action = deleteUrl;
                     form.style.display = 'none';
@@ -288,9 +285,11 @@
                     form.appendChild(itemIdInput);
 
 
-                    
+                    // Enviar (la recarga de página limpiará todo)
+                    document.body.appendChild(form);
                     // Enviar el formulario
                     form.submit();
+                    return true;
 
 
 /*

@@ -12,6 +12,7 @@ from django.urls import reverse
 from django.views import View
 
 
+from app.models.cliente_timbrado_model import ClientesTimbrado
 from app.models.obligacion_model import Obligacion
 from app.models.cliente_obligacion_model import ClientesObligaciones
 from app.models.cliente_model import Cliente, ClienteForm
@@ -124,6 +125,8 @@ class ClienteCreateView(LoginRequiredMixin, View):
 
         # Obtener la lista de detalles de la sesión
         detalles = request.session.get('detalles', [])
+        detalles_timbrado = request.session.get('detalles_timbrado', [])
+                  
 
         obligaciones = Obligacion.objects.all()
                 
@@ -139,9 +142,21 @@ class ClienteCreateView(LoginRequiredMixin, View):
                     obligacion=detalle['codigo'] 
                 )
 
+
+
+            # Guardar timbrados en la base de datos
+            for timbrado_data in detalles_timbrado:
+                ClientesTimbrado.objects.create(
+                    cliente=cliente.cliente,
+                    timbrado=timbrado_data['timbrado'],
+                    fecha_inicio=timbrado_data['fecha_inicio'],
+                    fecha_fin=timbrado_data['fecha_fin']
+                )
+
+
             # Limpiar la lista de detalles de la sesión después de guardar
             request.session['detalles'] = []
-
+            request.session['detalles_timbrado'] = []
             message = 'El registro se ha agregado correctamente.'
             messages.success(request, message)
 
@@ -164,6 +179,7 @@ class ClienteCreateView(LoginRequiredMixin, View):
             contexto = { 
                 'form': form, 
                 'detalles': detalles,
+                "detalles_timbrado": detalles_timbrado,
                 'obligaciones': obligaciones,
             }         
                         
