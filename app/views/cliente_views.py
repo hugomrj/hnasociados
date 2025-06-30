@@ -367,11 +367,23 @@ class ClienteDetailView(LoginRequiredMixin, View):
         registro = get_object_or_404(Cliente, pk=pk)
         form = ClienteForm(instance=registro) 
 
-        
+    
+
+
         cliente_obligacion = ClientesObligaciones.objects.filter(cliente=registro).values("obligacion")
         
         # Crear una lista para almacenar los detalles
         detalles = []
+            
+        # Obtener todos los timbrados asociados a este cliente
+        detalles_timbrado = ClientesTimbrado.objects.filter(cliente=registro.cliente).all()
+        
+        print("\nResumen de timbrados:")
+        for idx, timbrado in enumerate(detalles_timbrado, 1):
+            print(f"{idx}. Timbrado: {timbrado.timbrado} | {timbrado.fecha_inicio} a {timbrado.fecha_fin}")
+
+
+
 
         # Obtener todas las descripciones en una sola consulta
         obligaciones = Obligacion.objects.filter(
@@ -392,11 +404,17 @@ class ClienteDetailView(LoginRequiredMixin, View):
             })
 
 
+
+
+
+
+
         # Crear el contexto con el registro
         contexto = { 
             'form': form, 
             'registro': registro,
-            'detalles': detalles,            
+            'detalles': detalles,
+            "detalles_timbrado": detalles_timbrado,            
             'mostrar_accion': False
         }  
 
