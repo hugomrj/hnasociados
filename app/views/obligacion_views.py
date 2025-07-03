@@ -105,7 +105,7 @@ class ObligacionCreateView(LoginRequiredMixin, View):
             
 
             # Mostrar el error en la consola para depuración
-            print(f"Error al agregar registro: {error_message}")
+            print(f"Error al agregar registro obligacion: {error_message}")
 
             messages.error(request, error_message)
             

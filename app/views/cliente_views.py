@@ -181,6 +181,7 @@ class ClienteCreateView(LoginRequiredMixin, View):
                 'detalles': detalles,
                 "detalles_timbrado": detalles_timbrado,
                 'obligaciones': obligaciones,
+                'mostrar_accion': True,   
             }         
                         
             
@@ -213,6 +214,8 @@ class ClienteUpdateView(LoginRequiredMixin, View):
 
         # Crear una lista para almacenar los detalles
         detalles = []
+        # Obtener todos los timbrados asociados a este cliente
+        detalles_timbrado = ClientesTimbrado.objects.filter(cliente=registro.cliente).all()
 
 
         # Obtener todas las descripciones en una sola consulta
@@ -242,6 +245,7 @@ class ClienteUpdateView(LoginRequiredMixin, View):
             'form': form, 
             'registro': registro,
             'detalles': detalles,
+            "detalles_timbrado": detalles_timbrado,
             'obligaciones': obligaciones,
             'cliente_id': registro.pk, 
             'mostrar_accion': True
@@ -378,11 +382,6 @@ class ClienteDetailView(LoginRequiredMixin, View):
         # Obtener todos los timbrados asociados a este cliente
         detalles_timbrado = ClientesTimbrado.objects.filter(cliente=registro.cliente).all()
         
-        print("\nResumen de timbrados:")
-        for idx, timbrado in enumerate(detalles_timbrado, 1):
-            print(f"{idx}. Timbrado: {timbrado.timbrado} | {timbrado.fecha_inicio} a {timbrado.fecha_fin}")
-
-
 
 
         # Obtener todas las descripciones en una sola consulta
@@ -402,9 +401,6 @@ class ClienteDetailView(LoginRequiredMixin, View):
                 "codigo": codigo,
                 "descripcion": descripcion
             })
-
-
-
 
 
 
