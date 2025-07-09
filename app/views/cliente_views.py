@@ -117,81 +117,57 @@ class ClienteCreateView(LoginRequiredMixin, View):
     
 
     def post(self, request, *args, **kwargs):
-        # Procesar el formulario cuando se envía
         print(f"Datos recibidos en POST: {request.POST}") 
-
-        # Procesar el formulario cuando se envía
         form = ClienteForm(request.POST)
 
-        # Obtener la lista de detalles de la sesión
         detalles = request.session.get('detalles', [])
         detalles_timbrado = request.session.get('detalles_timbrado', [])
-                  
-
         obligaciones = Obligacion.objects.all()
-                
+
         if form.is_valid():
-            # Guardamos el formulario si es válido
-            cliente = form.save()
+            try:
+                cliente = form.save()
 
-            # guardar detalles con cabecera de cliente  
-     
-            for detalle in detalles:
-                ClientesObligaciones.objects.create(
-                    cliente=cliente,  # Asociar al cliente recién creado
-                    obligacion=detalle['codigo'] 
-                )
+                for detalle in detalles:
+                    ClientesObligaciones.objects.create(
+                        cliente=cliente,
+                        obligacion=detalle['codigo']
+                    )
 
+                for timbrado_data in detalles_timbrado:
+                    ClientesTimbrado.objects.create(
+                        cliente=cliente.cliente,
+                        timbrado=timbrado_data['timbrado'],
+                        fecha_inicio=timbrado_data['fecha_inicio'],
+                        fecha_fin=timbrado_data['fecha_fin']
+                    )
 
+                request.session['detalles'] = []
+                request.session['detalles_timbrado'] = []
+                messages.success(request, 'El registro se ha agregado correctamente.')
+                return redirect('cliente:list')
 
-            # Guardar timbrados en la base de datos
-            for timbrado_data in detalles_timbrado:
-                ClientesTimbrado.objects.create(
-                    cliente=cliente.cliente,
-                    timbrado=timbrado_data['timbrado'],
-                    fecha_inicio=timbrado_data['fecha_inicio'],
-                    fecha_fin=timbrado_data['fecha_fin']
-                )
+            except IntegrityError:
+                form.add_error('cedula', 'Ya existe un cliente con esta cédula.')
 
+        # Si el formulario no es válido o hubo error al guardar
+        error_message = ''
+        for field, field_errors in form.errors.items():
+            for field_error in field_errors:
+                error_message += f'\n{field.capitalize()}: {field_error}'
 
-            # Limpiar la lista de detalles de la sesión después de guardar
-            request.session['detalles'] = []
-            request.session['detalles_timbrado'] = []
-            message = 'El registro se ha agregado correctamente.'
-            messages.success(request, message)
+        print(f"Error al agregar registro: {error_message}")
+        messages.error(request, error_message)
 
-            # Redirigir a otra vista (puede ser una lista o éxito)
-            return redirect('cliente:list')  
-        
-        else:
-            # Si el formulario no es válido, manejar los errores
-            error_message = ''
-            for field, field_errors in form.errors.items():
-                for field_error in field_errors:
-                    error_message += f'\n{field.capitalize()}: {field_error}'
-            
+        contexto = { 
+            'form': form, 
+            'detalles': detalles,
+            "detalles_timbrado": detalles_timbrado,
+            'obligaciones': obligaciones,
+            'mostrar_accion': True,   
+        }
 
-            # Mostrar el error en la consola para depuración
-            print(f"Error al agregar registro: {error_message}")
-
-            messages.error(request, error_message)
-
-            contexto = { 
-                'form': form, 
-                'detalles': detalles,
-                "detalles_timbrado": detalles_timbrado,
-                'obligaciones': obligaciones,
-                'mostrar_accion': True,   
-            }         
-                        
-            
-            # Si el formulario no es válido, renderiza de nuevo con errores
-            return render(request, self.template_name, contexto )
-        
-
-
-
-
+        return render(request, self.template_name, contexto)
 
 
 
