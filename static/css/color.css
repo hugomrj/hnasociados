@@ -1,76 +1,64 @@
-/* Colores base */
+
+
+
 :root {
-    --primary-bg: #1E88E5;
-    --secondary-bg: #00695C;
-    --tertiary-bg: #1ae5de;
-
-    --primary-color: #1E88E5;
-    --secondary-color: #00695C;
-    --tertiary-color: #1ae5de;
-
-}
-
-
-
-/* para fondo */
-/*
-.bg-primary {
-    background-color: var(--primary-color);  
-    border-color: var(--primary-color); 
-    color: white; 
-    --mdb-btn-bg: var(--primary-color);
-}
-*/
-
-/* Estilos de los botones */
-/*
-.btn-primary {
-    --mdb-btn-bg: var(--primary-color);  
-    --mdb-btn-border-color: var(--primary-color);
-    --mdb-btn-hover-bg: var(--secondary-color); 
-    --mdb-btn-hover-border-color: var(--secondary-color); 
-    --mdb-btn-text-color: white; 
-}
-*/
+    /* 🎨 Colores principales (RGB para efectos con opacidad) */
+    --mdb-primary-rgb: 30, 136, 229;     /* Azul */
+    
+    --mdb-secondary-rgb: 0, 105, 92;
+    --mdb-success-rgb: 76, 175, 80;
+    --mdb-info-rgb: 3, 169, 244;
+    --mdb-warning-rgb: 255, 152, 0;
+    --mdb-danger-rgb: 244, 67, 54;
+    --mdb-light-rgb: 245, 245, 245;
+    --mdb-dark-rgb: 33, 33, 33;
+  
+    /* 💡 Fondo y texto */
+    /*--mdb-body-bg: #f5f6fa;    */
+    --mdb-body-color: #212121;
+  
+    /* 🔳 Otros */
+    --mdb-bg-opacity: 1;
+  
+    /* ✅ Botón primario */
+    --mdb-btn-bg: rgb(var(--mdb-primary-rgb))!important;
+  }
+  
 
 
-/* Estilos de la navbar */
-.navbar-dark {
-    --mdb-navbar-color: white !important; /* Texto blanco */
-    --mdb-navbar-link-color: white !important; /* Enlaces blancos */
-    --mdb-navbar-link-hover-color: var(--primary-color) !important; /* Color al pasar el mouse sobre los enlaces */
-    --mdb-navbar-toggler-icon-color: white !important; /* Color del ícono del menú hamburguesa */
-}
-
-.navbar-dark .navbar-nav .nav-dark:hover {
-    color: white!important; /* Asegura que el color al pasar el mouse sea el deseado */
-}
-
-
-.nav-link.dropdown-toggle.show {
-    color: white !important; /* Texto blanco */
-}
-
-
-
-
-
-
-.bg-secondary {
-    --mdb-bg-opacity: 1; /* Asegura que el color de fondo sea sólido */
-    background-color: var(--secondary-color)!important;
-    color: white !important; /* Color del texto */
-}
-
-
-
-
-
-/* Estilo para inputs bloqueados */
-input:disabled, textarea:disabled, select:disabled {
-    color: #333333 !important;            
-    border: 1px solid #CFD8DC!important; 
-    background-color: #ECEFF1!important; 
-}
-
-
+  .btn-primary {
+    --mdb-btn-bg: rgb(var(--mdb-primary-rgb));
+    --mdb-btn-color: #fff;
+  
+    --mdb-btn-hover-bg: rgba(var(--mdb-primary-rgb), 0.9);
+    --mdb-btn-hover-color: #fff;
+  
+    --mdb-btn-focus-bg: rgba(var(--mdb-primary-rgb), 0.85);
+    --mdb-btn-focus-color: #fff;
+  
+    --mdb-btn-active-bg: rgba(var(--mdb-primary-rgb), 0.8);
+    --mdb-btn-active-color: #fff;
+  
+    --mdb-btn-box-shadow: 0 4px 6px rgba(var(--mdb-primary-rgb), 0.2);
+    --mdb-btn-border-color: rgba(var(--mdb-primary-rgb), 1);
+  }
+  
+  
+  .btn-secondary {
+    --mdb-btn-bg: rgba(var(--mdb-secondary-rgb), 0.15);
+    --mdb-btn-color: rgb(var(--mdb-secondary-rgb));
+  
+    --mdb-btn-hover-bg: rgba(var(--mdb-secondary-rgb), 0.25);
+    --mdb-btn-hover-color: rgb(var(--mdb-secondary-rgb));
+  
+    --mdb-btn-focus-bg: rgba(var(--mdb-secondary-rgb), 0.3);
+    --mdb-btn-focus-color: rgb(var(--mdb-secondary-rgb));
+  
+    --mdb-btn-active-bg: rgba(var(--mdb-secondary-rgb), 0.35);
+    --mdb-btn-active-color: rgb(var(--mdb-secondary-rgb));
+  
+    --mdb-btn-box-shadow: none;
+    --mdb-btn-box-shadow-state: none;
+    --mdb-btn-border-color: rgba(var(--mdb-secondary-rgb), 0.4);
+  }
+  

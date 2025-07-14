@@ -1,0 +1,113 @@
+/* Colores base */
+:root {
+    --primary-bg: #1E88E5;    
+    --secondary-bg: #00695C;
+    --tertiary-bg: #1ae5de;
+
+    --primary-color: #1E88E5;
+    --secondary-color: #00695C;
+    --tertiary-color: #1ae5de;
+
+}
+
+
+
+
+
+:root {
+    /* 🎨 Colores principales (RGB para efectos con opacidad) */
+    --mdb-primary-rgb: 30, 136, 229;     /* Azul */
+    --mdb-secondary-rgb: 0, 105, 92;     /* Verde oscuro */
+    --mdb-success-rgb: 76, 175, 80;      /* Verde claro */
+    --mdb-info-rgb: 3, 169, 244;         /* Celeste */
+    --mdb-warning-rgb: 255, 152, 0;      /* Naranja */
+    --mdb-danger-rgb: 244, 67, 54;       /* Rojo */
+    --mdb-light-rgb: 245, 245, 245;      /* Gris claro */
+    --mdb-dark-rgb: 33, 33, 33;          /* Gris oscuro */
+  
+    /* 💡 Fondo y texto */
+    --mdb-body-bg: #f5f6fa;
+    --mdb-body-color: #212121;
+  
+    /* 🔳 Otros */
+    --mdb-bg-opacity: 1;
+  }
+
+
+
+
+/* para fondo */
+/*
+.bg-primary {
+    background-color: var(--primary-color);  
+    border-color: var(--primary-color); 
+    color: white; 
+    --mdb-btn-bg: var(--primary-color);
+}
+*/
+
+/* Estilos de los botones */
+/*
+.btn-primary {
+    --mdb-btn-bg: var(--primary-color);  
+    --mdb-btn-border-color: var(--primary-color);
+    --mdb-btn-hover-bg: var(--secondary-color); 
+    --mdb-btn-hover-border-color: var(--secondary-color); 
+    --mdb-btn-text-color: white; 
+}
+*/
+
+
+/* Estilos de la navbar */
+.navbar {
+    --mdb-navbar-color: white !important; /* Texto blanco */
+    --mdb-navbar-link-color: white !important; /* Enlaces blancos */
+    --mdb-navbar-link-hover-color: var(--primary-color) !important; /* Color al pasar el mouse sobre los enlaces */
+    --mdb-navbar-toggler-icon-color: white !important; /* Color del ícono del menú hamburguesa */
+}
+
+.navbar .navbar-nav .nav-dark:hover {
+    color: white!important; /* Asegura que el color al pasar el mouse sea el deseado */
+}
+
+
+.nav-link.dropdown-toggle.show {
+    color: white !important; /* Texto blanco */
+}
+
+
+
+.bg-secondary {
+    --mdb-bg-opacity: 1; /* Asegura que el color de fondo sea sólido */
+    background-color: var(--secondary-color)!important;
+    color: white !important; /* Color del texto */
+}
+
+
+
+
+
+input:focus {
+    /* border-color: var(--secondary-color) !important; */
+    box-shadow: none !important;
+  }
+
+/* Estilo para inputs bloqueados */
+input:disabled, textarea:disabled, select:disabled {
+    color: #333333 !important;            
+    border: 1px solid #CFD8DC!important; 
+    background-color: #ECEFF1!important; 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

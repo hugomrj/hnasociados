@@ -1,3 +1,30 @@
+
+
+:root {
+    --bs-font-sans-serif: 'Figtree', sans-serif; /* Sobrescribe la fuente de Bootstrap */
+  }
+  
+  body {
+    font-family: 'Figtree', sans-serif;
+    font-weight: 400;
+  }
+  
+  /* Ajusta pesos para componentes clave */
+  .btn {
+    font-weight: 500; /* Medium para botones (estilo Material) */
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 600; /* Semi-bold para títulos */
+  }
+
+
+  
+
+
+
+
+
+
 html, body {
     height: 100%!important;/* Forzar altura al 100% */
     margin: 0; /* Eliminar márgenes predeterminados */
@@ -98,10 +125,11 @@ input[type="number"] {
     border: 1px solid #B0BEC5;    
 }
 
-
 .form-field:has(input:focus) label {
     color: #0056b3; /* El color del label cuando el input tiene enfoque */
 }
+
+
 
 
 
@@ -116,3 +144,18 @@ button[type="button"].btn, a.btn {
         width: 150px; /* Fijo a 100px en pantallas más grandes */
     }
 }
+
+
+
+.btn {
+    transition: transform 0.15s ease, filter 0.15s ease;
+    border-radius: 6px !important;
+  }  
+  .btn:hover {
+    filter: brightness(105%);
+    transform: translateY(-3px); /* se levanta */
+  }  
+  .btn:active {
+    filter: brightness(90%);
+    transform: translateY(0) scale(0.95); /* vuelve y se aprieta */
+  }
