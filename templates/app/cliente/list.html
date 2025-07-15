@@ -72,28 +72,29 @@
                         <td>{{ item.email|default_if_none:'' }}</td>
                         <td>{{ item.direccion|default_if_none:'' }}</td>
 
+
                         <td class="text-center">
                             <div class="d-flex justify-content-center gap-2">
-                                
-                                <a href="{% url 'cliente:detail' item.pk %}" 
-                                    class="text-primary p-0" title="Ver">
-                                    <i class="fas fa-eye"></i>
-                                </a>
-
-                                <a href="{% url 'cliente:edit' item.pk %}" 
-                                    class="text-warning p-0" title="Editar">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-
-                                <a href="#" class="text-danger p-0 delete-btn" 
-                                    title="Borrar"
-                                    data-item-id="{{ item.pk }}"
-                                    data-delete-url="{% url 'cliente:delete' item.pk %}">
-                                    <i class="fas fa-trash-alt"></i>
-                                </a>
-
+                              <a href="{% url 'cliente:detail' item.pk %}" 
+                                 class="text-info p-0" title="Ver">
+                                <i class="fas fa-eye"></i>
+                              </a>
+                          
+                              <a href="{% url 'cliente:edit' item.pk %}" 
+                                 class="text-warning p-0" title="Editar">
+                                <i class="fas fa-edit"></i>
+                              </a>
+                          
+                              <a href="#" class="text-danger p-0 delete-btn" 
+                                 title="Borrar"
+                                 data-item-id="{{ item.pk }}"
+                                 data-delete-url="{% url 'cliente:delete' item.pk %}">
+                                <i class="fas fa-trash-alt"></i>
+                              </a>
                             </div>
-                        </td>
+                          </td>
+
+
 
                     </tr>
                     {% endfor %}

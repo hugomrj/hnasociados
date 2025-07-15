@@ -1,64 +1,96 @@
 
 
-
 :root {
-    /* 🎨 Colores principales (RGB para efectos con opacidad) */
-    --mdb-primary-rgb: 30, 136, 229;     /* Azul */
-    
-    --mdb-secondary-rgb: 0, 105, 92;
-    --mdb-success-rgb: 76, 175, 80;
-    --mdb-info-rgb: 3, 169, 244;
-    --mdb-warning-rgb: 255, 152, 0;
-    --mdb-danger-rgb: 244, 67, 54;
-    --mdb-light-rgb: 245, 245, 245;
-    --mdb-dark-rgb: 33, 33, 33;
+  /* 🎨 Colores principales (RGB para efectos con opacidad) */
+
+  --mdb-primary: #1e88e5;           /* Azul principal */
+  --mdb-primary-rgb: 30, 136, 229;
+
+  --mdb-secondary: #00695C;         /* Verde oscuro secundario */
+  --mdb-secondary-rgb: 0, 105, 92;
+
+  --mdb-success-rgb: 76, 175, 80;   /* Verde éxito */
   
-    /* 💡 Fondo y texto */
-    /*--mdb-body-bg: #f5f6fa;    */
-    --mdb-body-color: #212121;
-  
-    /* 🔳 Otros */
-    --mdb-bg-opacity: 1;
-  
-    /* ✅ Botón primario */
-    --mdb-btn-bg: rgb(var(--mdb-primary-rgb))!important;
-  }
-  
+  --mdb-info-rgb: 33, 150, 243;     /* Azul estándar - #2196F3 */
+  --mdb-warning-rgb: 255, 152, 0;   /* Ámbar/Naranja - #FF9800 */
+  --mdb-danger-rgb: 244, 67, 54;    /* Rojo - #F44336 */
+
+  --mdb-light-rgb: 245, 245, 245;   /* Gris claro */
+  --mdb-dark-rgb: 33, 33, 33;       /* Gris oscuro */
+
+  /* 💡 Fondo y texto */
+  --mdb-body-color: #212121;
+
+  /* 🔳 Otros */
+  --mdb-bg-opacity: 1;
+
+  /* ✅ Botón primario */
+  --mdb-btn-bg: rgb(var(--mdb-primary-rgb)) !important;
+}
 
 
-  .btn-primary {
-    --mdb-btn-bg: rgb(var(--mdb-primary-rgb));
-    --mdb-btn-color: #fff;
-  
-    --mdb-btn-hover-bg: rgba(var(--mdb-primary-rgb), 0.9);
-    --mdb-btn-hover-color: #fff;
-  
-    --mdb-btn-focus-bg: rgba(var(--mdb-primary-rgb), 0.85);
-    --mdb-btn-focus-color: #fff;
-  
-    --mdb-btn-active-bg: rgba(var(--mdb-primary-rgb), 0.8);
-    --mdb-btn-active-color: #fff;
-  
-    --mdb-btn-box-shadow: 0 4px 6px rgba(var(--mdb-primary-rgb), 0.2);
-    --mdb-btn-border-color: rgba(var(--mdb-primary-rgb), 1);
-  }
-  
-  
-  .btn-secondary {
-    --mdb-btn-bg: rgba(var(--mdb-secondary-rgb), 0.15);
-    --mdb-btn-color: rgb(var(--mdb-secondary-rgb));
-  
-    --mdb-btn-hover-bg: rgba(var(--mdb-secondary-rgb), 0.25);
-    --mdb-btn-hover-color: rgb(var(--mdb-secondary-rgb));
-  
-    --mdb-btn-focus-bg: rgba(var(--mdb-secondary-rgb), 0.3);
-    --mdb-btn-focus-color: rgb(var(--mdb-secondary-rgb));
-  
-    --mdb-btn-active-bg: rgba(var(--mdb-secondary-rgb), 0.35);
-    --mdb-btn-active-color: rgb(var(--mdb-secondary-rgb));
-  
-    --mdb-btn-box-shadow: none;
-    --mdb-btn-box-shadow-state: none;
-    --mdb-btn-border-color: rgba(var(--mdb-secondary-rgb), 0.4);
-  }
-  
+
+
+
+
+.btn-primary {
+  --mdb-btn-bg: rgb(var(--mdb-primary-rgb));
+  --mdb-btn-color: #fff;
+
+  --mdb-btn-hover-bg: rgba(var(--mdb-primary-rgb), 0.9);
+  --mdb-btn-hover-color: #fff;
+
+  --mdb-btn-focus-bg: rgba(var(--mdb-primary-rgb), 0.85);
+  --mdb-btn-focus-color: #fff;
+
+  --mdb-btn-active-bg: rgba(var(--mdb-primary-rgb), 0.8);
+  --mdb-btn-active-color: #fff;
+
+  --mdb-btn-box-shadow: 0 4px 6px rgba(var(--mdb-primary-rgb), 0.2);
+  --mdb-btn-border-color: rgba(var(--mdb-primary-rgb), 1);
+}
+
+.btn-secondary {
+  --mdb-btn-bg: rgba(var(--mdb-secondary-rgb), 0.15);
+  --mdb-btn-color: rgb(var(--mdb-secondary-rgb));
+
+  --mdb-btn-hover-bg: rgba(var(--mdb-secondary-rgb), 0.25);
+  --mdb-btn-hover-color: rgb(var(--mdb-secondary-rgb));
+
+  --mdb-btn-focus-bg: rgba(var(--mdb-secondary-rgb), 0.3);
+  --mdb-btn-focus-color: rgb(var(--mdb-secondary-rgb));
+
+  --mdb-btn-active-bg: rgba(var(--mdb-secondary-rgb), 0.35);
+  --mdb-btn-active-color: rgb(var(--mdb-secondary-rgb));
+
+  --mdb-btn-box-shadow: none;
+  --mdb-btn-box-shadow-state: none;
+  --mdb-btn-border-color: rgba(var(--mdb-secondary-rgb), 0.4);
+}
+
+/* 🌙 Navbar con fondo azul (bg-primary) y texto claro */
+.navbar.bg-primary {
+  --mdb-navbar-color: #fff;
+  --mdb-navbar-hover-color: #fff;
+  --mdb-navbar-disabled-color: rgba(255, 255, 255, 0.5);
+  --mdb-navbar-active-color: #fff;
+  --mdb-navbar-brand-color: #fff;
+  --mdb-navbar-brand-hover-color: #fff;
+  --mdb-navbar-toggler-border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Opcional: menú desplegable oscuro 
+.navbar.bg-primary .dropdown-menu {
+  background-color: rgb(var(--mdb-primary-rgb));
+}
+*/
+
+
+.navbar.bg-primary .dropdown-item {
+  color: #fff;
+}
+
+.navbar.bg-primary .dropdown-item:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}

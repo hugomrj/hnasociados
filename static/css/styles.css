@@ -107,6 +107,7 @@ input[type="number"] {
 /* Para pantallas más grandes */
 .form-field label {
     width: 140px;    
+    padding-right: 0px;
 }
 
 /* Para pantallas pequeñas (móviles) */
