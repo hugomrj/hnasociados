@@ -94,3 +94,17 @@
   background-color: rgba(255, 255, 255, 0.1);
   color: #fff;
 }
+
+
+
+
+
+.dropdown-menu {
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+  border-radius: 4px;
+  min-width: 220px;
+  padding: 8px 0;
+  border: none;
+  backdrop-filter: none;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
