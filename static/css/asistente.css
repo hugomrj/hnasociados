@@ -1,0 +1,181 @@
+
+
+/*chat ia*/
+
+
+#chatMain {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  
+  
+  /* Versión adaptada a jerarquía sectionIA > elementos */
+  #sectionIA[data-estado="inicial"] #saludoIA {    
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      margin: 5.5rem auto 2rem; /* Arriba | Laterales | Abajo */
+  }
+  
+  #sectionIA[data-estado="inicial"] #userInput {
+      width: 100%;
+      min-height: 120px;
+      padding: 0.5rem 1rem; 
+      font-size: 1.1rem;
+      border-radius: 8px;
+      resize: vertical;
+  }
+  
+  #sectionIA[data-estado="inicial"] #chat-container {
+      display: none;
+  }
+  
+  
+  
+  /* Versión adaptada a jerarquía sectionIA > elementos */
+  #sectionIA[data-estado="enlinea"] #saludoIA {    
+    /*  display: none; */
+  }
+  
+  
+  
+  
+  
+  #sectionIA[data-estado="enlinea"] {
+      display: flex;
+      flex-direction: column;
+      height: 100vh; /* o el alto que quieras dentro del main */
+      margin: 0 auto;
+      box-sizing: border-box;
+  }
+  
+  
+  #sectionIA[data-estado="enlinea"] #userInput {
+      width: 100%;
+      resize: vertical;
+      font-size: 1.1rem;
+      border-radius: 8px;
+      padding: 0.5rem 1rem; 
+  /*    min-height: 80px;*/
+  }
+  
+  
+  
+  
+  #sectionIA[data-estado="enlinea"] #chat-container {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    min-height: 200px;
+    max-height: 65vh;
+      
+  }
+  
+  
+  
+  
+  
+  
+  
+      .chat-bubble {
+          max-width: 80%;
+          padding: 0.75rem 1rem;
+          border-radius: 0.5rem;
+          background-color: white;
+
+      }
+  
+      .user, .assistant {
+          color: white;
+      }
+  
+      .user {
+          background-color: #3273dc; /* azul */
+          background-color: #0091EA;
+          border-bottom-right-radius: 0;
+      }
+  
+  
+      .assistant {
+          background-color: rgb(58, 68, 78); /* debe ir en color.css */
+          background-color:#ECEFF1;
+          color:#263238;
+          border-bottom-left-radius: 0;
+      }    
+      
+      
+  .chat-bubble p,
+  .chat-bubble strong,
+  .chat-bubble ul,
+  .chat-bubble li {
+      background-color: transparent;
+
+  }
+      
+      
+  /*
+  .chat-bubble.assistant ul {
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+    padding-left: 1.2rem;
+  }
+  
+  .chat-bubble.assistant li {
+    margin-bottom: 0.2rem;
+  }
+  */
+  
+      
+      
+      
+      
+      
+      /* Animación recibir respuesta ia */
+      .typing-indicator {
+        display: inline-flex;
+        align-items: center;
+        height: 20px;
+      }
+      .typing-dot {
+          width: 0.5rem;
+          height: 0.5rem;
+          margin: 0 0.25rem;
+  
+          width: 0.3rem;
+          height: 0.3rem;
+          margin: 0 0.15rem;        
+          
+          
+        background-color: #dbdbdb;
+        background-color: #263238;
+
+        border-radius: 50%;
+        display: inline-block;
+        animation: typingAnimation 1.4s infinite ease-in-out;
+      }
+      .typing-dot:nth-child(1) {
+        animation-delay: 0s;
+      }
+      .typing-dot:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .typing-dot:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+      @keyframes typingAnimation {
+        0%, 60%, 100% { transform: translateY(0); }
+        30% { transform: translateY(-5px); }
+      }
+  
+      /* Efecto de aparición para mensajes */
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .message-animation {
+        animation: fadeIn 0.3s ease-out;
+      }
+      
+      
+      
+    
+

@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 <div class="container mt-3">
@@ -7,6 +8,66 @@
             <p class="text-muted mb-0">Bienvenido, {{ user.username }}</p>
         </div>
     </div>
+
+
+
+
+    {% include "ia_prompt.html" %}
+
 </div>
 
+
 {% endblock %}
+
+
+
+{% block extrascripts %}  
+    <script src="{% static 'js/asistente.js' %}"></script>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Código que quieras ejecutar al cargar el template
+            console.log("Página cargada, IA lista para usar");
+
+            const asistente = new Asistente();
+        
+
+            let btnChatIA = document.getElementById('btnChatIA');
+            btnChatIA.addEventListener('click', function() {
+                
+                const input = document.getElementById("userInput");
+                const texto = input.value.trim();
+
+                if (texto === "") return;
+
+                btnChatIA.disabled = true;
+
+                asistente.iniciar(); 
+                asistente.enviar(texto, () => {
+                    btnChatIA.disabled = false;
+                });
+
+                input.value = ""; // limpiar
+
+            });
+
+
+
+            const input = document.getElementById("userInput");
+            input.addEventListener("keydown", function(e) {
+              if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();  // evita salto de línea
+                btnChatIA.click();
+              }
+            });
+
+
+
+
+        });
+    </script>
+
+
+{% endblock %}
+
+
