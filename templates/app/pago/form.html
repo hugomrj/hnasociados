@@ -3,7 +3,7 @@
 <div class="mb-4 row">
     <div class="form-field col-md-7 col-lg-5">
         <div class="row">
-            <label for="fecha" class="col-form-label">Fecha</label>
+            <label for="fecha" class="col-form-label d-block w-100">Fecha</label>
             <div class="col-sm-8">
                 <input type="date" 
                     name="fecha"  
@@ -18,7 +18,7 @@
 <div class="mb-4 row">
     <div class="form-field col-md-7 col-lg-5">
         <div class="row">
-            <label for="monto" class="col-form-label">Monto</label>
+            <label for="monto" class="col-form-label d-block w-100">Monto</label>
             <div class="col-sm-8">
                 <input type="text" 
                     name="monto"  
@@ -37,7 +37,7 @@
     <!-- Mes -->
     <div class="form-field col-md-8">
         <div class="row">
-            <label for="mes_pago" class="col-form-label d-block w-100">Mes</label>
+            <label for="mes_pago" class="col-form-label">Mes</label>
             <div class="col-sm-10">
                 <select name="mes_pago" id="mes_pago" class="form-control">
                     <option value="1" {% if form.initial.mes_pago == 1 %}selected{% endif %}>Enero</option>
