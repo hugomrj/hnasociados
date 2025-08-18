@@ -14,7 +14,9 @@
 
         <div class="card-body">
 
-            <form method="post" id="form" action="{% url 'cliente:add' %}">
+            <form method="post" id="form" 
+                autocomplete="off"
+                action="{% url 'cliente:add' %}">
 
                 {% include 'app/cliente/form.html' %}
 

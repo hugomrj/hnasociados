@@ -14,7 +14,12 @@ class Cliente (models.Model):
     email = models.CharField(max_length=100, blank=True, null=True)
     direccion = models.CharField(max_length=200, blank=True, null=True)
     negocio_servicio = models.CharField(max_length=200, blank=True, null=True)
-    tarifa = models.BigIntegerField(blank=True, null=True) 
+
+    tarifa = models.BigIntegerField(blank=False, null=False)
+    fecha_ingreso = models.DateField(blank=False, null=False)
+
+
+
     usuario_set = models.CharField(max_length=50, blank=True, null=True)
     clave_set = models.CharField(max_length=50, blank=True, null=True)
 
@@ -32,10 +37,8 @@ class ClienteForm(forms.ModelForm):
         model = Cliente
         fields = [
             'cedula', 'nombre', 'apellido', 'celular',
-            'email', 'direccion', 'negocio_servicio', 'tarifa',
+            'email', 'direccion', 'negocio_servicio', 'tarifa', 'fecha_ingreso',
             'usuario_set', 'clave_set',        ]
-
-
 
 
 ClientesObligacionesFormSet = forms.inlineformset_factory(

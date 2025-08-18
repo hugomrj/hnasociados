@@ -46,7 +46,9 @@
 
 
 
-            <table class="table table-hover">
+            <div class="table-responsive">
+            <table class="table table-hover w-100">
+
                 <thead>
                     <tr class="table-light" >
                         <th>Codigo</th>
@@ -57,37 +59,37 @@
                 <tbody class="table-group-divider" >
                     {% for item in lista %}
                     <tr>
-                        <td>{{ item.obligacion }}</td>
-                        <td>{{ item.descripcion }}</td>
+                        <td class="align-middle">{{ item.obligacion }}</td>
+                        <td class="align-middle">{{ item.descripcion }}</td>
 
-                        <td class="text-center">
+
+                        <td class="align-middle text-center">
                             <div class="d-flex justify-content-center gap-2">
-                                
-                                <a href="{% url 'obligacion:detail' item.pk %}" 
-                                    class="text-primary p-0" title="Ver">
-                                    <i class="fas fa-eye"></i>
-                                </a>
-
-                                <a href="{% url 'obligacion:edit' item.pk %}" 
-                                    class="text-warning p-0" title="Editar">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-
-                                <a href="#" class="text-danger p-0 delete-btn" 
-                                    title="Borrar"
-                                    data-item-id="{{ item.pk }}"
-                                    data-delete-url="{% url 'obligacion:delete' item.pk %}">
-                                    <i class="fas fa-trash-alt"></i>
-                                </a>
-
+                              <a href="{% url 'obligacion:detail' item.pk %}" 
+                                 class="btn btn-info btn-grid" title="Ver">
+                                <i class="fas fa-eye"></i>
+                              </a>
+                        
+                              <a href="{% url 'obligacion:edit' item.pk %}" 
+                                 class="btn btn-warning btn-grid" title="Editar">
+                                <i class="fas fa-edit"></i>
+                              </a>
+                        
+                              <a href="#" class="btn btn-danger btn-grid delete-btn" 
+                                 title="Borrar"
+                                 data-item-id="{{ item.pk }}"
+                                 data-delete-url="{% url 'obligacion:delete' item.pk %}">
+                                <i class="fas fa-trash-alt"></i>
+                              </a>
                             </div>
                         </td>
-
+                        
                     </tr>
                     {% endfor %}
                 </tbody>
 
             </table>
+            </div>
 
 
             <!-- Paginación -->

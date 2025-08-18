@@ -142,6 +142,12 @@ button[type="button"].btn, a.btn {
     button[type="button"].btn, a.btn {
         width: 150px; /* Fijo a 100px en pantallas más grandes */
     }
+
+    a.btn.btn-grid {
+        width: 2rem !important;
+        height: 2rem !important;
+    }
+
 }
 
 
@@ -158,3 +164,18 @@ button[type="button"].btn, a.btn {
     filter: brightness(90%);
     transform: translateY(0) scale(0.95); /* vuelve y se aprieta */
   }
+
+
+
+
+
+  .btn-grid {
+    width: 2rem;         /* ancho reducido */
+    height: 2rem;        /* alto reducido */
+    /*max-width: 2.5rem;    evita que crezcan demasiado */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;     /* ícono un poco más pequeño */
+    padding: 1rem;          /* sin padding extra */
+}

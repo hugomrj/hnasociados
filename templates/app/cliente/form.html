@@ -115,22 +115,38 @@
 
 
 <div class="mb-4 row">
+    <!-- Campo Tarifa -->
     <div class="form-field col-md-6">
       <div class="row">
         <label for="tarifa" class="col-form-label">Tarifa</label>
         <div class="col-sm-6">
-            
             <input type="text" 
                 name="tarifa"  
                 class="form-control text-end" 
                 id="tarifa"
                 value="{{ form.tarifa.value|default_if_none:'' }}"
                 data-number="int">
-                    
         </div>
       </div>
     </div>
+
+    <!-- Campo Fecha de Inicio -->
+    <div class="form-field col-md-6">
+      <div class="row">
+        <label for="fecha_ingreso" class="col-form-label">Fecha de ingreso</label>
+        <div class="col-sm-6">
+            <input type="date" 
+                name="fecha_ingreso"  
+                class="form-control" 
+                id="fecha_ingreso"
+                value="{{ form.fecha_ingreso.value|default_if_none:form.initial.fecha_ingreso|date:'Y-m-d' }}">
+
+        </div>
+      </div>
+    </div>
+
 </div>
+
   
 
 

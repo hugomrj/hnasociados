@@ -1,4 +1,6 @@
 from datetime import datetime as dt
+from django.utils.timezone import now
+import datetime
 
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -36,9 +38,21 @@ class PagoListView(LoginRequiredMixin, View):
             # Filtrar los pagos asociados a este cliente
             pagos = Pago.objects.filter(cliente=cliente).order_by('-fecha')
             cliente_id = cliente.pk  
+
+            # ✅ Obligaciones del cliente
+            obligaciones_ids = ClientesObligaciones.objects.filter(
+                cliente=cliente
+            ).values_list('obligacion', flat=True)
+
+            obligaciones = Obligacion.objects.filter(obligacion__in=obligaciones_ids)
+            tarifa = cliente.tarifa
+
+
         else:
             pagos = []
             cliente_id = 0
+            obligaciones = []
+            tarifa = None
 
 
         paginator = Paginator(pagos, self.items_por_pagina)
@@ -82,10 +96,12 @@ class PagoListView(LoginRequiredMixin, View):
         contexto = {
             'clientes': clientes,  
             'cedula': cedula,
+            'tarifa': tarifa, 
             'lista': lista,  
             'cliente_id': cliente_id,
             'page_range': page_range,
             'query_string': f"&{query_string}" if query_string else "",  
+            'obligaciones': obligaciones, 
         }
 
         return render(request, self.template_name, contexto)
@@ -110,21 +126,23 @@ class PagoCreateView(LoginRequiredMixin, View):
             messages.error(request, 'Cliente no encontrado.')
             return redirect('pago:list')  # Asegúrate de que este es el nombre correcto de la URL para la lista de pagos
         
-        
-        obligaciones_filtradas = Obligacion.objects.filter(
-            obligacion__in=ClientesObligaciones.objects.filter(cliente=cliente).values('obligacion')
-        )
+        hoy = now().date()
 
 
+        # ✅ Inicializamos con valores sugeridos
+        form = PagoForm(initial={
+            'fecha': hoy,
+            'monto': cliente.tarifa,
+            'mes_pago': hoy.month,
+            'anio_pago': hoy.year,
+        })
 
-        # Inicializamos el formulario vacío
-        form = PagoForm()
 
         contexto = {
             'form': form,
             'cliente': cliente,
             'cliente_id': cliente_id,
-            'obligaciones_filtradas': obligaciones_filtradas  
+            'current_year': hoy.year,  # lo pasamos para el template
         }
 
         return render(request, self.template_name, contexto)

@@ -44,7 +44,6 @@
                 
 
 
-
                 <div class="mb-4 row">
                     <div class="form-field col-md-6">
                         <div class="row">
@@ -59,10 +58,50 @@
                             </div>
                         </div>
                     </div>
+                
+                    <!-- 👉 Campo tarifa en el mismo row -->
+                    <div class="form-field col-md-6">
+                        <div class="row">
+                            <label for="tarifa" class="col-form-label">Monto cuota</label>
+                            <div class="col-sm-6">
+                                <input type="text" 
+                                    name="tarifa"  
+                                    class="form-control" 
+                                    id="tarifa"
+                                    value="{{ tarifa|default_if_none:'' }}"  
+                                    disabled>                  
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            
                 
+
+
+
+
+
                 
+
+                <!-- Bloque de Obligaciones -->
+                <div class="mb-4 row">
+                    <label class="col-form-label">Obligaciones</label>
+                    <div class="col-sm-12">
+                        {% if obligaciones %}
+                            {% for ob in obligaciones %}
+                                <button type="button" class="btn btn-light btn-rounded" data-mdb-ripple-init>
+                                    {{ ob.descripcion }}
+                                </button>
+                            {% endfor %}
+                        {% else %}
+                            <p>No tiene obligaciones asignadas</p>
+                        {% endif %}
+                    </div>
+                </div>
+                
+
+
+
+
 
             </form>
 
@@ -87,7 +126,7 @@
                     <tr class="table-light">
                         
                         <th class="text-center text-nowrap">Fecha</th>
-                        <th class="text-center text-nowrap">Obligaciones</th>
+  
                         <th class="text-center text-nowrap">Monto</th>
 
                         <th class="text-center text-nowrap">Acciones</th>
@@ -98,7 +137,7 @@
                     <tr>
                         
                         <td>{{ item.fecha }}</td>
-                        <td>{{ item.obligacion }}</td>
+
                         <td>{{ item.monto|miles_puntos }}</td>
 
                         

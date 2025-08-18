@@ -235,10 +235,17 @@ class ClienteUpdateView(LoginRequiredMixin, View):
     def post(self, request, pk, *args, **kwargs):
         # Obtener el objeto a editar
         cliente = get_object_or_404(Cliente, pk=pk)
+
+        print(f"Datos update en POST: {request.POST}") 
         
 
+        data = request.POST.copy()
+
+        print("Data POST filtrada:", data)
+        print("Valor fecha_ingreso:", data.get("fecha_ingreso"))
+
         # Procesar formulario con los datos POST y la instancia
-        form = ClienteForm(request.POST, instance=cliente)
+        form = ClienteForm(data, instance=cliente)
         
         # Obtener la lista de detalles de la sesión
         detalles = request.session.get('detalles', [])

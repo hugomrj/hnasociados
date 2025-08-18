@@ -91,6 +91,10 @@
       .user {
           background-color: #3273dc; /* azul */
           background-color: #0091EA;
+
+          background-color: #009688; /* Teal 500 */
+          color: #fff; /* texto claro */
+
           border-bottom-right-radius: 0;
       }
   

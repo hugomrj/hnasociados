@@ -25,3 +25,10 @@ rm -rf venv
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
+
+
+
+
+
+
+pg_dump -h localhost -p 5432 -U postgres -W -F p -d hnasociados_database > backup.sql

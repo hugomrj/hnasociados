@@ -1,59 +1,74 @@
 {% csrf_token %}
 
-
-
 <div class="mb-4 row">
-    <div class="form-field col-md-6 col-lg-4">
+    <div class="form-field col-md-7 col-lg-5">
         <div class="row">
             <label for="fecha" class="col-form-label">Fecha</label>
             <div class="col-sm-8">
                 <input type="date" 
                     name="fecha"  
                     class="form-control" 
-                    id="fecha"                                                 
-                    value="{{ form.instance.fecha|date:'Y-m-d'|default:'' }}">
+                    id="fecha"
+                    value="{{ form.initial.fecha|date:'Y-m-d' }}">
             </div>
         </div>
     </div>
 </div>
 
-
 <div class="mb-4 row">
-    <div class="form-field col-md-6 col-lg-4">
+    <div class="form-field col-md-7 col-lg-5">
         <div class="row">
             <label for="monto" class="col-form-label">Monto</label>
             <div class="col-sm-8">
                 <input type="text" 
                     name="monto"  
                     class="form-control" 
-                    id="monto"          
-                    data-number="int"           
-                    value="{{ form.monto.value|default_if_none:'0' }}">  
+                    id="monto"
+                    data-number="int"
+                    value="{{ form.initial.monto|default_if_none:'' }}">
             </div>
         </div>
     </div>
 </div>
 
 
-<div class="mb-4 row">    
-    <div class="form-field col-md-10 col-lg-8">
+
+<div class="mb-4 row">
+    <!-- Mes -->
+    <div class="form-field col-md-8">
         <div class="row">
-            <label for="obligacion" class="col-form-label">Activi Econ</label>
-            <div class="col-md-10 col-lg-8">
-                <select name="obligacion" 
-                    class="form-control" 
-                    id="obligacion">
-                    <option value="">Seleccionar obligacion</option>
+            <label for="mes_pago" class="col-form-label d-block w-100">Mes</label>
+            <div class="col-sm-10">
+                <select name="mes_pago" id="mes_pago" class="form-control">
+                    <option value="1" {% if form.initial.mes_pago == 1 %}selected{% endif %}>Enero</option>
+                    <option value="2" {% if form.initial.mes_pago == 2 %}selected{% endif %}>Febrero</option>
+                    <option value="3" {% if form.initial.mes_pago == 3 %}selected{% endif %}>Marzo</option>
+                    <option value="4" {% if form.initial.mes_pago == 4 %}selected{% endif %}>Abril</option>
+                    <option value="5" {% if form.initial.mes_pago == 5 %}selected{% endif %}>Mayo</option>
+                    <option value="6" {% if form.initial.mes_pago == 6 %}selected{% endif %}>Junio</option>
+                    <option value="7" {% if form.initial.mes_pago == 7 %}selected{% endif %}>Julio</option>
+                    <option value="8" {% if form.initial.mes_pago == 8 %}selected{% endif %}>Agosto</option>
+                    <option value="9" {% if form.initial.mes_pago == 9 %}selected{% endif %}>Septiembre</option>
+                    <option value="10" {% if form.initial.mes_pago == 10 %}selected{% endif %}>Octubre</option>
+                    <option value="11" {% if form.initial.mes_pago == 11 %}selected{% endif %}>Noviembre</option>
+                    <option value="12" {% if form.initial.mes_pago == 12 %}selected{% endif %}>Diciembre</option>
+                </select>
+            </div>
+        </div>
+    </div>
 
-                    {% for obligacion in obligaciones_filtradas %}
-                    <option value="{{ obligacion.pk }}"
-                        {% if form.instance.obligacion.pk == obligacion.pk %}selected{% endif %}>
-                        {{ obligacion.descripcion }}
-                    </option>
-                    {% endfor %}   
-
-                </select>                        
-                        
+    <!-- Año -->
+    <div class="form-field col-md-4">
+        <div class="row">
+            <label for="anio_pago" class="col-form-label d-block w-100">Año</label>
+            <div class="col-sm-10">
+                <input type="number" 
+                       name="anio_pago"  
+                       id="anio_pago" 
+                       class="form-control"
+                       min="2000"
+                       max="{{ current_year|add:5 }}"
+                       value="{{ form.initial.anio_pago|default:current_year }}">
             </div>
         </div>
     </div>
