@@ -136,7 +136,7 @@
                 name="fecha_ingreso"  
                 class="form-control" 
                 id="fecha_ingreso"
-                value="{{ form.fecha_ingreso.value|default_if_none:form.initial.fecha_ingreso|date:'Y-m-d' }}">
+                value="{{ form.fecha_ingreso.value|default:form.initial.fecha_ingreso|date:'Y-m-d' }}">
 
         </div>
       </div>

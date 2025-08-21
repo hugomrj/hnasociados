@@ -1,4 +1,5 @@
 from datetime import datetime as dt
+from datetime import date
 from django.db.models.functions import Concat
 
 from django.contrib import messages
@@ -94,6 +95,11 @@ class ClienteCreateView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         # Inicializamos el formulario vacío para el GET
         form = ClienteForm()
+        # Inicializar el formulario con la instancia existente
+        form = ClienteForm( # <-- aquí
+            initial={'fecha_ingreso': date.today()}  
+        )
+
         detalles = [] 
         detalles_timbrado = [] 
 
@@ -181,7 +187,10 @@ class ClienteUpdateView(LoginRequiredMixin, View):
         registro = get_object_or_404(Cliente, pk=pk)
         
         # Inicializar el formulario con la instancia existente
-        form = ClienteForm(instance=registro)
+        form = ClienteForm(
+            instance=registro,
+            initial={'fecha_ingreso': registro.fecha_ingreso}  # <-- aquí
+        )
         
 
         
@@ -240,6 +249,10 @@ class ClienteUpdateView(LoginRequiredMixin, View):
         
 
         data = request.POST.copy()
+        if not data.get("fecha_ingreso"):
+            data["fecha_ingreso"] = cliente.fecha_ingreso.strftime('%Y-%m-%d')
+
+
 
         print("Data POST filtrada:", data)
         print("Valor fecha_ingreso:", data.get("fecha_ingreso"))

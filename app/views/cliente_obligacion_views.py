@@ -62,6 +62,20 @@ class ClienteObligacionCreateView(LoginRequiredMixin, View):
 
         if tipo == "edit":            
             cliente_id = request.POST.get('cliente_id')
+            print("Entró en edit con cliente_id:", cliente_id)  # <-- aquí
+
+            # Traer el cliente de la base de datos
+            cliente = Cliente.objects.get(cliente=cliente_id)
+            # form = ClienteForm(request.POST or None, instance=cliente)  # <- aquí
+
+            # Inicializar el formulario con POST y la instancia
+            form = ClienteForm(
+                request.POST or None,
+                instance=cliente,
+                initial={'fecha_ingreso': cliente.fecha_ingreso}  # fuerza la fecha
+            )
+
+
             contexto = {
                 "form": form,
                 "detalles": detalles,
@@ -112,11 +126,12 @@ class ClienteObligacionDeleteView(LoginRequiredMixin, View):
         request.session['detalles'] = detalles
 
         
-        form = ClienteForm(request.POST)
+        
         obligaciones = Obligacion.objects.all()
 
         # Contexto para renderizar la plantilla
         if tipo == "add":
+            form = ClienteForm(request.POST)
             contexto = {
                 "form": form,
                 "detalles": detalles,
@@ -126,6 +141,9 @@ class ClienteObligacionDeleteView(LoginRequiredMixin, View):
 
         if tipo == "edit":            
             cliente_id = request.POST.get('cliente_id')
+            cliente = Cliente.objects.get(cliente=cliente_id)  # trae la instancia
+            form = ClienteForm(instance=cliente)  # inicializa con la instancia real
+            
             contexto = {
                 "form": form,
                 "detalles": detalles,

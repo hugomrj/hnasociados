@@ -74,12 +74,14 @@
 
             document.getElementById("btn_agregar_det").addEventListener("click", function() {
 
+
                 // abrir modal                
                 const modal = new mdb.Modal(document.getElementById('modal_add_detalle'));
                 modal.show();
 
 
                 document.getElementById("agregarObligacion").onclick = function() {
+
 
                     let select = document.getElementById("selectOption");
                     
@@ -104,6 +106,12 @@
                     form.appendChild(clienteIdField);
 
 
+
+
+
+
+
+                    // estos son del modal
                     // Agregar el token CSRF
                     let csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
                     let csrfInput = document.createElement("input");
