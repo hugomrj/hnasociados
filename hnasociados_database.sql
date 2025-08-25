@@ -5,7 +5,7 @@
 -- Dumped from database version 16.6 (Ubuntu 16.6-0ubuntu0.24.04.1)
 -- Dumped by pg_dump version 16.6 (Ubuntu 16.6-0ubuntu0.24.04.1)
 
--- Started on 2025-08-21 22:55:34 -04
+-- Started on 2025-08-21 23:05:47 -04
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -589,7 +589,7 @@ COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
 
 COPY public.auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
 2	pbkdf2_sha256$870000$jKTIUE1EA72lL0lv2qVTR0$uXs62GipLr2ibgDieVUdshLlv1VN4JmyLi3Nl7zrfKE=	2025-08-10 23:09:31.386901-04	t	demo				f	t	2025-02-20 16:22:04-03
-1	pbkdf2_sha256$870000$CFFYWjgHO7I3htswxak0zI$vBMuXRxwSPohzpMLjQQxbSZicMOD9Ed0rwoVR9s3IXM=	2025-08-21 22:41:01.460601-04	t	admin				t	t	2025-02-07 16:18:45.117768-03
+1	pbkdf2_sha256$870000$CFFYWjgHO7I3htswxak0zI$vBMuXRxwSPohzpMLjQQxbSZicMOD9Ed0rwoVR9s3IXM=	2025-08-21 23:04:54.048038-04	t	admin				t	t	2025-02-07 16:18:45.117768-03
 \.
 
 
@@ -818,7 +818,7 @@ xw08jico7qs0gosbxr5jloj5fsezglk2	.eJxVjDsOwjAQRO_iGlnrEDkJJT1nsGZ3bRxAtpRPhbg7iZ
 qv5wk4cptgrrifhpnijwqs6h7qzr1vd6	.eJxVjDsOwjAQRO_iGlnrEDkJJT1nsGZ3bRxAtpRPhbg7iZQCminmvZm3CViXHNY5TmFUczHOnH47hjxj2YE-UO7VSi3LNLLdFXvQ2d6qxtf1cP8OMua8rSOQCNx0QqSSBLolwF4a9eCWWM4dU0ytaO8UjnyTkHw_tAMNBPP5AkxtOeQ:1uJz8D:9LUiLJ6Gf6HppSKbiBxr4C6xAT3W80Jpc7Xe0Lux6YE	2025-06-10 14:34:33.567722-04
 7aok1izgqymwj8lwei000yo049w7g4o5	.eJxljbEOgjAURf_lzYZYW1pk08TBwcXBxRjyeK-VKlJDYSL8u5CYqHG999xzByiw76qij7YtPEMOK1h8ZyXS3TZzwTdsriGh0HStL5MZSd5tTA6Bbb19sz-CCmM1rZ0WghxmmTaaJZWpIDZakUzXUq4zt1xaVEYahaSNUIQOpRWseJWmTlicpGw7rGsbIT8PQIH9NUAu5jxS65_kQzMd7U8bGBcfQP4Bxx2Ml4-u6PyjbJEn9nwZX-znWjs:1uYwjd:KMZI_PQFrDFUo4sczSsHpkl1AehFuFQFEU7djm5mnj8	2025-07-21 21:03:01.632106-04
 4p74h3i56w2crx8jr2nzhab6zg75rp4q	.eJxVjDsOwjAQRO_iGlnrEDkJJT1nsGZ3bRxAtpRPhbg7iZQCminmvZm3CViXHNY5TmFUczHOnH47hjxj2YE-UO7VSi3LNLLdFXvQ2d6qxtf1cP8OMua8rSOQCNx0QqSSBLolwF4a9eCWWM4dU0ytaO8UjnyTkHw_tAMNBPP5AkxtOeQ:1uns5W:RpqzYUgwlGGsTlaDAw8Oou7kEeu4ppdO49tfcSgMdVg	2025-09-01 01:07:18.751305-04
-2ypqcmgxkzb6dxz2dzivi01hmv4890fh	.eJxVjLsOgkAURP9la7O5IFkepb1fYAyZ-1hBCSQsVMZ_FxIKbaaYOXPersW6dO2abG57dY3L3Om3Y8jLxn3QJ8bH5GUal7lnvyP-WJO_TmrD5WD_BB1St70NiATOSyFSiQLdEuAguQZwQSznksliIVplioxCHhFDVRc11YRNqrZgGCy55nb_fAGXQD6U:1upHkH:KM_Yu-1kfhxcsHGWe-avCxd0sCrOVtSAcF6Bjb4BpRI	2025-09-04 22:43:13.545852-04
+b2g28x6z2pde0icogtjrqiiyxg4t3wbd	.eJxVjDsOwjAQRO_iGlnrEDkJJT1nsGZ3bRxAtpRPhbg7iZQCminmvZm3CViXHNY5TmFUczHOnH47hjxj2YE-UO7VSi3LNLLdFXvQ2d6qxtf1cP8OMua8rSOQCNx0QqSSBLolwF4a9eCWWM4dU0ytaO8UjnyTkHw_tAMNBPP5AkxtOeQ:1upI5G:n-3crvjUOQN57JBY6hOkcMYiCKV4rxibN-HHdS0tqaQ	2025-09-04 23:04:54.066696-04
 f6v5xv5taoq88a6hc78o659ner9n6wda	.eJxVjM0KwjAQhN8lZwnbWtKfo3efQCTMZhNbrQ006Ul8d1soqJeBmW9mXspiyb1dkp_tIKpThTr8Zgz38NMG5I7pFrWLU54H1ltF7zTpcxQ_nvbu30GP1K9rDwQCl7UjEhccZFWAjSvFgCtid6yZfKicNIWgIFMGBNO0VUstYT0VnzGOPqnucv06m4cnz5C4xe8PmBBG9Q:1uaRPA:3IzwREc61887j0lD-DhjKENPgnjq6cTycU6EbUc1fqc	2025-07-26 00:00:04.449546-04
 57q24m8t2ldrhrz1321odn2jteeegrz0	.eJxVjDsOwjAQRO_iGlnrEDkJJT1nsGZ3bRxAtpRPhbg7iZQCminmvZm3CViXHNY5TmFUczHOnH47hjxj2YE-UO7VSi3LNLLdFXvQ2d6qxtf1cP8OMua8rSOQCNx0QqSSBLolwF4a9eCWWM4dU0ytaO8UjnyTkHw_tAMNBPP5AkxtOeQ:1ubVaC:_Pwpp6xf35iE5-VWSoKl1ttEaNS_9KFOKk0WgjL3PEQ	2025-07-28 22:39:52.900322-04
 s9bdj2e5q3c8w1rb8iq845g1ob7ne5kk	.eJyrVorPTS0uTkxPLVayUoqOjlGKj88qzs-DicYo6SgY6CiYAHGMkk9-emaeQmZecn5RUWpyST5IMkYpRik2VqkWAIeQF6c:1uhgku:a67C1Mu9MgaUiQcgri-3RNjwTaFIFtpSaabNDa36bCM	2025-08-14 23:48:28.959485-04
@@ -1377,7 +1377,7 @@ ALTER TABLE ONLY public.clientes_obligaciones
     ADD CONSTRAINT fk_cliente FOREIGN KEY (cliente_id) REFERENCES public.clientes(cliente);
 
 
--- Completed on 2025-08-21 22:55:39 -04
+-- Completed on 2025-08-21 23:05:53 -04
 
 --
 -- PostgreSQL database dump complete

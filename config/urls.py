@@ -51,12 +51,12 @@ urlpatterns = [
         path("pago/", include("app.urls.pago_urls")),
        
 
-
         # --- Añade la ruta directa para tu API Hola Mundo aquí ---
         # Esto creará una ruta en /hello/
         path("hola/", hola_mundo_api, name="hola_mundo_api_test"),
 
 
+        path('rag/', include('rag.urls')),
     ])),
 ]
 

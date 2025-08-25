@@ -82,11 +82,13 @@ Asistente.prototype.consultarIA = function(prompt) {
     const waitingMessage = this.mostrarAnimacionEspera();
 
     // const baseURL = window.location.origin;
-    const baseURL = "http://localhost:8070";
+    //const baseURL = "http://localhost:8070";
+    const baseURL = window.location.origin;
 
-    
+   
 
-    fetch(baseURL + "/orasifen/api/genia/rag", {
+    // fetch(baseURL + "/orasifen/api/genia/rag", {
+    fetch(baseURL + "/hnasociados/rag/vanilla/", {      
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ prompt: prompt })

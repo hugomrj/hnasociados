@@ -37,10 +37,8 @@ urlpatterns = [
     path('detail/<int:pk>/', ClienteDetailView.as_view(), name='detail'),
 
 
-
     path('cliente_obligacion/', ClienteObligacionCreateView.as_view(), name='cliente_obligacion'),
     path('cliente_obligacion_delete/<int:pk>/', ClienteObligacionDeleteView.as_view(), name='cliente_obligacion_delete'),
-
 
 
     path('cliente_timbrado/', ClienteTimbradoCreateView.as_view(), name='cliente_timbrado'),
