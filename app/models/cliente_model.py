@@ -34,6 +34,7 @@ class Cliente (models.Model):
 
 
 class ClienteForm(forms.ModelForm):
+
     class Meta:
         model = Cliente
         fields = [
@@ -41,15 +42,6 @@ class ClienteForm(forms.ModelForm):
             'email', 'direccion', 'negocio_servicio', 'tarifa', 'fecha_ingreso',
             'usuario_set', 'clave_set',        ]
 
-        widgets = {
-            'fecha_ingreso': forms.DateInput(
-                attrs={
-                    'type': 'date',
-                    'class': 'form-control'
-                },
-                format='%Y-%m-%d'
-            ),
-        }
 
 
 ClientesObligacionesFormSet = forms.inlineformset_factory(

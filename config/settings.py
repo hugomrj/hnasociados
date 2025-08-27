@@ -168,3 +168,7 @@ MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 # FORCE_SCRIPT_NAME = '/hnasociados'
 
 
+# settings.py
+DATE_INPUT_FORMATS = ['%Y-%m-%d']  # Para parsear el input
+USE_L10N = False                   # ¡IMPORTANTE! Desactiva localización
+DATE_FORMAT = 'Y-m-d'              # Formato de visualización

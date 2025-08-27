@@ -1,3 +1,4 @@
+{% load filters %}
 {% csrf_token %}
 
 
@@ -137,12 +138,15 @@
             <input type="date" 
                 name="fecha_ingreso"  
                 class="form-control" 
-                id="fecha_ingreso"
-                value="{{ form.fecha_ingreso.value|date:'Y-m-d'|default:'' }}">             
+                id="fecha_ingreso" 
+                value="{{ form.fecha_ingreso.value|to_date_input }}">
 
         </div>
       </div>
     </div>
+
+
+
 
 </div>
 
