@@ -3,7 +3,8 @@
 
 {% block content %}
 <div class="container mt-3">
-    <div class="card shadow-sm">
+
+    <div id="bienvenida"  class="card shadow-sm">
         <div class="card-body p-2">
             <p class="text-muted mb-0">Bienvenido, {{ user.username }}</p>
         </div>
@@ -48,6 +49,7 @@
                 });
 
                 input.value = ""; // limpiar
+                document.getElementById("bienvenida").style.display = "none";
 
             });
 

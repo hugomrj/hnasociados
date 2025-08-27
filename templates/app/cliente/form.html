@@ -117,12 +117,13 @@
       <div class="row">
         <label for="tarifa" class="col-form-label d-block w-100">Tarifa</label>
         <div class="d-block w-100">
-            <input type="text" 
+            <input type="number"
                 name="tarifa"  
                 class="form-control text-end" 
                 id="tarifa"
                 value="{{ form.tarifa.value|default_if_none:'' }}"
-                data-number="int">
+                data-number="int"
+                required>
         </div>
       </div>
     </div>
@@ -132,11 +133,12 @@
       <div class="row">
         <label for="fecha_ingreso" class="col-form-label d-block w-100">Fecha de ingreso</label>
         <div class="d-block w-100">
+
             <input type="date" 
                 name="fecha_ingreso"  
                 class="form-control" 
                 id="fecha_ingreso"
-                value="{{ form.fecha_ingreso.value|default:form.initial.fecha_ingreso|date:'Y-m-d' }}">
+                value="{{ form.fecha_ingreso.value|date:'Y-m-d'|default:'' }}">             
 
         </div>
       </div>

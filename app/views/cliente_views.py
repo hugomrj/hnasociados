@@ -86,20 +86,16 @@ class ClienteListView(LoginRequiredMixin, View):
 
 
 
-
-
-
 class ClienteCreateView(LoginRequiredMixin, View):    
     template_name = FOLDER_TEMPLATE + '/add.html'
     
     def get(self, request, *args, **kwargs):
         # Inicializamos el formulario vacío para el GET
-        form = ClienteForm()
-        # Inicializar el formulario con la instancia existente
-        form = ClienteForm( # <-- aquí
-            initial={'fecha_ingreso': date.today()}  
-        )
+        
 
+        form = ClienteForm()
+
+        
         detalles = [] 
         detalles_timbrado = [] 
 
@@ -124,7 +120,11 @@ class ClienteCreateView(LoginRequiredMixin, View):
 
     def post(self, request, *args, **kwargs):
         print(f"Datos recibidos en POST: {request.POST}") 
-        form = ClienteForm(request.POST)
+
+        form = ClienteForm(request.POST.copy())
+
+
+ 
 
         detalles = request.session.get('detalles', [])
         detalles_timbrado = request.session.get('detalles_timbrado', [])
@@ -187,13 +187,8 @@ class ClienteUpdateView(LoginRequiredMixin, View):
         registro = get_object_or_404(Cliente, pk=pk)
         
         # Inicializar el formulario con la instancia existente
-        form = ClienteForm(
-            instance=registro,
-            initial={'fecha_ingreso': registro.fecha_ingreso}  # <-- aquí
-        )
-        
+        form = ClienteForm(instance=registro)
 
-        
         cliente_obligacion = ClientesObligaciones.objects.filter(cliente=registro).values("obligacion")
 
 
@@ -245,21 +240,9 @@ class ClienteUpdateView(LoginRequiredMixin, View):
         # Obtener el objeto a editar
         cliente = get_object_or_404(Cliente, pk=pk)
 
-        print(f"Datos update en POST: {request.POST}") 
-        
-
-        data = request.POST.copy()
-        if not data.get("fecha_ingreso"):
-            data["fecha_ingreso"] = cliente.fecha_ingreso.strftime('%Y-%m-%d')
+        form = ClienteForm(request.POST, instance=cliente)
 
 
-
-        print("Data POST filtrada:", data)
-        print("Valor fecha_ingreso:", data.get("fecha_ingreso"))
-
-        # Procesar formulario con los datos POST y la instancia
-        form = ClienteForm(data, instance=cliente)
-        
         # Obtener la lista de detalles de la sesión
         detalles = request.session.get('detalles', [])
         obligaciones = Obligacion.objects.all()
@@ -294,9 +277,13 @@ class ClienteUpdateView(LoginRequiredMixin, View):
             for field, field_errors in form.errors.items():
                 for field_error in field_errors:
                     error_message += f'\n{field.capitalize()}: {field_error}'
-            
+
+
+            print("ENTRO EN ERRROR DE UPSATW")
+
+
             messages.error(request, error_message)
-               
+
             
             contexto = { 
                 'form': form, 

@@ -1,5 +1,6 @@
 from django import forms
 from django.db import models
+from datetime import date
 
 from app.models.cliente_obligacion_model import ClientesObligaciones, ClientesObligacionesForm
 
@@ -16,7 +17,7 @@ class Cliente (models.Model):
     negocio_servicio = models.CharField(max_length=200, blank=True, null=True)
 
     tarifa = models.BigIntegerField(blank=False, null=False)
-    fecha_ingreso = models.DateField(blank=False, null=False)
+    fecha_ingreso = models.DateField(default=date.today)
 
 
 
@@ -39,6 +40,16 @@ class ClienteForm(forms.ModelForm):
             'cedula', 'nombre', 'apellido', 'celular',
             'email', 'direccion', 'negocio_servicio', 'tarifa', 'fecha_ingreso',
             'usuario_set', 'clave_set',        ]
+
+        widgets = {
+            'fecha_ingreso': forms.DateInput(
+                attrs={
+                    'type': 'date',
+                    'class': 'form-control'
+                },
+                format='%Y-%m-%d'
+            ),
+        }
 
 
 ClientesObligacionesFormSet = forms.inlineformset_factory(
