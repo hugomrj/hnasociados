@@ -34,32 +34,54 @@
             aria-expanded="false"            
           >
             Aplicacion
-          </a>
-          
+          </a>          
           <!-- Dropdown menu -->
           <ul class="dropdown-menu " aria-labelledby="navbarDropdown" 
             data-mdb-theme="dark">
-            
-
-            
             <li>
               <a class="dropdown-item" 
                 href="{% url 'cliente:list' %}">Clientes</a>              
             </li>
-       
             <li>
               <a class="dropdown-item" 
               href="{% url 'obligacion:list' %}">Obligacion</a>
             </li>
-     
             <li>
               <a class="dropdown-item" 
               href="{% url 'pago:list' %}">Pagos</a>
             </li>
-            
-
           </ul>
         </li>
+
+
+        <!-- Navbar dropdown -->
+        <li class="nav-item dropdown ">
+          <a
+            data-mdb-dropdown-init
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="navbarDropdownEnlaces"
+            role="button"
+            aria-expanded="false"            
+          >
+            Enlaces
+          </a>          
+          <!-- Dropdown menu -->
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownEnlaces" data-mdb-theme="dark">
+            <li>
+              <a class="dropdown-item" href="https://marangatu.set.gov.py/" target="_blank">
+                Marangatu
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="https://www.dnit.gov.py/web/portal-institucional" target="_blank">
+                DNIT
+              </a>
+            </li>
+          </ul>
+        </li>
+
+
 
       </ul>
 
