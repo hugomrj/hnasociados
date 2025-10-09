@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <h5 class="mb-0">Vencimientos - {{ mes_actual }}/{{ anio_actual }}</h5>
+      
+      <!-- Filtros combinados -->
+      <div class="d-flex align-items-center gap-2">
+        <!-- Selector de estado -->
+        <select name="estado" class="form-select form-select-sm" onchange="actualizarFiltros()" style="width: 160px;">
+          <option value="todos" {% if filtro_estado == "todos" %}selected{% endif %}>Todos los estados</option>
+          <option value="vencidos" {% if filtro_estado == "vencidos" %}selected{% endif %}>Vencidos</option>
+          <option value="proximos" {% if filtro_estado == "proximos" %}selected{% endif %}>Próximos (7 días)</option>
+          <option value="por_vencer" {% if filtro_estado == "por_vencer" %}selected{% endif %}>Por vencer</option>
+          <option value="pendientes" {% if filtro_estado == "pendientes" %}selected{% endif %}>Pendientes</option>
+        </select>
+
+        <!-- Selector de día específico -->
+        <select name="dia" class="form-select form-select-sm" onchange="actualizarFiltros()" style="width: 130px;">
+          <option value="">Todos los días</option>
+          {% for dia in dias_con_vencimientos %}
+          <option value="{{ dia }}" {% if dia_seleccionado == dia|stringformat:"i" %}selected{% endif %}>
+            Día {{ dia }}
+          </option>
+          {% endfor %}
+        </select>
+
+        <!-- Combo para descargar -->
+        <select name="descargar" class="form-select form-select-sm" onchange="descargarReporte(this)" style="width: 150px;">
+          <option value="">Descargar reporte</option>
+          <option value="excel">Descargar Excel</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="card-body">
+      <!-- Resumen general -->
+      <div class="row mb-3">
+        <div class="col-md-12">
+          <div class="alert alert-secondary py-2">
+            <small>
+              <strong>Resumen del mes:</strong>
+              Total: {{ total_general }} | 
+              Vencidos: <span class="text-danger">{{ vencidos_general }}</span> | 
+              Próximos: <span class="text-warning">{{ proximos_general }}</span> | 
+              Por vencer: <span class="text-success">{{ por_vencer_general }}</span>
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Resumen del filtro aplicado -->
+      {% if filtro_estado != "todos" or dia_seleccionado %}
+      <div class="row mb-3">
+        <div class="col-md-12">
+          <div class="alert alert-info py-2">
+            <small>
+              {% if dia_seleccionado %}
+                Mostrando vencimientos del <strong>día {{ dia_seleccionado }}</strong>
+                {% if filtro_estado != "todos" %}
+                  en estado <strong>
+                  {% if filtro_estado == "vencidos" %}Vencidos
+                  {% elif filtro_estado == "proximos" %}Próximos
+                  {% elif filtro_estado == "por_vencer" %}Por vencer
+                  {% elif filtro_estado == "pendientes" %}Pendientes
+                  {% endif %}</strong>
+                {% endif %}
+              {% else %}
+                Mostrando vencimientos en estado <strong>
+                {% if filtro_estado == "vencidos" %}Vencidos
+                {% elif filtro_estado == "proximos" %}Próximos (7 días)
+                {% elif filtro_estado == "por_vencer" %}Por vencer
+                {% elif filtro_estado == "pendientes" %}Pendientes
+                {% endif %}</strong>
+              {% endif %}
+              | Resultados: {{ total_clientes }}
+            </small>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+
+      <div class="table-responsive">
+        <table class="table table-hover w-100">
+          <thead>
+            <tr class="table-light">
+              <th class="text-center text-nowrap">Fecha Vencimiento</th>
+              <th class="text-center text-nowrap">Estado</th>
+              <th class="text-center text-nowrap">Cliente</th>
+              <th class="text-center text-nowrap">Cédula / RUC</th>
+              <th class="text-center text-nowrap">Terminación</th>
+            </tr>
+          </thead>
+
+          <tbody class="table-group-divider">
+            {% for c in clientes %}
+            <tr class="{% if c.esta_vencido %}table-danger{% elif c.esta_proximo %}table-warning{% endif %}">
+              <td class="align-middle text-center">
+                <strong>{{ c.vencimiento_str }}</strong>
+              </td>
+              <td class="align-middle text-center">
+                <span class="badge {% if c.esta_vencido %}bg-danger{% elif c.esta_proximo %}bg-warning{% else %}bg-success{% endif %}">
+                  {% if c.esta_vencido %}
+                    Vencido
+                  {% elif c.esta_proximo %}
+                    Próximo
+                  {% else %}
+                    Pendiente
+                  {% endif %}
+                </span>
+                <br>
+                <small class="text-muted">
+                  {% if c.dias_restantes < 0 %}
+                    Hace {{ c.dias_restantes|stringformat:"+d"|slice:"1:" }} días
+                  {% else %}
+                    En {{ c.dias_restantes }} días
+                  {% endif %}
+                </small>
+              </td>
+              <td class="align-middle">{{ c.nombre }}</td>
+              <td class="align-middle text-center">{{ c.cedula }}</td>
+              <td class="align-middle text-center">{{ c.terminacion }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="5" class="text-center text-muted">
+                {% if filtro_estado != "todos" or dia_seleccionado %}
+                  No hay vencimientos que coincidan con los filtros aplicados.
+                {% else %}
+                  No hay vencimientos para este mes.
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Form hidden para los filtros -->
+<form method="GET" id="filterForm" style="display: none;">
+  <input type="hidden" name="estado" id="estadoInput" value="{{ filtro_estado }}">
+  <input type="hidden" name="dia" id="diaInput" value="{{ dia_seleccionado }}">
+  <input type="hidden" name="descargar" id="descargarInput" value="">
+</form>
+{% endblock %}
+
+{% block extrascripts %}
+<script>
+// Función para actualizar los filtros
+function actualizarFiltros() {
+    const estadoSelect = document.querySelector('select[name="estado"]');
+    const diaSelect = document.querySelector('select[name="dia"]');
+    
+    document.getElementById('estadoInput').value = estadoSelect.value;
+    document.getElementById('diaInput').value = diaSelect.value;
+    document.getElementById('filterForm').submit();
+}
+
+// Función para descargar el reporte
+function descargarReporte(select) {
+    if (select.value) {
+        // Obtener los valores actuales de los filtros
+        const estado = document.getElementById('estadoInput').value;
+        const dia = document.getElementById('diaInput').value;
+        
+        // Construir la URL con los filtros actuales y el parámetro de descarga
+        let url = window.location.pathname + '?estado=' + estado + '&dia=' + dia + '&descargar=' + select.value;
+        
+        // Redirigir a la URL de descarga
+        window.location.href = url;
+        
+        // Resetear el combo de descarga
+        select.value = '';
+    }
+}
+</script>
+{% endblock %}

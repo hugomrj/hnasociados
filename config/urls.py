@@ -49,7 +49,7 @@ urlpatterns = [
         path("obligacion/", include("app.urls.obligacion_urls")),
         path("cliente/", include("app.urls.cliente_urls")),
         path("pago/", include("app.urls.pago_urls")),
-       
+        path("calendario/", include("app.urls.calendario_urls")),
 
         # --- Añade la ruta directa para tu API Hola Mundo aquí ---
         # Esto creará una ruta en /hello/
