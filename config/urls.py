@@ -20,6 +20,7 @@ from django.urls import path, include
 
 
 from app.views.auth_views import Home, Login, Logout
+from app.views.memo_views import MemoView
 
 
 app_prefix = "hnasociados/"
@@ -57,6 +58,11 @@ urlpatterns = [
 
 
         path('rag/', include('rag.urls')),
+
+
+   path('memo/', MemoView.as_view(), name='memo'),
+
+
     ])),
 ]
 
