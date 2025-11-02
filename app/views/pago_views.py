@@ -103,6 +103,7 @@ class PagoListView(LoginRequiredMixin, View):
             'page_range': page_range,
             'query_string': f"&{query_string}" if query_string else "",  
             'obligaciones': obligaciones, 
+            'current_year': timezone.now().year, 
         }
 
         return render(request, self.template_name, contexto)
@@ -149,7 +150,6 @@ class PagoCreateView(LoginRequiredMixin, View):
         return render(request, self.template_name, contexto)
 
 
-
     def post(self, request, *args, **kwargs):
         # Obtener el cliente por su ID de la URL
         cliente_id = self.kwargs['cliente_id']
@@ -160,16 +160,23 @@ class PagoCreateView(LoginRequiredMixin, View):
         except Cliente.DoesNotExist:
             # Si el cliente no existe, redirigir a la lista de pagos con un mensaje de error
             messages.error(request, 'Cliente no encontrado.')
-            return redirect('pago:list')  # Asegúrate de que este es el nombre correcto de la URL para la lista de pagos
+            return redirect('pago:list')
+
+
 
         # Inicializamos el formulario con los datos enviados por el usuario
         form = PagoForm(request.POST)
 
+        # DEPURACIÓN: Ver los datos limpios si el formulario es válido
         if form.is_valid():
+
+            
             # Si el formulario es válido, creamos una instancia de Pago sin guardarla aún
             pago = form.save(commit=False)
             # Asignamos el cliente al pago
             pago.cliente = cliente
+
+            
             # Guardamos el pago en la base de datos
             pago.save()
 
@@ -177,9 +184,8 @@ class PagoCreateView(LoginRequiredMixin, View):
             messages.success(request, 'Pago registrado correctamente.')
             return redirect(f"{reverse('pago:list')}?cedula={cliente.cedula}")
 
-
         else:
-            # Si el formulario no es válido, manejar los errores
+            
             error_message = ''
             for field, field_errors in form.errors.items():
                 for field_error in field_errors:
@@ -191,15 +197,12 @@ class PagoCreateView(LoginRequiredMixin, View):
             contexto = {
                 'form': form,
                 'cliente': cliente,
-                'cliente_id': cliente_id
+                'cliente_id': cliente_id,
+                'current_year': timezone.now().year, 
             }
 
             # Si el formulario no es válido, renderiza de nuevo con errores
-            return render(request, self.template_name, contexto )
-
-
-
-
+            return render(request, self.template_name, contexto)
 
 
 
@@ -276,7 +279,8 @@ class PagoDetailView(LoginRequiredMixin, View):
         # Crear el contexto con el registro
         contexto = { 
             'form': form, 
-            'registro': registro
+            'registro': registro,
+            'current_year': timezone.now().year,  
             }  
         
 

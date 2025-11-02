@@ -126,7 +126,8 @@
                     <tr class="table-light">
                         
                         <th class="text-center text-nowrap">Fecha</th>
-  
+                        <th class="text-center text-nowrap">Mes/Año</th>
+
                         <th class="text-center text-nowrap">Monto</th>
 
                         <th class="text-center text-nowrap">Acciones</th>
@@ -137,6 +138,8 @@
                     <tr>
                         
                         <td>{{ item.fecha }}</td>
+
+                        <td>{{ item.mes_pago }}/{{ item.anio_pago }}</td>
 
                         <td>{{ item.monto|miles_puntos }}</td>
 
