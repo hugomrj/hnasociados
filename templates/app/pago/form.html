@@ -73,3 +73,22 @@
         </div>
     </div>
 </div>
+
+
+
+
+<!-- Campo de Observación - NUEVO -->
+<div class="mb-4 row">
+    <div class="form-field col-md-12">
+        <div class="row">
+            <label for="obs" class="col-form-label d-block w-100">Observación</label>
+            <div class="col-sm-12">
+                <textarea name="obs" 
+                         id="obs" 
+                         class="form-control" 
+                         rows="3"
+                         placeholder="Observaciones opcionales">{{ form.initial.obs|default:'' }}</textarea>
+            </div>
+        </div>
+    </div>
+</div>

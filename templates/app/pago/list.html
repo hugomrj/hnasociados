@@ -129,6 +129,7 @@
                         <th class="text-center text-nowrap">Mes/Año</th>
 
                         <th class="text-center text-nowrap">Monto</th>
+                        <th class="text-center text-nowrap">Observación</th>
 
                         <th class="text-center text-nowrap">Acciones</th>
                     </tr>
@@ -142,6 +143,8 @@
                         <td>{{ item.mes_pago }}/{{ item.anio_pago }}</td>
 
                         <td>{{ item.monto|miles_puntos }}</td>
+
+                        <td>{{ item.obs|default_if_none:"" }}</td>
 
                         
                         <td class="text-center">

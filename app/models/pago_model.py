@@ -14,6 +14,7 @@ class Pago(models.Model):
     cliente = models.ForeignKey(Cliente, models.DO_NOTHING)
     mes_pago = models.SmallIntegerField()   # obligatorio
     anio_pago = models.SmallIntegerField()  # obligatorio
+    obs = models.CharField(max_length=500, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -43,7 +44,7 @@ class PagoForm(forms.ModelForm):
 
     class Meta:
         model = Pago
-        fields = ['fecha', 'monto', 'mes_pago', 'anio_pago']
+        fields = ['fecha', 'monto', 'mes_pago', 'anio_pago',  'obs'] 
 
 
     def clean_monto(self):
