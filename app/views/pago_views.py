@@ -1,4 +1,5 @@
 from datetime import datetime as dt
+from django.utils import timezone 
 from django.utils.timezone import now
 import datetime
 
@@ -214,6 +215,7 @@ class PagoUpdateView(LoginRequiredMixin, View):
         contexto = { 
             'form': form, 
             'registro': registro,
+            'current_year': timezone.now().year,  
             }  
 
         return render(request, self.template_name, contexto)
@@ -249,7 +251,9 @@ class PagoUpdateView(LoginRequiredMixin, View):
 
             contexto = {
                 'form': form,
-                'registro': registro
+                'registro': registro,
+                'current_year': timezone.now().year,  
+
             }       
                 
 
