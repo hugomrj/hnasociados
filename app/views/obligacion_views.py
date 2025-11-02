@@ -80,8 +80,6 @@ class ObligacionCreateView(LoginRequiredMixin, View):
 
 
     def post(self, request, *args, **kwargs):
-        # Procesar el formulario cuando se envía
-        print(f"Datos recibidos en POST: {request.POST}") 
 
         # Procesar el formulario cuando se envía
         form = ObligacionForm(request.POST)

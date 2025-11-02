@@ -195,7 +195,7 @@
 
 
 
-
+            
 
             document.getElementById("btn_agregar_timbrado").onclick = function() {    
 
@@ -234,7 +234,17 @@
                     // Crear el formulario dinámicamente
                     let form = document.getElementById("form");
                     form.method = "POST";
-                    form.action = "{% url 'cliente:cliente_timbrado' %}";                    
+                    // form.action = "{% url 'cliente:cliente_timbrado' %}";          
+                    form.action = "{% url 'cliente:cliente_timbrado' %}?tipo=edit";
+
+
+                    // Crear un campo oculto para enviar el cliente_id
+                    let clienteIdField = document.createElement("input");
+                    clienteIdField.type = "hidden";
+                    clienteIdField.name = "cliente_id";  // Nombre del campo
+                    let clienteId = document.getElementById("form").getAttribute("data-cliente-id");
+                    clienteIdField.value = clienteId;   // Asignar el valor del cliente_id que necesites
+                    form.appendChild(clienteIdField);
 
 
 
@@ -282,96 +292,6 @@
                 };
 
             };
-
-
-
-            
-
-            document.getElementById("btn_agregar_timbrado").onclick = function() {    
-
-                // abrir modal                
-                const modal = new mdb.Modal(document.getElementById('modal_add_timbrado'));
-                modal.show();
-
-
-                document.getElementById("agregar_timbrado").onclick = function() {                
-
-                    const timbrado = document.getElementById("timbrado");
-                    if (!timbrado.value.trim()) {
-                        alert("Por favor, complete el campo Timbrado");
-                        timbrado.focus();
-                        return false;
-                    }
-
-                    // Validar Fecha Inicio
-                    const fechaInicio = document.getElementById("fecha_inicio");
-                    if (!fechaInicio.value) {
-                        alert("Por favor, seleccione una Fecha de inicio");
-                        fechaInicio.focus();
-                        return false;
-                    }
-
-                    // Validar Fecha Fin
-                    const fechaFin = document.getElementById("fecha_fin");
-                    if (!fechaFin.value) {
-                        alert("Por favor, seleccione una Fecha de fin");
-                        fechaFin.focus();
-                        return false;
-                    }
-                    
-
-
-                    // Crear el formulario dinámicamente
-                    let form = document.getElementById("form");
-                    form.method = "POST";
-                    form.action = "{% url 'cliente:cliente_timbrado' %}";                    
-
-
-
-                    // Agregar token CSRF
-                    let csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
-                    let csrfInput = document.createElement("input");
-                    csrfInput.type = "hidden";
-                    csrfInput.name = "csrfmiddlewaretoken";
-                    csrfInput.value = csrfToken;
-                    form.appendChild(csrfInput);
-
-
-                    // 2. Agregar campo timbrado
-                    let timbradoValue = document.getElementById("timbrado").value;
-                    let timbradoInput = document.createElement("input");
-                    timbradoInput.type = "hidden";
-                    timbradoInput.name = "timbrado";
-                    timbradoInput.value = timbradoValue;
-                    form.appendChild(timbradoInput);
-
-                    // 3. Agregar campo fecha_inicio
-                    let fechaInicioValue = document.getElementById("fecha_inicio").value;
-                    let fechaInicioInput = document.createElement("input");
-                    fechaInicioInput.type = "hidden";
-                    fechaInicioInput.name = "fecha_inicio";
-                    fechaInicioInput.value = fechaInicioValue;
-                    form.appendChild(fechaInicioInput);
-
-                    // 4. Agregar campo fecha_fin
-                    let fechaFinValue = document.getElementById("fecha_fin").value;
-                    let fechaFinInput = document.createElement("input");
-                    fechaFinInput.type = "hidden";
-                    fechaFinInput.name = "fecha_fin";
-                    fechaFinInput.value = fechaFinValue;
-                    form.appendChild(fechaFinInput);
-
-
-                    
-
-                    // Enviar formulario
-                    form.submit();
-                    return true;
-                    
-
-                };
-
-                };
 
 
 

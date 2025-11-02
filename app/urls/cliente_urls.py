@@ -23,6 +23,7 @@ from app.views.cliente_timbrado_views import (
 )
 
 
+
 app_name = 'cliente'
 
 urlpatterns = [      

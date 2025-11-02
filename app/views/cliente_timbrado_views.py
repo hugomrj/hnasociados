@@ -74,7 +74,9 @@ class ClienteTimbradoCreateView(LoginRequiredMixin, View):
             }
 
         if tipo == "edit":            
+
             cliente_id = request.POST.get('cliente_id')
+
             contexto = {
                 "form": form,
                 "detalles_timbrado": detalles_timbrado,
@@ -83,12 +85,6 @@ class ClienteTimbradoCreateView(LoginRequiredMixin, View):
                 "obligaciones": obligaciones,
                 "mostrar_accion": True
             }
-
-
-
-        print("\n--- DESPUÉS de procesar ---")
-        print(f"Nuevo timbrado: {nuevo_timbrado}")
-        print(f"Detalles actualizados: {request.session['detalles_timbrado']}")
 
 
         return render(request, template_name, contexto )

@@ -291,8 +291,6 @@ def reemplazar_texto(docx_bytes, nuevo_texto, marcador):
     mem_in = BytesIO(docx_bytes)
     mem_out = BytesIO()
 
-
-
     nuevo_texto = "texto agreagao desde la funcion remplazar texto"
 
 

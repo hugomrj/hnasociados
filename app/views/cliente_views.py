@@ -29,7 +29,7 @@ class ClienteListView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
         query = request.GET.get('q', '').strip()
-        coleccion = Cliente.objects.all()
+        coleccion = Cliente.objects.all().order_by('cedula')
 
         if query:
             # Concatenar los campos relevantes en una sola cadena
@@ -119,12 +119,9 @@ class ClienteCreateView(LoginRequiredMixin, View):
     
 
     def post(self, request, *args, **kwargs):
-        print(f"Datos recibidos en POST: {request.POST}") 
 
         form = ClienteForm(request.POST.copy())
 
-
- 
 
         detalles = request.session.get('detalles', [])
         detalles_timbrado = request.session.get('detalles_timbrado', [])
@@ -190,12 +187,23 @@ class ClienteUpdateView(LoginRequiredMixin, View):
         form = ClienteForm(instance=registro)
 
         cliente_obligacion = ClientesObligaciones.objects.filter(cliente=registro).values("obligacion")
-
-
         # Crear una lista para almacenar los detalles
         detalles = []
+
+        
         # Obtener todos los timbrados asociados a este cliente
-        detalles_timbrado = ClientesTimbrado.objects.filter(cliente=registro.cliente).all()
+        cliente_timbrado = ClientesTimbrado.objects.filter(cliente=registro.cliente).all()
+        detalles_timbrado = []
+        # Construir la lista de detalles
+        for t in cliente_timbrado:
+            detalles_timbrado.append({
+                "timbrado": t.timbrado,
+                "fecha_inicio": t.fecha_inicio.isoformat() if t.fecha_inicio else "",
+                "fecha_fin": t.fecha_fin.isoformat() if t.fecha_fin else "",
+                "id": t.id
+            })
+        # Actualizar la sesión con los datos reales
+        request.session['detalles_timbrado'] = detalles_timbrado
 
 
         # Obtener todas las descripciones en una sola consulta
@@ -243,6 +251,8 @@ class ClienteUpdateView(LoginRequiredMixin, View):
         form = ClienteForm(request.POST, instance=cliente)
 
 
+        print("----------------- entra en update clietne")
+
         # Obtener la lista de detalles de la sesión
         detalles = request.session.get('detalles', [])
         obligaciones = Obligacion.objects.all()
@@ -253,18 +263,33 @@ class ClienteUpdateView(LoginRequiredMixin, View):
             # Guardar cambios si el formulario es válido
             form.save()
             
-            
-            ClientesObligaciones.objects.filter(cliente=cliente).delete()
-
-            
+            # --- Obligaciones ---
+            ClientesObligaciones.objects.filter(cliente=cliente).delete()            
             for detalle in detalles:
                 ClientesObligaciones.objects.create(
                     cliente=cliente,  # Asociar al cliente recién creado
                     obligacion=detalle['codigo']  # Usar el código 
                 )
-
             # Limpiar la lista de detalles de la sesión después de guardar
             request.session['detalles'] = []
+
+
+
+            # --- Timbrados ---
+            detalles_timbrado = request.session.get('detalles_timbrado', [])
+            ClientesTimbrado.objects.filter(cliente=cliente.pk).delete()
+            for detalle in detalles_timbrado:
+                ClientesTimbrado.objects.create(
+                    cliente=cliente.pk, 
+                    timbrado=detalle['timbrado'],
+                    fecha_inicio=detalle['fecha_inicio'],
+                    fecha_fin=detalle['fecha_fin']
+                )
+            # Limpiar las listas de la sesión después de guardar
+            request.session['detalles_timbrado'] = []
+
+
+
 
 
             message = 'El registro se ha actualizado correctamente.'

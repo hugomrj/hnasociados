@@ -153,8 +153,3 @@ class ClienteObligacionDeleteView(LoginRequiredMixin, View):
             }
 
         return render(request, template_name, contexto)
-
-
-
-
-
