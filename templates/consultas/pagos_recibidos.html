@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load filters %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">Pagos Recibidos</h5>
+        </div>
+
+        <div class="card-body">
+            <form method="get" class="mb-4 row" id="form-filtro">
+                <div class="form-field col-md-4">
+                    <label for="anio" class="col-form-label">Año</label>
+                    <select id="anio" name="anio" class="form-control">
+                        <option value="">-- Seleccione --</option>
+                        {% for a in anios %}
+                            <option value="{{ a }}" {% if a == anio %}selected{% endif %}>{{ a }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </form>
+
+            {% if totales %}
+            <div class="col-md-6">
+            <table class="table table-hover ">
+                <thead>
+                    <tr class="table-light">
+                        <th class="text-center text-nowrap">Mes</th>
+                        <th class="text-center text-nowrap">Total Facturado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for mes, total in totales.items %}
+                    <tr>
+                        <td class="text-center">{{ mes }}</td>
+                        <td class="text-end">{{ total|miles_puntos }}</td>
+
+
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr class="table-secondary fw-bold">
+                        <td class="text-center">Total anual</td>
+                        <td class="text-end">{{ total_anual|miles_puntos }}</td>
+                    </tr>
+                </tfoot>
+                
+            </table>
+            </div>
+            {% else %}
+                <p>No hay pagos registrados para este año.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('anio').addEventListener('change', function() {
+    document.getElementById('form-filtro').submit();
+});
+</script>
+{% endblock %}

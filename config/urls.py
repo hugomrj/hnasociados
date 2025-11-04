@@ -56,7 +56,7 @@ urlpatterns = [
         # Esto creará una ruta en /hello/
         path("hola/", hola_mundo_api, name="hola_mundo_api_test"),
 
-
+        path('consultas/', include('app.urls.consultas_urls')),
         path('rag/', include('rag.urls')),
 
 
