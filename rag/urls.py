@@ -5,4 +5,9 @@ urlpatterns = [
     path('hora/', views.hora_actual, name='hora_actual'),
 
     path('vanilla/', views.generar_vanilla, name='generar_vanilla'),
+
+    path("generate/", views.generate_rag, name="rag_generate"),
 ]
+
+
+
