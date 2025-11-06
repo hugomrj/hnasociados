@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load filters %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">Estado de Pagos Mensual</h5>
+        </div>
+
+        <div class="card-body">
+            <form method="get" class="mb-4 row" id="form-filtro">
+                <div class="form-field col-md-4">
+                    <label for="anio" class="col-form-label">Año</label>
+                    <select id="anio" name="anio" class="form-control">
+                        <option value="">-- Seleccione --</option>
+                        {% for a in anios %}
+                            <option value="{{ a }}" {% if a == anio %}selected{% endif %}>{{ a }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-field col-md-4">
+                    <label for="mes" class="col-form-label">Mes</label>
+                    <select id="mes" name="mes" class="form-control">
+                        <option value="">-- Seleccione --</option>
+                        {% for m in meses %}
+                            <option value="{{ m.valor }}" {% if m.valor == mes %}selected{% endif %}>{{ m.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-field col-md-4">
+                    <label for="estado" class="col-form-label">Estado de Pago</label>
+                    <select id="estado" name="estado" class="form-control">
+                        {% for e in estados %}
+                            <option value="{{ e.valor }}" {% if e.valor == estado %}selected{% endif %}>{{ e.nombre }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+
+
+            </form>
+
+            {% if datos %}
+            <div class="col-md-12">
+            <table class="table table-hover">
+                <thead>
+                    <tr class="table-light">
+                        <th>Cliente</th>
+                        <th class="text-center">Estado</th>
+                        <th class="text-center">Fecha</th>
+                        <th class="text-center">Monto</th>
+                        <th class="text-center">Observación</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in datos %}
+                    <tr>
+                        <td>{{ item.cliente.apellido }}, {{ item.cliente.nombre }}</td>
+                        <td class="text-center">
+                            {% if item.pagado %}
+                                <span class="badge bg-success">Pagado</span>
+                            {% else %}
+                                <span class="badge bg-danger">Pendiente</span>
+                            {% endif %}
+                        </td>
+                        <td class="text-center">{{ item.fecha_pago|default:"-" }}</td>
+                        <td class="text-center">{{ item.monto|default:"-" }}</td>
+                        <td class="text-center">{{ item.obs|default:"-" }}</td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                <tfoot>
+                    <tr class="table-secondary fw-bold">
+                        <td class="text-center">Resumen</td>
+                        <td class="text-center"></td>
+                        <td class="text-center"></td>
+                        <td class="text-center"></td>
+                        <td class="text-center">
+                            Pagados: {{ resumen.pagados }} / Pendientes: {{ resumen.pendientes }}
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+            </div>
+            {% else %}
+                <p>Seleccione un año y mes para visualizar el reporte.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('anio').addEventListener('change', function() {
+    document.getElementById('form-filtro').submit();
+});
+document.getElementById('mes').addEventListener('change', function() {
+    document.getElementById('form-filtro').submit();
+});
+document.getElementById('estado').addEventListener('change', function() {
+    document.getElementById('form-filtro').submit();
+});
+
+</script>
+{% endblock %}

@@ -33,8 +33,6 @@ def buscar_clase_por_funcion(funcion_buscada: str):
 
 
 def ejecutar_funcion(funcion_nombre: str, json_params: dict):
-    print("⚙️ [INICIO] ejecutar_funcion()")
-    print(f"🔧 Buscando función: {funcion_nombre}")
 
     try:
         # Buscar en todos los módulos del paquete rag.funciones
@@ -46,7 +44,6 @@ def ejecutar_funcion(funcion_nombre: str, json_params: dict):
             if callable(metodo):
                 print(f"✅ Función encontrada en módulo: {full_module_name}")
                 resultado = metodo(json_params)
-                print("✅ Ejecución completada correctamente.")
 
                 # Conversión de tipos no serializables
                 def convertir(obj):

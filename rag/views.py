@@ -81,14 +81,11 @@ def generate_rag(request):
             "datos": json.dumps(resultado, ensure_ascii=False)
         }
 
-        print("🌐 Enviando payload a API externa:", API_URL)
-        print("📦 Payload:", payload)
 
         r = requests.post(API_URL, json=payload, timeout=20)
         print("🔄 Respuesta recibida:", r.status_code)
 
         respuesta_api = r.json()
-        print("📨 Contenido de respuesta:", respuesta_api)
 
         return JsonResponse(respuesta_api, safe=False)
 
