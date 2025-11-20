@@ -31,12 +31,17 @@ def consulta_pagos_clientes(request):
     anio = request.GET.get('anio')
     mes = request.GET.get('mes')
     estado = request.GET.get('estado', 'todos')
+    cedula = request.GET.get('cedula', '').strip()   # <-- NUEVO
 
     datos = []
     resumen = {'pagados': 0, 'pendientes': 0}
 
     if anio and mes:
         clientes = Cliente.objects.all().order_by('apellido', 'nombre')
+
+        # aplicar filtro opcional por cédula
+        if cedula:
+            clientes = clientes.filter(cedula=cedula)
 
         pagos = Pago.objects.filter(
             anio_pago=anio,
@@ -49,7 +54,6 @@ def consulta_pagos_clientes(request):
             pago = pagos_dict.get(cliente.cliente)
             pagado = pago is not None
 
-            # aplicar filtro de estado
             if estado == 'pagado' and not pagado:
                 continue
             if estado == 'pendiente' and pagado:
@@ -75,6 +79,7 @@ def consulta_pagos_clientes(request):
         'anio': int(anio) if anio else None,
         'mes': int(mes) if mes else None,
         'estado': estado,
+        'cedula': cedula,   
         'datos': datos,
         'resumen': resumen
     }
