@@ -73,17 +73,17 @@
             data-mdb-dropdown-init
             class="nav-link dropdown-toggle"
             href="#"
-            id="navbarDropdownEnlaces"
+            id="navbarDropdownConsultas"
             role="button"
             aria-expanded="false"            
           >
             Consultas
           </a>          
           <!-- Dropdown menu -->
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdownEnlaces" data-mdb-theme="dark">
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownConsultas" data-mdb-theme="dark">
             <li>
               <a class="dropdown-item" href="{% url 'consultas:pagos_recibidos' %}">
-                Pagos recibidos
+                Pagos recibidos por mes
               </a>
             </li>
 
@@ -97,6 +97,33 @@
           </ul>
         </li>
 
+
+
+
+
+
+        <!-- Navbar dropdown -->
+        <li class="nav-item dropdown ">
+          <a
+            data-mdb-dropdown-init
+            class="nav-link dropdown-toggle"
+            href="#"
+            id="navbarDropdownReportes"
+            role="button"
+            aria-expanded="false"            
+          >
+            Reportes
+          </a>          
+          <!-- Dropdown menu -->
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownReportes" data-mdb-theme="dark">
+            <li>
+              <a class="dropdown-item" href="{% url 'consultas:pagos_recibidos' %}">
+                Pagos recibidos por cliente
+              </a>
+            </li>
+
+          </ul>
+        </li>
 
 
 

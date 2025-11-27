@@ -57,6 +57,7 @@ urlpatterns = [
         path("hola/", hola_mundo_api, name="hola_mundo_api_test"),
 
         path('consultas/', include('app.urls.consultas_urls')),
+        path('reportes/', include('app.urls.reportes_urls')),
         path('rag/', include('rag.urls')),
 
 
