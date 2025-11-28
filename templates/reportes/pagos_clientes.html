@@ -7,40 +7,12 @@
 <div class="container mt-4">
     <div class="card">
         <div class="card-header">
-            <h5 class="mb-0">Estado de Pagos Mensual</h5>
-            rerporte
+            <h5 class="mb-0">Reporte de Pagos Mensual</h5>
         </div>
 
         <div class="card-body">
-            <form method="get" class="mb-4 row" id="form-filtro">
-                <div class="form-field col-md-4">
-                    <label for="anio" class="col-form-label">Año</label>
-                    <select id="anio" name="anio" class="form-control">
-                        <option value="">-- Seleccione --</option>
-                        {% for a in anios %}
-                            <option value="{{ a }}" {% if a == anio %}selected{% endif %}>{{ a }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="form-field col-md-4">
-                    <label for="mes" class="col-form-label">Mes</label>
-                    <select id="mes" name="mes" class="form-control">
-                        <option value="">-- Seleccione --</option>
-                        {% for m in meses %}
-                            <option value="{{ m.valor }}" {% if m.valor == mes %}selected{% endif %}>{{ m.nombre }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
 
-                <div class="form-field col-md-4">
-                    <label for="estado" class="col-form-label">Estado de Pago</label>
-                    <select id="estado" name="estado" class="form-control">
-                        {% for e in estados %}
-                            <option value="{{ e.valor }}" {% if e.valor == estado %}selected{% endif %}>{{ e.nombre }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                
+            <form>
 
                 <!-- Cédula (0 para todas) -->
                 <div class="form-field col-md-4 mt-3">
@@ -50,80 +22,79 @@
                         id="cedula"
                         name="cedula"
                         class="form-control"
-                        placeholder="vacio para todas"
-                        value="{{ cedula|default:'' }}"
+                        value="{{ cedula }}"
                     >
                 </div>
 
 
+                <div class="form-field col-md-10 mt-3">
+                    <label for="cliente" class="col-form-label">Cliente</label>
+
+                    <select id="cliente" name="cliente" class="form-control">
+                        <option value="">-- Seleccione --</option>
+
+                        {% for cliente in clientes %}
+                            <option value="{{ cliente.cedula }}"
+                                {% if cliente.cedula|stringformat:"s" == cedula %}
+                                    selected
+                                {% endif %}
+                            >
+                                {{ cliente.nombre }} {{ cliente.apellido }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
             </form>
 
-            {% if datos %}
-            <div class="col-md-12">
-            <table class="table table-hover">
-                <thead>
-                    <tr class="table-light">
-                        <th>Cedula</th>
-                        <th>Cliente</th>
-                        <th class="text-center">Estado</th>
-                        <th class="text-center">Fecha</th>
-                        <th class="text-center">Monto</th>
-                        <th class="text-center">Observación</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for item in datos %}
-                    <tr>
-                        <td>{{ item.cliente.cedula }}</td>
-                        <td>{{ item.cliente.apellido }}, {{ item.cliente.nombre }}</td>
-                        <td class="text-center">
-                            {% if item.pagado %}
-                                <span class="badge bg-success">Pagado</span>
-                            {% else %}
-                                <span class="badge bg-danger">Pendiente</span>
-                            {% endif %}
-                        </td>
-                        <td class="text-center">{{ item.fecha_pago|default:"-" }}</td>
-                        <td class="text-center">{{ item.monto|default:"-" }}</td>
-                        <td class="text-center">{{ item.obs|default:"-" }}</td>
-                    </tr>
-                    {% endfor %}
-                    </tbody>
-                <tfoot>
-                    <tr class="table-secondary fw-bold">
-                        <td class="text-center">Resumen</td>
-                        <td class="text-center"></td>
-                        <td class="text-center"></td>
-                        <td class="text-center"></td>
-                        <td class="text-center"></td>
-                        <td class="text-center">
-                            Pagados: {{ resumen.pagados }} / Pendientes: {{ resumen.pendientes }}
-                        </td>
-                    </tr>
-                </tfoot>
-            </table>
-            </div>
-            {% else %}
-                <p>Seleccione los campos visualizar el reporte.</p>
-            {% endif %}
         </div>
     </div>
 </div>
 
+
 <script>
+document.addEventListener("DOMContentLoaded", function() {
 
-    document.getElementById('anio').addEventListener('change', function() {
-        document.getElementById('form-filtro').submit();
-    });
-    document.getElementById('mes').addEventListener('change', function() {
-        document.getElementById('form-filtro').submit();
-    });
-    document.getElementById('estado').addEventListener('change', function() {
-        document.getElementById('form-filtro').submit();
-    });
-    document.getElementById('cedula').addEventListener('change', function() {
-        document.getElementById('form-filtro').submit();
+    // Inicializar SlimSelect
+    let selectCliente = new SlimSelect({
+        select: '#cliente',
+        placeholder: 'Seleccione un cliente',
+        allowDeselect: true,
+        events: {
+            afterChange: (info) => {
+                let cedula = info[0]?.value || "0";
+                document.getElementById("cedula").value = cedula;
+
+                const url = new URL(window.location.href);
+                url.searchParams.set('cedula', cedula);
+                window.location.href = url.toString();
+            }
+        }
     });
 
+    // Si viene cedula desde GET, marcar automáticamente
+    let cedulaInicial = "{{ cedula }}";
+    if (cedulaInicial) {
+        selectCliente.set(cedulaInicial);
+    }
+
+    // Cuando se escribe la cédula manualmente
+    const inputCedula = document.getElementById("cedula");
+
+    inputCedula.addEventListener("focusout", function () {
+        let cedula = inputCedula.value.trim();
+        if (cedula === "") return;
+
+        // Marcar en SlimSelect si existe
+        let option = document.querySelector(`#cliente option[value="${cedula}"]`);
+        selectCliente.set(option ? cedula : "");
+
+        // Recargar con parámetro
+        const url = new URL(window.location.href);
+        url.searchParams.set('cedula', cedula);
+        window.location.href = url.toString();
+    });
+});
 </script>
+
 {% endblock %}
