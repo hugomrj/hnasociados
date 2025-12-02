@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+{% load filters %}
+<head>
+    <meta charset="utf-8">
+    <title>Recibo de Pago - {{ mes_info.mes_nombre }} {{ mes_info.anio }}</title>
+    <style>
+        @page {
+            size: letter;
+            margin: 2cm;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 2px solid #000;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .header h2 {
+            margin: 0;
+            font-size: 18px;
+            color: #555;
+        }
+        .info {
+            margin-bottom: 20px;
+        }
+        .info table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+        .info td, .info th {
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+        .info th {
+            background-color: #f2f2f2;
+            text-align: left;
+            width: 30%;
+        }
+        .pago-detalle {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+        }
+        .pago-detalle h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        .pagos-lista table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .pagos-lista th {
+            background-color: #e9ecef;
+            text-align: left;
+            padding: 8px;
+        }
+        .pagos-lista td {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+        .meses-pendientes {
+            margin-top: 20px;
+        }
+        .meses-pendientes ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .meses-pendientes li {
+            padding: 5px 0;
+            border-bottom: 1px dashed #ccc;
+        }
+        .total {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: right;
+            margin-top: 20px;
+            padding-top: 10px;
+            border-top: 2px solid #000;
+        }
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            border-top: 1px solid #000;
+            padding-top: 10px;
+            font-style: italic;
+        }
+        .estado {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        /*
+        .estado-pagado {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .estado-parcial {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        .estado-pendiente {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+            */
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>RECIBO DE PAGO</h1>
+        <h2>{{ mes_info.mes_nombre }} {{ mes_info.anio }}</h2>
+    </div>
+
+    <div class="info">
+        <table>
+            <tr>
+                <th>Fecha de Impresión:</th>
+                <td>{{ fecha_impresion|date:"d/m/Y" }}</td>
+            </tr>
+            <tr>
+                <th>Número de Recibo:</th>
+                <td>REC-{{ cliente.cedula }}-{{ mes_info.anio }}{{ mes_info.mes|stringformat:"02d" }}</td>
+            </tr>
+            <tr>
+                <th>Cliente:</th>
+                <td>{{ cliente.nombre }} {{ cliente.apellido }}</td>
+            </tr>
+            <tr>
+                <th>Cédula:</th>
+                <td>{{ cliente.cedula }}</td>
+            </tr>
+            <tr>
+                <th>Tarifa Mensual:</th>
+                <td>{{ cliente.tarifa|miles_puntos }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="pago-detalle">
+        <h3>Pago Recibido por el Mes de: {{ mes_info.mes_nombre }} {{ mes_info.anio }}</h3>
+        
+        <div class="resumen">
+            <table>
+                <tr>
+                    <th>Estado:</th>
+                    <td>
+                        <span class="estado estado-{{ mes_info.estado|lower }}">
+                            {{ mes_info.estado }}
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Tarifa del Mes:</th>
+                    <td>{{ mes_info.tarifa|miles_puntos }}</td>
+                </tr>
+                <tr>
+                    <th>Total Pagado:</th>
+                    <td>{{ mes_info.total_pagado|miles_puntos }}</td>
+                </tr>
+                <tr>
+                    <th>Faltante:</th>
+                    <td>{{ mes_info.faltante|miles_puntos }}</td>
+                </tr>
+            </table>
+        </div>
+
+        {% if pagos_mes %}
+        <div class="pagos-lista">
+            <h4>Detalle de Pagos:</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Monto</th>
+                        <th>Observaciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pago in pagos_mes %}
+                    <tr>
+                        <td>{{ pago.fecha|date:"d/m/Y" }}</td>
+                        <td>{{ pago.monto|miles_puntos }}</td>
+                        <td>{{ pago.obs|default:"-" }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p>No se registraron pagos para este mes.</p>
+        {% endif %}
+    </div>
+
+    {% if meses_pendientes %}
+    <div class="meses-pendientes">
+        <h3>Pagos Pendientes:</h3>
+        <p>El cliente tiene {{ meses_pendientes|length }} mes(es) pendientes:</p>
+        <ul>
+            {% for mes in meses_pendientes %}
+            <li>{{ mes.mes_nombre }} {{ mes.anio }} - Faltante: {{ mes.faltante|miles_puntos }}</li>
+            {% endfor %}
+        </ul>
+        <div class="total">
+            Total Pendiente: {{ total_deuda|miles_puntos }}
+        </div>
+    </div>
+    {% else %}
+    <div class="meses-pendientes">
+        <p>El cliente está al día con sus pagos.</p>
+    </div>
+    {% endif %}
+
+    <div class="footer">
+        <p>Gracias por la preferencia</p>
+        <p>Contacto: info@asociacion.com | Teléfono: 1234-5678</p>
+    </div>
+</body>
+</html>

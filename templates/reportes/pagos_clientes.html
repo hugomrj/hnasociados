@@ -64,17 +64,6 @@
             </h6>
         </div>
         <div class="card-body">
-            <!-- Mensaje de información si no tiene fecha de inicio -->
-            {% if not cliente_seleccionado.fecha_ingreso %}
-            <div class="alert alert-info d-flex align-items-center" role="alert">
-                <i class="fas fa-info-circle me-2"></i>
-                <div>
-                    Este cliente no tiene fecha de ingreso registrada. 
-                    Se está usando la fecha actual como referencia para el reporte.
-                </div>
-            </div>
-            {% endif %}
-
             <table class="table table-bordered table-striped">
                 <tr>
                     <th style="width: 200px;">Cliente</th>
@@ -89,16 +78,6 @@
                     <td>{{ cliente_seleccionado.tarifa|miles_puntos }}</td>
                 </tr>
                 <tr>
-                    <th>Fecha de Ingreso</th>
-                    <td>
-                        {% if cliente_seleccionado.fecha_ingreso %}
-                            {{ cliente_seleccionado.fecha_ingreso }}
-                        {% else %}
-                            <span class="text-muted">No registrada</span>
-                        {% endif %}
-                    </td>
-                </tr>
-                <tr>
                     <th>Meses Atrasados</th>
                     <td>
                         {% if meses_atrasados > 0 %}
@@ -108,26 +87,17 @@
                         {% endif %}
                     </td>
                 </tr>
-                <tr>
-                    <th>Total Deuda</th>
-                    <td>
-                        {% if total_deuda > 0 %}
-                            <span class="text-danger">{{ total_deuda|miles_puntos }}</span>
-                        {% else %}
-                            <span class="text-success">0</span>
-                        {% endif %}
-                    </td>
-                </tr>
             </table>
         </div>
     </div>
 </div>
 
-<!-- Detalle de Pagos por Mes -->
+<!-- Resumen por Mes con Paginación -->
 <div class="container mt-4">
     <div class="card">
-        <div class="card-header">
-            <h6 class="mb-0">Detalle de Pagos por Mes</h6>
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h6 class="mb-0">Resumen por Mes</h6>
+            <small class="text-muted">Mostrando {{ meses_paginados.start_index }}-{{ meses_paginados.end_index }} de {{ meses_paginados.paginator.count }} meses</small>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -139,11 +109,11 @@
                             <th>Total Pagado</th>
                             <th>Faltante</th>
                             <th>Estado</th>
-                            <th>Detalle de Pagos</th>
+                            <th>Recibo</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for mes in resumen_meses %}
+                        {% for mes in meses_paginados %}
                         <tr {% if mes.atrasado %}class="table-warning"{% endif %}>
                             <td>
                                 <strong>{{ mes.mes_nombre }} {{ mes.anio }}</strong>
@@ -170,49 +140,59 @@
                                 {% endif %}
                             </td>
                             <td>
-                                {% if mes.pagos %}
-                                    <button class="btn btn-sm btn-info" type="button" 
-                                            data-bs-toggle="collapse" 
-                                            data-bs-target="#detalle{{ mes.anio }}{{ mes.mes }}">
-                                        Ver {{ mes.pagos|length }} pago(s)
-                                    </button>
-                                {% else %}
-                                    <span class="text-muted"></span>
-                                {% endif %}
+                                <a href="?cedula={{ cliente_seleccionado.cedula }}&pdf_mes={{ mes.mes }}&pdf_anio={{ mes.anio }}" 
+                                   class="btn btn-success btn-sm" target="_blank" 
+                                   title="Generar recibo para {{ mes.mes_nombre }} {{ mes.anio }}">
+                                    <i class="fas fa-print"></i> Imprimir
+                                </a>
                             </td>
                         </tr>
-                        {% if mes.pagos %}
+                        {% empty %}
                         <tr>
-                            <td colspan="6" class="p-0">
-                                <div class="collapse" id="detalle{{ mes.anio }}{{ mes.mes }}">
-                                    <div class="p-3 bg-light">
-                                        <h6>Detalle de Pagos - {{ mes.mes_nombre }} {{ mes.anio }}</h6>
-                                        <table class="table table-sm table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th>Fecha</th>
-                                                    <th>Monto</th>
-                                                    <th>Observaciones</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {% for pago in mes.pagos %}
-                                                <tr>
-                                                    <td>{{ pago.fecha }}</td>
-                                                    <td>{{ pago.monto|miles_puntos }}</td>
-                                                    <td>{{ pago.obs|default:"-" }}</td>
-                                                </tr>
-                                                {% endfor %}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                            <td colspan="6" class="text-center text-muted py-4">
+                                No hay registros de pagos por mes
                             </td>
                         </tr>
-                        {% endif %}
                         {% endfor %}
                     </tbody>
                 </table>
+                
+                <!-- Paginación -->
+                <nav aria-label="Paginación de meses">
+                    <ul class="pagination justify-content-center">
+                        {% if meses_paginados.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?cedula={{ cedula }}&page={{ meses_paginados.previous_page_number }}">Anterior</a>
+                        </li>
+                        {% else %}
+                        <li class="page-item disabled">
+                            <span class="page-link">Anterior</span>
+                        </li>
+                        {% endif %}
+                        
+                        {% for num in meses_paginados.paginator.page_range %}
+                            {% if meses_paginados.number == num %}
+                                <li class="page-item active">
+                                    <span class="page-link">{{ num }}</span>
+                                </li>
+                            {% elif num > meses_paginados.number|add:'-3' and num < meses_paginados.number|add:'3' %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?cedula={{ cedula }}&page={{ num }}">{{ num }}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                        
+                        {% if meses_paginados.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?cedula={{ cedula }}&page={{ meses_paginados.next_page_number }}">Siguiente</a>
+                        </li>
+                        {% else %}
+                        <li class="page-item disabled">
+                            <span class="page-link">Siguiente</span>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>
@@ -234,6 +214,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 const url = new URL(window.location.href);
                 url.searchParams.set('cedula', cedula);
+                url.searchParams.delete('page'); // Resetear paginación
                 window.location.href = url.toString();
             }
         }
@@ -259,6 +240,7 @@ document.addEventListener("DOMContentLoaded", function() {
         // Recargar con parámetro
         const url = new URL(window.location.href);
         url.searchParams.set('cedula', cedula);
+        url.searchParams.delete('page'); // Resetear paginación
         window.location.href = url.toString();
     });
 });
