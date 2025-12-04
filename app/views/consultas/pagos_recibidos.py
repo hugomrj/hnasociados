@@ -6,6 +6,7 @@ from app.models.pago_model import Pago
 
 
 def consulta_pagos_recibidos(request):
+    
     anio_actual = date.today().year
     anio = int(request.GET.get('anio', anio_actual))
 

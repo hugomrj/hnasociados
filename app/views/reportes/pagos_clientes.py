@@ -19,6 +19,7 @@ from collections import defaultdict
 from weasyprint import HTML
 
 
+
 def obtener_nombre_mes(mes):
     """Función auxiliar para obtener nombre del mes"""
     meses = {
@@ -27,6 +28,8 @@ def obtener_nombre_mes(mes):
         9: 'Septiembre', 10: 'Octubre', 11: 'Noviembre', 12: 'Diciembre'
     }
     return meses.get(mes, '')
+
+
 
 def reporte_pagos_clientes(request):
     cedula = (request.GET.get('cedula') or "").strip()
@@ -51,52 +54,82 @@ def reporte_pagos_clientes(request):
         anio_actual = hoy.year
         mes_actual = hoy.month
 
+
         # Obtener todos los pagos del cliente
         todos_pagos = Pago.objects.filter(cliente=cliente_seleccionado)
-        
-        # Obtener meses únicos en los que ha realizado pagos
-        meses_con_pagos = todos_pagos.values_list('anio_pago', 'mes_pago').distinct()
-        
-        # Preparar lista de resumen de meses
+
         resumen_meses = []
-        
-        for anio, mes in meses_con_pagos:
-            pagos_del_mes = todos_pagos.filter(anio_pago=anio, mes_pago=mes)
-            total_pagado = sum(int(pago.monto) for pago in pagos_del_mes)
-            
-            # Determinar estado
-            if total_pagado == 0:
-                estado = "PENDIENTE"
-            elif total_pagado >= cliente_seleccionado.tarifa:
-                estado = "PAGADO"
-            else:
-                estado = "PARCIAL"
-            
-            # Verificar si está atrasado
-            atrasado = False
-            if (anio < anio_actual) or (anio == anio_actual and mes < mes_actual):
-                if estado != "PAGADO":
-                    atrasado = True
-                    meses_atrasados += 1
 
-            resumen_meses.append({
-                'anio': anio,
-                'mes': mes,
-                'mes_nombre': obtener_nombre_mes(mes),  # AQUÍ SE LLAMA A LA FUNCIÓN
-                'pagos': pagos_del_mes,
-                'total_pagado': total_pagado,
-                'estado': estado,
-                'atrasado': atrasado,
-                'tarifa': cliente_seleccionado.tarifa,
-                'faltante': max(0, cliente_seleccionado.tarifa - total_pagado),
-            })
+        if todos_pagos.exists():
+            # Obtener el primer mes registrado
+            primer_pago = todos_pagos.order_by('anio_pago', 'mes_pago').first()
 
-        # Ordenar los meses por año y mes descendente
+            # Generar todos los meses desde el primer pago hasta hoy
+            meses_generados = []
+            anio = primer_pago.anio_pago
+            mes = primer_pago.mes_pago
+
+            while (anio < anio_actual) or (anio == anio_actual and mes <= mes_actual):
+                meses_generados.append((anio, mes))
+
+                mes += 1
+                if mes > 12:
+                    mes = 1
+                    anio += 1
+
+            # Construir resumen
+            for anio, mes in meses_generados:
+                pagos_del_mes = todos_pagos.filter(anio_pago=anio, mes_pago=mes)
+                total_pagado = sum(int(p.monto) for p in pagos_del_mes)
+
+                if total_pagado == 0:
+                    estado = "PENDIENTE"
+                elif total_pagado >= cliente_seleccionado.tarifa:
+                    estado = "PAGADO"
+                else:
+                    estado = "PARCIAL"
+
+                atrasado = False
+                if (anio < anio_actual) or (anio == anio_actual and mes < mes_actual):
+                    if estado != "PAGADO":
+                        atrasado = True
+                        meses_atrasados += 1
+
+                resumen_meses.append({
+                    'anio': anio,
+                    'mes': mes,
+                    'mes_nombre': obtener_nombre_mes(mes),
+                    'pagos': pagos_del_mes,
+                    'total_pagado': total_pagado,
+                    'estado': estado,
+                    'atrasado': atrasado,
+                    'tarifa': cliente_seleccionado.tarifa,
+                    'faltante': max(0, cliente_seleccionado.tarifa - total_pagado),
+                })
+
+        # Ordenar descendente
         resumen_meses.sort(key=lambda x: (x['anio'], x['mes']), reverse=True)
+
+        # Mostrar en consola meses atrasados
+        '''
+        print("MESES ATRASADOS:")
+        for m in resumen_meses:
+            if m['atrasado']:
+                print(f"{m['mes_nombre']} {m['anio']} - Estado: {m['estado']} - Faltante: {m['faltante']}")
+        '''
+
         
         # Paginar los meses (10 por página)
         paginator = Paginator(resumen_meses, 10)
         meses_paginados = paginator.get_page(page)
+
+        '''
+        # Mostrar en consola meses paginados
+        print("MESES EN ESTA PÁGINA:")
+        for m in meses_paginados:
+            print(f"{m['mes_nombre']} {m['anio']} - Estado: {m['estado']} - Total pagado: {m['total_pagado']}")
+        '''
+
 
         # Verificar si se solicita PDF para un mes específico
         if pdf_mes and pdf_anio:
@@ -111,6 +144,9 @@ def reporte_pagos_clientes(request):
     }
 
     return render(request, 'reportes/pagos_clientes.html', context)
+
+
+
 
 def generar_pdf_recibo_mes(cliente, mes, anio, resumen_meses):
     """Genera un PDF con el recibo de un mes específico"""
