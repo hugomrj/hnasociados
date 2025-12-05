@@ -21,6 +21,7 @@ from django.urls import path, include
 
 from app.views.auth_views import Home, Login, Logout
 from app.views.memo_views import MemoView
+from app.views.sql_views import backup_sql
 
 
 app_prefix = "hnasociados/"
@@ -59,6 +60,9 @@ urlpatterns = [
         path('consultas/', include('app.urls.consultas_urls')),
         path('reportes/', include('app.urls.reportes_urls')),
         path('rag/', include('rag.urls')),
+
+
+        path("backup-sql/", backup_sql, name="backup_sql"),
 
 
    path('memo/', MemoView.as_view(), name='memo'),
