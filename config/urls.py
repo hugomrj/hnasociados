@@ -21,7 +21,7 @@ from django.urls import path, include
 
 from app.views.auth_views import Home, Login, Logout
 from app.views.memo_views import MemoView
-from app.views.sql_views import backup_sql
+from app.views.sql_views import backup_sql, restore_database
 
 
 app_prefix = "hnasociados/"
@@ -63,6 +63,8 @@ urlpatterns = [
 
 
         path("backup-sql/", backup_sql, name="backup_sql"),
+        path("restore-db/", restore_database, name="restore_database"),
+
 
 
    path('memo/', MemoView.as_view(), name='memo'),
