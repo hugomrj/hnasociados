@@ -87,13 +87,14 @@ input[type="number"] {
         height: auto;
     }
 
-    /* Aumentar tamaño del botón */
-    /*
+
     .btn {
-        font-size: 1.4rem;
-        padding: 10px;
+        font-size: 1.2rem;
+        padding: 8px 16px;
     }
-        */
+
+
+
 }
 
 
@@ -106,9 +107,10 @@ input[type="number"] {
 
 /* Para pantallas más grandes */
 .form-field label {
-    width: 140px;    
-    padding-right: 0px;
+    min-width: 140px;
+    flex: 0 0 auto;
 }
+
 
 /* Para pantallas pequeñas (móviles) */
 @media (max-width: 767px) {
@@ -120,14 +122,16 @@ input[type="number"] {
 
 
 
-.form-field input {    
-    border: 1px solid #B0BEC5;    
+.form-field input {
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
+
+/*
 .form-field:has(input:focus) label {
-    color: #0056b3; /* El color del label cuando el input tiene enfoque */
+    color: #0056b3; 
 }
-
+*/
 
 
 
@@ -178,4 +182,15 @@ button[type="button"].btn, a.btn {
     justify-content: center;
     font-size: 1rem;     /* ícono un poco más pequeño */
     padding: 1rem;          /* sin padding extra */
+    padding: 0; /* antes era 1rem */
+}
+
+
+
+
+
+
+
+.card, .btn, .dropdown-menu, .form-control {
+    transition: all 0.2s ease-in-out;
 }

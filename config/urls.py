@@ -19,7 +19,7 @@ from django.http import JsonResponse
 from django.urls import path, include
 
 
-from app.views.auth_views import Home, Login, Logout
+from app.views.auth_views import CambiarPassword, Home, Login, Logout
 from app.views.memo_views import MemoView
 from app.views.sql_views import backup_sql, restore_database
 
@@ -42,6 +42,9 @@ def hola_mundo_api(request):
 
 
 urlpatterns = [
+
+
+
     path(app_prefix, include([
         path("admin/", admin.site.urls),
         path("", Login.as_view(), name="login"),
@@ -52,6 +55,9 @@ urlpatterns = [
         path("cliente/", include("app.urls.cliente_urls")),
         path("pago/", include("app.urls.pago_urls")),
         path("calendario/", include("app.urls.calendario_urls")),
+
+        # ruta para cambiar contraseña
+        path("cambiar-password/", CambiarPassword.as_view(), name="password_change"),
 
         # --- Añade la ruta directa para tu API Hola Mundo aquí ---
         # Esto creará una ruta en /hello/

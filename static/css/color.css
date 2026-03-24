@@ -18,6 +18,8 @@
   --mdb-light-rgb: 245, 245, 245;   /* Gris claro */
   --mdb-dark-rgb: 33, 33, 33;       /* Gris oscuro */
 
+  --border-light: #B0BEC5;
+
   /* 💡 Fondo y texto */
   --mdb-body-color: #212121;
 
@@ -26,6 +28,8 @@
 
   /* ✅ Botón primario */
   --mdb-btn-bg: rgb(var(--mdb-primary-rgb)) !important;
+
+
 }
 
 
@@ -102,9 +106,48 @@
 .dropdown-menu {
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
   border-radius: 4px;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+
   min-width: 220px;
   padding: 8px 0;
   border: none;
   backdrop-filter: none;
   transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+
+
+
+
+
+.form-field:has(input:focus) label {
+  color: var(--mdb-primary);
+}
+
+.form-field input {
+  border-color: var(--border-light) ;
+}
+
+.form-field input:focus {
+  border-color: var(--mdb-primary);
+  outline: none;
+  box-shadow: 0 0 0 0 rgba(var(--mdb-primary-rgb), 0.5); /* Más transparente */
+}
+
+
+
+
+.form-field input:disabled,
+.form-field input[readonly] {
+    background-color: #F8FAFC;
+    border-color: #E2E8F0;
+    cursor: not-allowed;
+}
+
+
+.form-field:has(input:disabled) label,
+.form-field:has(input[readonly]) label {
+  color: rgb(var(--mdb-secondary-rgb));
 }

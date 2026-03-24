@@ -3,6 +3,8 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin # type: ignore
+from django.urls import reverse_lazy
+from django.contrib.auth.views import PasswordChangeView
 
 
 
@@ -57,4 +59,13 @@ class Logout(View):
     
     
     
+
+
+class CambiarPassword(LoginRequiredMixin, PasswordChangeView):
+    # Ajusta esta línea para que coincida con tu nueva carpeta:
+    template_name = 'app/auth/password_change.html' 
+    success_url = reverse_lazy('home')
     
+    def form_valid(self, form):
+        messages.success(self.request, '¡Contraseña actualizada correctamente!')
+        return super().form_valid(form)
