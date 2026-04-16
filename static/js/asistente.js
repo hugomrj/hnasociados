@@ -88,7 +88,7 @@ Asistente.prototype.consultarIA = function(prompt) {
    
 
     // fetch(baseURL + "/orasifen/api/genia/rag", {
-    fetch(baseURL + "/hnasociados/rag/generate/", { 
+    fetch(baseURL + "/rag/generate/", { 
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ prompt: prompt })

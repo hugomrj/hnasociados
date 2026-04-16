@@ -33,7 +33,12 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env.dev'))
 # Security
 SECRET_KEY = env('SECRET_KEY')
 DEBUG = env.bool('DEBUG', default=True)
-ALLOWED_HOSTS = ['3.12.160.19', 'localhost', '127.0.0.1', 'bonsaiki.duckdns.org']
+ALLOWED_HOSTS = [
+    '3.12.160.19', 
+    'localhost', 
+    '127.0.0.1', 
+    'hrasociados.japo.click'  
+]
 
 
 
@@ -69,6 +74,8 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS = [
     "https://bonsaiki.pages.dev",  # Tu dominio de producción
     "http://127.0.0.1:8000",        # Para desarrollo en el puerto 3000
+    'https://hrasociados.japo.click',
+    'http://hrasociados.japo.click'
 ]
 
 
@@ -132,7 +139,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 # STATIC_URL = '/static/'
-STATIC_URL = '/hnasociados/static/'
+STATIC_URL = '/static/'
+
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
